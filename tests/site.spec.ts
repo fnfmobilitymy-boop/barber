@@ -1,4 +1,10 @@
 import { test, expect } from "@playwright/test";
+test.beforeEach(async ({ page }) => {
+  await page.addInitScript(() => {
+    if (!location.search.includes("welcome-test"))
+      sessionStorage.setItem("hustle-booking-welcome-dismissed", "true");
+  });
+});
 for (const width of [375, 390, 430, 768, 1024, 1440, 1920]) {
   test(`responsive ${width}px: media, navigation and no overflow`, async ({
     page,
@@ -34,6 +40,7 @@ for (const width of [375, 390, 430, 768, 1024, 1440, 1920]) {
       "about",
       "craft",
       "philosophy",
+      "the-space",
       "services",
       "gallery",
       "experience",
@@ -140,4 +147,73 @@ test("hero video can pause, resume and crossfade across its loop", async ({
       timeout: 15000,
     })
     .toBeLessThan(2);
+});
+
+for (const width of [390, 1440]) {
+  test(`booking welcome ${width}px: dismissal, focus and session persistence`, async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width, height: 850 });
+    await page.goto("/?welcome-test");
+    const dialog = page.getByRole("dialog", {
+      name: "Good hair. Great energy.",
+    });
+    await expect(dialog).toBeVisible();
+    await expect(page.locator("#site-content")).toHaveJSProperty("inert", true);
+    expect(
+      await page.evaluate(
+        () => document.documentElement.scrollWidth <= innerWidth,
+      ),
+    ).toBe(true);
+    await expect(
+      page.getByRole("button", { name: "Close booking invitation" }),
+    ).toBeFocused();
+    await page.keyboard.press("Shift+Tab");
+    await expect(
+      page.getByRole("button", { name: "KEEP EXPLORING" }),
+    ).toBeFocused();
+    await page.screenshot({ path: `test-results/welcome-${width}.png` });
+    await page.keyboard.press("Escape");
+    await expect(dialog).toHaveCount(0);
+    await expect(page.locator("#site-content")).toHaveJSProperty(
+      "inert",
+      false,
+    );
+    await page.reload();
+    await page.waitForTimeout(1600);
+    await expect(dialog).toHaveCount(0);
+  });
+}
+test("booking welcome CTA goes to booking information", async ({ page }) => {
+  await page.goto("/?welcome-test");
+  await page.getByRole("link", { name: "VIEW BOOKING INFO" }).click();
+  await expect(page).toHaveURL(/#booking$/);
+  await expect(page.locator(".welcome-dialog")).toHaveCount(0);
+  await expect(page.locator("#booking")).toContainText("Booking opens soon.");
+});
+test("every editorial photograph is unique across sections", async ({
+  page,
+}) => {
+  await page.goto("/");
+  const photos = await page
+    .locator("[data-photo-id]")
+    .evaluateAll((nodes) => nodes.map((n) => n.getAttribute("data-photo-id")));
+  expect(photos).toHaveLength(12);
+  expect(new Set(photos).size).toBe(12);
+  await page.locator("#the-space").scrollIntoViewIfNeeded();
+  await expect(page.locator(".scene-card")).toHaveCount(2);
+  await page.locator("#gallery").scrollIntoViewIfNeeded();
+  await expect
+    .poll(() =>
+      page
+        .locator(".editorial-photo img")
+        .evaluateAll((imgs) =>
+          imgs.every(
+            (i) =>
+              (i as HTMLImageElement).complete &&
+              (i as HTMLImageElement).naturalWidth > 0,
+          ),
+        ),
+    )
+    .toBe(true);
 });

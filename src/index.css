@@ -1689,8 +1689,292 @@ em {
   }
 }
 /* Keep interactive targets usable on touch screens. */
-.video-control, .lightbox > button, .menu-button { min-width: 44px; min-height: 44px; }
-.filters button { min-height: 44px; }
-.liquid-glass::before { transition: background-position .45s ease, opacity .45s ease; background-size: 100% 200%; }
-.liquid-glass:hover::before { background-position: 0 100%; }
-@media (max-width:550px) { .header .button { min-height:44px; } }
+.video-control,
+.lightbox > button,
+.menu-button {
+  min-width: 44px;
+  min-height: 44px;
+}
+.filters button {
+  min-height: 44px;
+}
+.liquid-glass::before {
+  transition:
+    background-position 0.45s ease,
+    opacity 0.45s ease;
+  background-size: 100% 200%;
+}
+.liquid-glass:hover::before {
+  background-position: 0 100%;
+}
+@media (max-width: 550px) {
+  .header .button {
+    min-height: 44px;
+  }
+}
+/* Individual square photographs are displayed from two editorial contact sheets. */
+.editorial-photo {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  overflow: hidden;
+  background: #201d19;
+}
+.editorial-photo > img {
+  position: absolute;
+  width: 300%;
+  height: 200%;
+  max-width: none;
+  left: calc(var(--photo-column) * -100%);
+  top: calc(var(--photo-row) * -100%);
+  object-fit: fill;
+  transition: filter 0.7s ease;
+}
+.scene-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+}
+.scene-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 22px;
+}
+.scene-card:after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(transparent 40%, #000b);
+  pointer-events: none;
+}
+.scene-caption {
+  position: absolute;
+  z-index: 1;
+  bottom: 30px;
+  left: 30px;
+}
+.scene-caption h3 {
+  font-family: "Instrument Serif", serif;
+  font-size: 40px;
+  line-height: 1.05;
+  margin-top: 14px;
+}
+.media-disclosure {
+  margin-top: 19px;
+  font-size: 10px;
+  color: var(--muted);
+}
+.craft-frame > .editorial-photo {
+  height: auto;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  filter: brightness(0.72);
+}
+.philosophy-image > .editorial-photo {
+  min-height: 100%;
+  width: max(100%, 540px);
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.philosophy-image .editorial-photo img {
+  filter: saturate(0.5) brightness(0.8);
+}
+.service-card > .editorial-photo {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  filter: brightness(0.75);
+}
+.gallery-item > .editorial-photo {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  min-width: 100%;
+}
+.gallery-item {
+  height: auto;
+  aspect-ratio: 3/4;
+}
+.gallery-item > .editorial-photo {
+  width: 134%;
+  max-width: none;
+  left: -17%;
+}
+.lightbox figure > .editorial-photo {
+  width: min(65vw, 75vh);
+  margin: auto;
+}
+.welcome-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 150;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: #050505b8;
+  backdrop-filter: blur(10px);
+}
+.welcome-dialog {
+  width: min(100%, 480px);
+  max-height: calc(100svh - 48px);
+  overflow-y: auto;
+  position: relative;
+  padding: 42px 40px 28px;
+  text-align: center;
+  border: 1px solid #d9c5a23b;
+  border-radius: 26px;
+  background: radial-gradient(
+    ellipse at top,
+    #3b3025 0%,
+    #171513 55%,
+    #101010 100%
+  );
+  box-shadow: 0 30px 120px #000a;
+}
+.welcome-close {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  color: var(--muted);
+}
+.welcome-close:hover {
+  background: #ffffff0b;
+  color: var(--foreground);
+}
+.welcome-emblem {
+  margin: 0 auto 23px;
+  width: 62px;
+  height: 62px;
+  border: 1px solid #d9c5a233;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: var(--accent);
+}
+.welcome-dialog .eyebrow {
+  justify-content: center;
+  font-size: 8px;
+  margin-bottom: 20px;
+}
+.welcome-dialog h2 {
+  font-size: 65px;
+}
+.welcome-dialog #welcome-description {
+  font-size: 12px;
+  color: #bab3a9;
+  margin: 23px 0 26px;
+  line-height: 1.9;
+}
+.welcome-primary {
+  width: 100%;
+  gap: 24px;
+}
+.welcome-explore {
+  display: block;
+  width: 100%;
+  min-height: 48px;
+  margin-top: 10px;
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+}
+.welcome-signature {
+  display: block;
+  padding-top: 22px;
+  margin-top: 14px;
+  border-top: 1px solid var(--border);
+  font-size: 7px;
+  letter-spacing: 0.22em;
+  color: #8c8277;
+}
+@media (max-width: 850px) {
+  .scene-grid {
+    gap: 18px;
+  }
+  .scene-caption {
+    left: 22px;
+    bottom: 22px;
+  }
+  .scene-caption h3 {
+    font-size: 32px;
+  }
+}
+@media (max-width: 550px) {
+  .scene-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .scene-card {
+    border-radius: 17px;
+  }
+  .scene-caption h3 {
+    font-size: 38px;
+  }
+  .welcome-backdrop {
+    padding: 18px;
+  }
+  .welcome-dialog {
+    padding: 36px 26px 22px;
+    max-height: calc(100svh - 36px);
+  }
+  .welcome-dialog h2 {
+    font-size: 59px;
+  }
+  .welcome-emblem {
+    width: 52px;
+    height: 52px;
+    margin-bottom: 20px;
+  }
+  .welcome-dialog #welcome-description {
+    font-size: 11px;
+  }
+  .philosophy-image > .editorial-photo {
+    width: max(100%, 380px);
+  }
+  .craft-frame > .editorial-photo {
+    width: 180%;
+    left: -40%;
+  }
+  .service-card > .editorial-photo {
+    width: 130%;
+    left: -15%;
+  }
+  .lightbox figure > .editorial-photo {
+    width: 100%;
+  }
+}
+.gallery-item > span small {
+  display: block;
+  margin-top: 5px;
+  font-size: 8px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #c3b6a4;
+}
+.lightbox-description {
+  display: block;
+  margin-top: 7px;
+  font-size: 10px;
+  color: var(--muted);
+}
+.gallery-item > .editorial-photo,
+.service-card > .editorial-photo {
+  transition:
+    transform 0.7s ease,
+    filter 0.7s ease;
+}
+.gallery-item:hover .editorial-photo img {
+  transform: none;
+}
+.gallery-item:hover > .editorial-photo,
+.service-card:hover > .editorial-photo {
+  transform: translateY(-50%) scale(1.035);
+}

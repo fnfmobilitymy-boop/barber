@@ -7,7 +7,8 @@ import {
   Scissors,
   MessageCircle,
 } from "lucide-react";
-import { business, bookingHref, services, photo } from "../data/business";
+import { business, bookingHref, services } from "../data/business";
+import { EditorialPhoto } from "./EditorialPhoto";
 import {
   AnimatedHeading,
   Eyebrow,
@@ -49,13 +50,12 @@ export function FeaturedVideoSection() {
         <span className="micro">PRECISION IN EVERY FRAME</span>
       </div>
       <SectionReveal className="craft-frame">
-        <img
-          src={photo("craft-study", 1600)}
-          alt="Typographic editorial placeholder for the future craft film"
-          loading="lazy"
+        <EditorialPhoto
+          image="craft-scene"
+          alt="AI-generated cinematic inspiration of a barber working in a warm, dark shop"
         />
         <span className="media-caption">
-          EDITORIAL STILL / CRAFT FILM COMING SOON
+          AI EDITORIAL STILL / CRAFT FILM COMING SOON
         </span>
         <div className="craft-card liquid-glass">
           <Eyebrow>OUR APPROACH</Eyebrow>
@@ -85,12 +85,13 @@ export function PhilosophySection() {
       </AnimatedHeading>
       <div className="split">
         <SectionReveal className="philosophy-image">
-          <img
-            src={photo("detail-study")}
-            alt="Editorial art direction placeholder; barber photography to be supplied"
-            loading="lazy"
+          <EditorialPhoto
+            image="scissor-detail"
+            alt="AI-generated editorial close-up of scissors and comb shaping a haircut"
           />
-          <span className="media-caption">THE DETAILS MAKE THE DIFFERENCE</span>
+          <span className="media-caption">
+            AI EDITORIAL / THE DETAILS MAKE THE DIFFERENCE
+          </span>
         </SectionReveal>
         <SectionReveal className="philosophy-copy">
           <article>
@@ -138,10 +139,9 @@ export function ServicesSection() {
       <div className="service-grid">
         {services.map((s, i) => (
           <SectionReveal key={s.name} className="service-card">
-            <img
-              loading="lazy"
-              src={photo(s.image)}
-              alt={`${s.name} editorial inspiration`}
+            <EditorialPhoto
+              image={s.image}
+              alt={`AI-generated ${s.name.toLowerCase()} style inspiration`}
             />
             <div className="service-top">
               <span className="badge liquid-glass">{s.category}</span>
@@ -161,6 +161,9 @@ export function ServicesSection() {
           </SectionReveal>
         ))}
       </div>
+      <p className="media-disclosure">
+        AI-generated service inspiration. Individual results vary.
+      </p>
     </section>
   );
 }

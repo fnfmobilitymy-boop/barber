@@ -20,13 +20,13 @@ Browser tests use the system Chromium at `/usr/bin/chromium`, with the developme
 
 Edit `src/data/business.ts` with verified business details. Set either `bookingUrl` or an international-format `whatsappNumber` to activate booking destinations. With both empty, booking actions lead to an explicit coming-soon notice. No reservation backend, customer form, analytics or fabricated review data is included. Confirm pricing, staff, address, opening hours, social accounts, brand ownership and a business-specific privacy policy. Edit title, description and Open Graph metadata in `index.html`; add canonical URL and business schema only after the domain and business details are confirmed.
 
-The gallery currently shows **explicitly labeled editorial art-direction placeholders**, not actual haircut results. Replace them and staff portraits with business-provided or properly licensed photography before launch. The craft section is an editorial still, clearly labeled as awaiting a film. Other sections do not reuse the Hero video.
+The site uses **12 distinct AI-generated editorial photographs** across shop scenes, services, craft and hairstyle inspiration. They are disclosed as generated inspiration, not genuine shop/customer results. Each photo appears in only one content location (the lightbox enlarges its selected thumbnail). Replace them with business-provided photography when available; staff portraits still await real images. The craft section is a still, clearly labeled as awaiting a film. Other sections do not reuse the Hero video.
 
 ## Media
 
 `public/videos/barbershop-hero.mp4` is the exact 10.04-second, 1280×720 user-uploaded Kling file (8.93 MB), copied without recompression. SHA-256: `736a16a00ad26d1fdf80bb9057d9a8f33e9130beb823ea9923934f38e6cc7746`.
 
-`public/images/hero-poster.jpg` is a frame extracted at 2 seconds. Remaining SVG media are original typographic placeholder compositions. Their names map to editable media IDs in the data file; no stock photographs are bundled. No additional videos were supplied.
+`public/images/hero-poster.jpg` is a frame extracted at 2 seconds. `lookbook-editorial.png` and `services-editorial.png` are original AI-generated contact sheets, each containing six distinct photographs. `EditorialPhoto.tsx` displays a unique cell from the sheets per content position using CSS; photographs are not duplicated between sections. No additional videos were supplied.
 
 Instrument Serif and Manrope are self-hosted from the official Google Fonts repository; corresponding OFL licenses are included in `public/fonts`. No external font request is required at runtime. Automatic playback is muted, inline and optional: the poster remains when playback fails or reduced motion is enabled. A video control supports pause/resume; playback pauses when offscreen or when the tab is hidden. Loop opacity is controlled by one requestAnimationFrame loop, fading through black.
 
@@ -36,6 +36,9 @@ Instrument Serif and Manrope are self-hosted from the official Google Fonts repo
 - `src/components/CinematicVideo.tsx`: video lifecycle, poster and media primitives.
 - `src/components/Navbar.tsx`: desktop and animated keyboard-accessible mobile navigation.
 - `src/components/Sections.tsx`: editable editorial, service, pricing, team, FAQ, booking and footer sections. Testimonials are deliberately omitted until verified reviews are supplied.
+- `src/components/BookingWelcome.tsx`: accessible entry booking invitation, shown after 1.2 seconds and remembered once dismissed for the tab session. Escape, backdrop, close, explore and booking CTA dismiss it. The CTA uses configured booking details or clearly labeled booking information.
+- `src/components/ShopScenesSection.tsx`: two unique atmosphere/tool compositions, disclosed as generated inspiration.
+- `src/components/EditorialPhoto.tsx`: unique contact-sheet cell mapping for all twelve photographs.
 - `src/components/GallerySection.tsx`: category filtering, animated layout, keyboard/focus-trapped/swipe lightbox.
 - `src/components/UI.tsx`: reusable reveals, headings, magnetic and liquid-glass buttons.
 - `src/index.css`: responsive art direction and the supplied foundational liquid-glass effect.

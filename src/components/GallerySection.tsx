@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { ArrowLeft, ArrowRight, Plus, X } from "lucide-react";
-import { gallery, photo } from "../data/business";
+import { gallery } from "../data/business";
+import { EditorialPhoto } from "./EditorialPhoto";
 import { AnimatedHeading, Eyebrow } from "./UI";
 export function GallerySection() {
   const [filter, setFilter] = useState("All");
@@ -48,16 +49,16 @@ export function GallerySection() {
     <section id="gallery" className="section">
       <div className="section-top">
         <div>
-          <Eyebrow>SELECTED INSPIRATION</Eyebrow>
+          <Eyebrow>HAIRSTYLE EDITORIAL</Eyebrow>
           <AnimatedHeading>
-            The <em>lookbook.</em>
+            The cut <em>collection.</em>
           </AnimatedHeading>
         </div>
         <p>
           Every cut tells a story.
           <br />
           <span className="muted">
-            Editorial references, not client results.
+            AI-generated style inspiration, not client results.
           </span>
         </p>
       </div>
@@ -86,13 +87,15 @@ export function GallerySection() {
               onClick={() => setSelected(i)}
               aria-label={`View ${item.title}`}
             >
-              <img
-                loading="lazy"
-                src={photo(item.image)}
-                alt={`${item.category} editorial grooming inspiration`}
+              <EditorialPhoto
+                image={item.image}
+                alt={`AI-generated ${item.title.toLowerCase()} hairstyle inspiration`}
               />
               <span>
-                {item.category}
+                <span>
+                  {item.title}
+                  <small>{item.category}</small>
+                </span>
                 <Plus size={19} />
               </span>
             </motion.button>
@@ -132,12 +135,18 @@ export function GallerySection() {
               <ArrowLeft />
             </button>
             <figure>
-              <img
-                src={photo(items[selected].image)}
-                alt={items[selected].title}
+              <EditorialPhoto
+                image={items[selected].image}
+                alt={`AI-generated ${items[selected].title.toLowerCase()} inspiration`}
               />
               <figcaption>
                 {items[selected].title} · {selected + 1} / {items.length}
+                <span className="lightbox-description">
+                  {items[selected].description}
+                </span>
+                <span className="lightbox-description">
+                  AI-generated editorial inspiration · Not a client result
+                </span>
               </figcaption>
             </figure>
             <button aria-label="Next image" onClick={() => step(1)}>

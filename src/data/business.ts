@@ -19,21 +19,21 @@ export const services = [
     description:
       "Tailored cuts crafted around your face shape, lifestyle, and personal style.",
     price: null,
-    image: "craft-study",
+    image: "signature-service",
   },
   {
     name: "Skin Fade",
     category: "THE DETAIL",
     description: "Sharp transitions, seamless blends, and precise finishing.",
     price: null,
-    image: "fade-study",
+    image: "fade-service",
   },
   {
     name: "Beard Sculpting",
     category: "THE FINISH",
     description: "Professional shaping, detailing, and refinement.",
     price: null,
-    image: "detail-study",
+    image: "beard-service",
   },
   {
     name: "The Complete Experience",
@@ -41,29 +41,32 @@ export const services = [
     description:
       "A personalized grooming session combining haircut and beard styling.",
     price: null,
-    image: "complete-study",
+    image: "complete-service",
   },
 ];
 export const gallery = [
   {
-    image: "fade-study",
+    image: "low-fade",
     category: "Skin Fade",
-    title: "The clean finish",
+    title: "The low fade",
+    description: "A seamless blend. A sharper silhouette.",
   },
   {
-    image: "craft-study",
+    image: "classic-pompadour",
     category: "Classic",
-    title: "A timeless ritual",
+    title: "The modern classic",
+    description: "Timeless structure with effortless volume.",
   },
   {
-    image: "detail-study",
-    category: "Beard",
-    title: "Details make the difference",
-  },
-  {
-    image: "complete-study",
+    image: "textured-crop",
     category: "Textured",
-    title: "Individual by design",
+    title: "The textured crop",
+    description: "Natural movement. Deliberate detail.",
+  },
+  {
+    image: "sculpted-beard",
+    category: "Beard",
+    title: "The sculpted finish",
+    description: "Clean contours. Individual character.",
   },
 ];
-export const photo = (id: string, _width = 1000) => `${import.meta.env.BASE_URL}images/${id}.svg`;
