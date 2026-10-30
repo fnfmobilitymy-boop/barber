@@ -28,7 +28,7 @@ for (const width of [375, 390, 430, 768, 1024, 1440, 1920]) {
       )
       .toBeGreaterThan(0.1);
     expect(await page.locator("video source").getAttribute("src")).toBe(
-      "/videos/barbershop-hero.mp4",
+      "/videos/barbershop-hero-web.mp4",
     );
     if (width <= 850) {
       await page.getByRole("button", { name: "Open menu" }).click();
@@ -122,9 +122,7 @@ test("reduced motion shows static hero and local fonts load", async ({
     ),
   ).toBe(true);
 });
-test("hero video can pause, resume and crossfade across its loop", async ({
-  page,
-}) => {
+test("hero video can pause, resume and loop natively", async ({ page }) => {
   await page.goto("/");
   const video = page.locator("video");
   await expect
@@ -270,4 +268,109 @@ test("editorial scroll motion follows scrolling and respects reduced motion", as
       .first()
       .evaluate((el) => getComputedStyle(el).transform),
   ).toBe("none");
+});
+
+test("mobile video plays two native loops without script seeks or stop/start chatter", async ({
+  page,
+}) => {
+  test.setTimeout(60000);
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.addInitScript(() => {
+    const descriptor = Object.getOwnPropertyDescriptor(
+      HTMLMediaElement.prototype,
+      "currentTime",
+    )!;
+    (window as unknown as { scriptSeeks: number }).scriptSeeks = 0;
+    Object.defineProperty(HTMLMediaElement.prototype, "currentTime", {
+      ...descriptor,
+      set(value: number) {
+        (window as unknown as { scriptSeeks: number }).scriptSeeks++;
+        descriptor.set!.call(this, value);
+      },
+    });
+  });
+  const cdp = await page.context().newCDPSession(page);
+  await cdp.send("Network.enable");
+  await cdp.send("Network.emulateNetworkConditions", {
+    offline: false,
+    latency: 80,
+    downloadThroughput: 450000,
+    uploadThroughput: 200000,
+    connectionType: "cellular4g",
+  });
+  await page.goto("/");
+  const video = page.locator("video");
+  await expect
+    .poll(
+      () =>
+        video.evaluate((v) => {
+          const media = v as HTMLVideoElement;
+          return (
+            media.buffered.length > 0 &&
+            media.buffered.end(media.buffered.length - 1) >=
+              media.duration - 0.1
+          );
+        }),
+      { timeout: 25000 },
+    )
+    .toBe(true);
+  const result = await video.evaluate(
+    (v) =>
+      new Promise<{
+        wraps: number;
+        pausedSamples: number;
+        maxStillMs: number;
+        minOpacity: number;
+      }>((resolve) => {
+        const media = v as HTMLVideoElement;
+        let previous = media.currentTime,
+          wraps = 0,
+          pausedSamples = 0,
+          lastProgress = performance.now(),
+          maxStillMs = 0,
+          minOpacity = 1;
+        const start = performance.now();
+        const timer = window.setInterval(() => {
+          const now = performance.now(),
+            current = media.currentTime;
+          if (previous > media.duration * 0.8 && current < media.duration * 0.2)
+            wraps++;
+          if (current !== previous) lastProgress = now;
+          maxStillMs = Math.max(maxStillMs, now - lastProgress);
+          if (media.paused) pausedSamples++;
+          minOpacity = Math.min(
+            minOpacity,
+            Number(getComputedStyle(media).opacity),
+          );
+          previous = current;
+          if (now - start >= 22000) {
+            clearInterval(timer);
+            resolve({ wraps, pausedSamples, maxStillMs, minOpacity });
+          }
+        }, 200);
+      }),
+  );
+  expect(result.wraps).toBeGreaterThanOrEqual(2);
+  expect(result.pausedSamples).toBe(0);
+  expect(result.maxStillMs).toBeLessThan(1500);
+  expect(result.minOpacity).toBe(1);
+  expect(
+    await page.evaluate(
+      () => (window as unknown as { scriptSeeks: number }).scriptSeeks,
+    ),
+  ).toBe(0);
+  await page.locator("#gallery").scrollIntoViewIfNeeded();
+  await expect
+    .poll(() => video.evaluate((v) => (v as HTMLVideoElement).paused))
+    .toBe(true);
+  await page.evaluate(() => scrollTo({ top: 0, behavior: "instant" }));
+  await expect
+    .poll(() => video.evaluate((v) => (v as HTMLVideoElement).paused))
+    .toBe(false);
+  await page.getByRole("button", { name: "Pause background video" }).click();
+  await page.locator("#gallery").scrollIntoViewIfNeeded();
+  await page.evaluate(() => scrollTo({ top: 0, behavior: "instant" }));
+  expect(await video.evaluate((v) => (v as HTMLVideoElement).paused)).toBe(
+    true,
+  );
 });

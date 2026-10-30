@@ -26,9 +26,11 @@ The site uses **12 distinct AI-generated editorial photographs** across shop sce
 
 `public/videos/barbershop-hero.mp4` is the exact 10.04-second, 1280×720 user-uploaded Kling file (8.93 MB), copied without recompression. SHA-256: `736a16a00ad26d1fdf80bb9057d9a8f33e9130beb823ea9923934f38e6cc7746`.
 
+`public/videos/barbershop-hero-web.mp4` is the playback-optimized derivative of that same exact footage: 1,899,583 bytes (about 79% smaller), 1280×720, 24 fps, 241 frames, 10.04 seconds. It uses H.264 Main/yuv420p, CRF 23, capped 2.2 Mbps video, two-second keyframe intervals, fast-start metadata, and no unnecessary audio track. The untouched original remains available as the source asset.
+
 `public/images/hero-poster.jpg` is a frame extracted at 2 seconds. `lookbook-editorial.png` and `services-editorial.png` are original AI-generated contact sheets, each containing six distinct photographs. `EditorialPhoto.tsx` displays a unique cell from the sheets per content position using CSS; photographs are not duplicated between sections. No additional videos were supplied.
 
-Instrument Serif and Manrope are self-hosted from the official Google Fonts repository; corresponding OFL licenses are included in `public/fonts`. No external font request is required at runtime. Automatic playback is muted, inline and optional: the poster remains when playback fails or reduced motion is enabled. A video control supports pause/resume; playback pauses when offscreen or when the tab is hidden. Loop opacity is controlled by one requestAnimationFrame loop, fading through black.
+Instrument Serif and Manrope are self-hosted from the official Google Fonts repository; corresponding OFL licenses are included in `public/fonts`. No external font request is required at runtime. Automatic playback is muted, inline and optional: the poster remains when playback fails or reduced motion is enabled. A video control supports pause/resume; playback pauses when offscreen or when the tab is hidden. The browser owns native looping; there are no playback-time writes or per-frame JavaScript opacity changes. The initial reveal uses a CSS opacity transition once, then stays visible across loops. A stable container with an offscreen margin avoids pause/resume chatter near the viewport edge. Play requests are coalesced and late results respect manual pause/tab visibility.
 
 ## Architecture
 

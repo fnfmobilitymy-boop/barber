@@ -32,6 +32,7 @@ export function EditorialPhoto({
     <div className={`editorial-photo ${className}`} data-photo-id={image}>
       <img
         loading="lazy"
+        fetchPriority="low"
         decoding="async"
         src={`${import.meta.env.BASE_URL}images/${sheet}.png`}
         alt={alt}

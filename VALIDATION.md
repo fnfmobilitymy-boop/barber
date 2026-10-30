@@ -27,3 +27,12 @@ The site is ready for frontend development. Business launch is pending actual bo
 - Added verification that craft media expands with scrolling, its sculpted clipping is applied, the header compacts, masked heading words become fully visible and reduced-motion removes transforms/clipping.
 - Desktop stable-frame review covered Hero, craft, scene layering and experience sections; browser console audit returned no errors.
 - Responsive scene parallax is isolated inside clipping frames, and cards move through transforms rather than animated margins. No new photos or duplicate photo placements were introduced.
+
+## Video playback correction
+
+- Reproduced repeated rebuffering with the original ~7.1 Mbps/8.93 MB file at a simulated 3.6 Mbps mobile connection: after the 24-second observation window the playback position was only about 6 seconds.
+- Added a same-footage 1,899,583-byte web derivative (about 79% smaller) with the same 1280×720, 24 fps, 241 frames and 10.04-second duration. Original source SHA-256 remains unchanged. FFmpeg SSIM comparison across all frames: 0.989087 (an encoding quality metric, not a guarantee of identical pixels).
+- Replaced per-frame opacity and forced `currentTime = 0` resets with browser-native looping and a one-time CSS reveal. No recurring black fade or JavaScript playback-time assignments remain.
+- Coalesced play requests, preserved manual pause during tab/offscreen changes, observed a stable container with a small offscreen margin and fixed the mobile control's pointer obstruction.
+- Below-fold editorial photos now request low priority; the mobile welcome overlay avoids an expensive full-screen backdrop blur over video.
+- All 16 browser checks passed. The mobile network regression test completed two uninterrupted native loops after buffering, with no scripted seeks, no unintended paused samples, no recurring opacity fade and no stop lasting 1.5 seconds. Offscreen return resumed playback, while a manual pause remained paused after scrolling away and back.

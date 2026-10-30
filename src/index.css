@@ -2094,3 +2094,25 @@ em {
     bottom: calc(18px + var(--frame-notch, 0px));
   }
 }
+/* Fade once on first decoded playback; native video looping stays fully visible. */
+.cinematic-video video {
+  transition: opacity 0.5s ease;
+}
+.cinematic-video video.is-ready {
+  opacity: 1;
+}
+/* Text wrappers must not block the video control underneath on small screens. */
+.hero-content {
+  pointer-events: none;
+}
+.hero-content h1,
+.hero-content p,
+.hero-content a {
+  pointer-events: auto;
+}
+@media (max-width: 550px) {
+  .welcome-backdrop {
+    backdrop-filter: none;
+    background: #050505d6;
+  }
+}
