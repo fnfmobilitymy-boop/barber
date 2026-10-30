@@ -217,3 +217,57 @@ test("every editorial photograph is unique across sections", async ({
     )
     .toBe(true);
 });
+
+test("editorial scroll motion follows scrolling and respects reduced motion", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await page.goto("/");
+  await page.evaluate(() => document.fonts.ready);
+  const frame = page.locator(".craft-frame");
+  await page.evaluate(() =>
+    scrollTo({
+      top:
+        document.querySelector("#craft")!.getBoundingClientRect().top +
+        scrollY -
+        850,
+      behavior: "instant",
+    }),
+  );
+  await page.waitForTimeout(1100);
+  const startScale = await frame.evaluate(
+    (el) => new DOMMatrix(getComputedStyle(el).transform).a,
+  );
+  await page.evaluate(() => scrollBy({ top: 550, behavior: "instant" }));
+  await page.waitForTimeout(1300);
+  const endScale = await frame.evaluate(
+    (el) => new DOMMatrix(getComputedStyle(el).transform).a,
+  );
+  expect(endScale).toBeGreaterThan(startScale + 0.025);
+  expect(await frame.evaluate((el) => getComputedStyle(el).clipPath)).toContain(
+    "polygon",
+  );
+  await expect(page.locator(".header")).toHaveClass(/header-scrolled/);
+  await page.locator("#about").scrollIntoViewIfNeeded();
+  await expect
+    .poll(() =>
+      page
+        .locator("#about .heading-word")
+        .evaluateAll((words) =>
+          words.every((w) => Number(getComputedStyle(w).opacity) > 0.95),
+        ),
+    )
+    .toBe(true);
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.reload();
+  await page.locator("#about").scrollIntoViewIfNeeded();
+  expect(await frame.evaluate((el) => getComputedStyle(el).clipPath)).toBe(
+    "none",
+  );
+  expect(
+    await page
+      .locator("#about .heading-word")
+      .first()
+      .evaluate((el) => getComputedStyle(el).transform),
+  ).toBe("none");
+});

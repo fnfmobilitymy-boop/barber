@@ -20,3 +20,10 @@ The site is ready for frontend development. Business launch is pending actual bo
 - Twelve distinct editorial photograph IDs verified across the craft, detail, shop scenes, service cards and hairstyle collection; no image is reused in another section.
 - Photographs are original AI-generated editorial inspiration and are disclosed as such. Shop/staff/customer authenticity is not claimed.
 - Two original contact sheets contain six distinct square photos each; the UI displays a separate CSS-clipped cell per content location. Replaced unused typographic SVG placeholders.
+
+## Reference motion update
+
+- Production build and 15 browser checks passed, including the existing booking, seven viewport, gallery, unique-photo and video checks.
+- Added verification that craft media expands with scrolling, its sculpted clipping is applied, the header compacts, masked heading words become fully visible and reduced-motion removes transforms/clipping.
+- Desktop stable-frame review covered Hero, craft, scene layering and experience sections; browser console audit returned no errors.
+- Responsive scene parallax is isolated inside clipping frames, and cards move through transforms rather than animated margins. No new photos or duplicate photo placements were introduced.

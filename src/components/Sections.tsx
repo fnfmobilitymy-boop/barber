@@ -49,7 +49,7 @@ export function FeaturedVideoSection() {
         <Eyebrow>02 / THE ART OF THE CRAFT</Eyebrow>
         <span className="micro">PRECISION IN EVERY FRAME</span>
       </div>
-      <SectionReveal className="craft-frame">
+      <div className="craft-frame">
         <EditorialPhoto
           image="craft-scene"
           alt="AI-generated cinematic inspiration of a barber working in a warm, dark shop"
@@ -73,7 +73,7 @@ export function FeaturedVideoSection() {
             DISCOVER OUR CRAFT
           </LiquidGlassButton>
         </div>
-      </SectionReveal>
+      </div>
     </section>
   );
 }
@@ -138,7 +138,11 @@ export function ServicesSection() {
       </div>
       <div className="service-grid">
         {services.map((s, i) => (
-          <SectionReveal key={s.name} className="service-card">
+          <SectionReveal
+            key={s.name}
+            className="service-card"
+            delay={(i % 2) * 0.13}
+          >
             <EditorialPhoto
               image={s.image}
               alt={`AI-generated ${s.name.toLowerCase()} style inspiration`}

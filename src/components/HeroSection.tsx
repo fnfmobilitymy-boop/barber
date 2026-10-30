@@ -32,6 +32,17 @@ export function HeroSection() {
           scrub: 1,
         },
       });
+      gsap.to(".hero-display-word", {
+        xPercent: -8,
+        yPercent: 25,
+        opacity: 0,
+        scrollTrigger: {
+          trigger: ref.current,
+          start: "top top",
+          end: "bottom 30%",
+          scrub: 1,
+        },
+      });
       gsap.to(".hero-shade", {
         opacity: 0.9,
         scrollTrigger: {
@@ -70,6 +81,15 @@ export function HeroSection() {
         <CinematicVideo />
         <div className="hero-shade" />
       </div>
+      <motion.div
+        className="hero-display-word"
+        aria-hidden="true"
+        initial={reduced ? false : { y: 60, opacity: 0 }}
+        animate={{ y: 0, opacity: 0.12 }}
+        transition={{ duration: 1.3, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
+      >
+        THE HUSTLE
+      </motion.div>
       <div className="hero-content">
         <motion.p
           className="hero-kicker"

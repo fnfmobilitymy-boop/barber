@@ -1,5 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion } from "motion/react";
+import {
+  AnimatePresence,
+  motion,
+  useScroll,
+  useMotionValueEvent,
+} from "motion/react";
 import { Menu, X, Scissors } from "lucide-react";
 import { LiquidGlassButton } from "./UI";
 export const nav = [
@@ -13,6 +18,9 @@ export const nav = [
 ];
 export function Navbar() {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const { scrollY } = useScroll();
+  useMotionValueEvent(scrollY, "change", (value) => setScrolled(value > 48));
   const button = useRef<HTMLButtonElement>(null);
   useEffect(() => {
     if (!open) return;
@@ -26,7 +34,12 @@ export function Navbar() {
     return () => document.removeEventListener("keydown", key);
   }, [open]);
   return (
-    <header className="header">
+    <motion.header
+      className={`header ${scrolled ? "header-scrolled" : ""}`}
+      initial={{ opacity: 0, y: -15 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+    >
       <a className="logo" href="#home" aria-label="The Hustle Barber Club home">
         <Scissors size={27} />
         <span>
@@ -71,6 +84,6 @@ export function Navbar() {
           </motion.nav>
         )}
       </AnimatePresence>
-    </header>
+    </motion.header>
   );
 }

@@ -53,3 +53,7 @@ Push to `main` to run `.github/workflows/deploy.yml`. The workflow installs from
 Expected project URL after a successful deployment: https://fnfmobilitymy-boop.github.io/barber/
 
 If initial Pages auto-enablement is denied by GitHub, a repository administrator must select **Settings → Pages → Build and deployment → Source → GitHub Actions**, then rerun the workflow. Availability depends on repository visibility and the account's GitHub Pages plan. The expected URL is not evidence of successful deployment.
+
+## Reference-inspired motion
+
+The supplied short reference montage informs masked word entrances, oversized Hero typography, scroll-linked media expansion, a sculpted/notched craft frame, layered scene parallax, compact sticky navigation and footer typography reveals. `src/hooks/useEditorialMotion.ts` owns the scrub timelines and cleans them up when responsive/reduced-motion settings change. `UI.tsx` provides accessible masked headings and restrained staggered reveals. Animation wrappers keep Motion entrances separate from GSAP transforms, and scroll motion uses transforms rather than changing document layout. Mobile uses shorter travel distances and no scroll pinning; reduced motion leaves all content static and visible. The original Hero video and twelve unique photograph placements are retained.

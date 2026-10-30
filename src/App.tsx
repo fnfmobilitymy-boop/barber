@@ -19,6 +19,7 @@ import {
   Footer,
 } from "./components/Sections";
 import { CustomCursor } from "./components/CustomCursor";
+import { useEditorialMotion } from "./hooks/useEditorialMotion";
 import { bookingHref } from "./data/business";
 function ScrollProgressIndicator() {
   const { scrollYProgress } = useScroll();
@@ -26,6 +27,7 @@ function ScrollProgressIndicator() {
   return <motion.div className="scroll-progress" style={{ scaleX }} />;
 }
 export default function App() {
+  useEditorialMotion();
   return (
     <MotionConfig reducedMotion="user">
       <div id="site-content">
