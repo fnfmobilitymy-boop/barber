@@ -242,7 +242,9 @@ em {
   justify-content: space-between;
   gap: 22px;
   z-index: 40;
-  background: linear-gradient(#080808c7, transparent);
+  background: rgba(12, 16, 16, 0.38);
+  backdrop-filter: blur(12px) saturate(135%);
+  -webkit-backdrop-filter: blur(12px) saturate(135%);
 }
 .logo {
   display: flex;
@@ -266,22 +268,39 @@ em {
 }
 .desktop-nav {
   display: flex;
+  align-items: center;
   gap: 24px;
-  padding: 17px 26px;
+  padding: 10px 26px;
   border-radius: 99px;
+  background: rgba(255, 255, 255, 0.09);
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: inset 0 1px 0 #ffffff14, 0 8px 28px #00000018;
 }
 .desktop-nav a {
-  font-size: 10px;
-  color: #dedede;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #f7f2e9;
+  white-space: nowrap;
   transition: color 0.3s;
 }
 .desktop-nav a:hover {
   color: var(--accent);
 }
 .header .button {
-  min-height: 44px;
-  padding: 13px 20px;
-  gap: 18px;
+  min-height: 48px;
+  padding: 14px 22px;
+  gap: 14px;
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  box-shadow: inset 0 1px 0 #ffffff18;
 }
 .header-actions {
   display: flex;
@@ -296,7 +315,9 @@ em {
   top: 86px;
   left: 16px;
   right: 16px;
-  background: #151515f5;
+  background: rgba(20, 26, 23, 0.86);
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
   padding: 25px;
   border: 1px solid var(--border);
   border-radius: 20px;
@@ -1099,7 +1120,7 @@ em {
     font-size: 11px;
   }
   .desktop-nav a {
-    font-size: 12px;
+    font-size: 16px;
   }
   .desktop-nav {
     gap: 30px;
@@ -1110,11 +1131,11 @@ em {
 }
 @media (max-width: 1100px) {
   .desktop-nav {
-    gap: 13px;
-    padding: 16px 20px;
+    gap: 16px;
+    padding: 10px 20px;
   }
   .desktop-nav a {
-    font-size: 9px;
+    font-size: 14px;
   }
   .logo > span {
     font-size: 12px;
@@ -1123,7 +1144,7 @@ em {
     gap: 12px;
   }
   .header .button {
-    font-size: 8px;
+    font-size: 12px;
     padding: 13px 16px;
     gap: 10px;
   }
@@ -1276,10 +1297,10 @@ em {
     font-size: 6px;
   }
   .header .button {
-    font-size: 7px;
-    min-height: 38px;
-    padding: 10px 14px;
-    gap: 7px;
+    font-size: 12px;
+    min-height: 44px;
+    padding: 12px;
+    gap: 8px;
   }
   .header .button svg {
     width: 13px;
@@ -2017,9 +2038,10 @@ em {
   border-bottom: 1px solid transparent;
 }
 .header.header-scrolled {
-  background-color: #080808c9;
-  backdrop-filter: blur(16px);
-  border-bottom-color: #ffffff0a;
+  background-color: rgba(12, 16, 16, 0.7);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  border-bottom-color: #ffffff14;
   padding-top: 14px;
   padding-bottom: 14px;
 }
@@ -2398,4 +2420,15 @@ a.contact-card:hover { border-color: #ffffff60; background: var(--surface-elevat
  .header { padding-top: 10px; padding-bottom: 10px; }
  .about-brand-seal { display: none; }
  .footer-top .brand-logo-image { width: 80px; height: 80px; }
+}
+
+/* Keep navigation readable instead of shrinking labels on compact screens. */
+.mobile-nav a { display: flex; align-items: center; min-height: 44px; font-size: 18px; font-weight: 500; }
+@media (min-width: 851px) and (max-width: 1000px) {
+ .desktop-nav { display: none; }
+ .menu-button { display: flex; align-items: center; justify-content: center; }
+}
+@supports not ((backdrop-filter: blur(12px)) or (-webkit-backdrop-filter: blur(12px))) {
+ .header, .header.header-scrolled { background-color: #121a16eb; }
+ .desktop-nav, .header .button { background-color: #28332ef5; }
 }
