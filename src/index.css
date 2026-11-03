@@ -2499,21 +2499,6 @@ a.contact-card:hover { border-color: #ffffff60; background: var(--surface-elevat
 .contact-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
 @media(max-width:650px) { .contact-grid { grid-template-columns: minmax(0,1fr); } }
 
-/* Alternative transparent arch logo, shown in white on dark surfaces. */
-.brand-logo-image { width: 144px; height: 96px; aspect-ratio: 3 / 2; border-radius: 0; filter: invert(1); }
-.header .brand-logo-image { width: 138px; height: 76px; }
-.brand-intro-lockup { width: min(78vw,480px); }
-.brand-intro-image { width: 100%; height: auto; }
-.footer-top .brand-logo-image { width: 170px; height: 114px; }
-@media(max-width:600px) { .header .brand-logo-image { width: 108px; height: 62px; } }
-@media(max-width:360px) { .header .brand-logo-image { width: 78px; height: 58px; } }
-
-/* Black arch logo on a light plate provides consistent contrast everywhere. */
-.brand-logo-image { background: #fff; filter: none; border: 1px solid #d9b77b40; border-radius: 8px; padding: 5px; }
-.header .brand-logo-image { width: 160px; height: 90px; }
-.brand-intro-image { padding: 22px; border-radius: 16px; }
-.footer-top .brand-logo-image { width: 190px; height: 128px; padding: 10px; }
-html { scroll-padding-top: 130px; }
 .showcase-thumbnails {
   position: relative;
   display: flex;
@@ -2535,9 +2520,4 @@ html { scroll-padding-top: 130px; }
  .showcase-thumbnail { flex-basis: 72%; }
  .showcase-thumbnail > .showcase-card-preview { aspect-ratio: 4 / 3; }
 }
-@media(max-width:600px) {
- .header .brand-logo-image { width: 120px; height: 72px; }
- html { scroll-padding-top: 110px; }
-}
-@media(max-width:360px) { .header .brand-logo-image { width: 88px; height: 60px; } }
 @media(prefers-reduced-motion:reduce) { .showcase-stage > video { animation: none; } }
