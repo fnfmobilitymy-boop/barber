@@ -169,7 +169,11 @@ export function VideoShowcase() {
         onKeyDown={(event) => {
           if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
           event.preventDefault();
-          const next = (active + (event.key === "ArrowRight" ? 1 : -1) + showcaseVideos.length) % showcaseVideos.length;
+          event.stopPropagation();
+          const focusedCard = event.target instanceof Element ? event.target.closest("button") : null;
+          const focusedIndex = focusedCard && rail.current ? Array.from(rail.current.children).indexOf(focusedCard) : -1;
+          const start = focusedIndex >= 0 ? focusedIndex : active;
+          const next = (start + (event.key === "ArrowRight" ? 1 : -1) + showcaseVideos.length) % showcaseVideos.length;
           goTo(next);
           (rail.current?.children[next] as HTMLButtonElement | undefined)?.focus({ preventScroll: true });
         }}

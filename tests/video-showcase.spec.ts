@@ -52,6 +52,7 @@ test("video carousel accepts horizontal touch gestures", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/");
+  await expect(page.locator(".brand-intro")).toHaveCount(0);
   const stage = page.locator(".showcase-stage");
   await stage.scrollIntoViewIfNeeded();
   await stage.evaluate((element) => {
