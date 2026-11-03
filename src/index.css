@@ -1,5 +1,12 @@
 /* Google Fonts, self-hosted from the official google/fonts repository. */
 @font-face {
+  font-family: "Spartans Display";
+  src: url("/fonts/BarlowCondensed-BlackItalic.ttf") format("truetype");
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
   font-family: "Instrument Serif";
   src: url("/fonts/InstrumentSerif-Regular.ttf") format("truetype");
   font-weight: 400;
@@ -2635,3 +2642,46 @@ a.contact-card:hover { border-color: #ffffff60; background: var(--surface-elevat
  .footer-quicklinks a, .footer-back-top { font-size: 12px; }
  .footer-bottom { gap: 12px; }
 }
+
+/* Bold condensed italic display type, matching the supplied lettering style. */
+h2, h2 em, h3 em, .serif,
+.hero h1, .hero h1 .serif,
+.contact-card h3, .showcase-caption h3, .shop-photo-caption h3,
+.menu-item h3, .showcase-thumbnail > span, .footer-main h3,
+.footer-brand-name, .menu-item-action > strong {
+  font-family: "Spartans Display", Impact, sans-serif;
+  font-weight: 900;
+  font-style: italic;
+}
+h2 { text-transform: uppercase; font-size: clamp(48px,5.7vw,88px); letter-spacing: .005em; line-height: .98; }
+h2 em, .hero h1 .serif { font-weight: 900; }
+.hero h1 { font-size: clamp(76px,9vw,160px); line-height: .93; letter-spacing: -.015em; }
+.hero h1 .serif { font-size: 1.04em; letter-spacing: -.005em; }
+.heading-word-mask { padding-right: .08em; margin-right: -.08em; }
+.title-line > span { padding-left: .02em; padding-right: .1em; }
+.contact-card h3, .showcase-caption h3, .shop-photo-caption h3,
+.menu-item h3, .showcase-thumbnail > span, .footer-main h3,
+.footer-brand-name { text-transform: uppercase; letter-spacing: .015em; }
+.button { font-family: "Spartans Display", Impact, sans-serif; font-weight: 900; font-style: italic; font-size: 18px; letter-spacing: .025em; }
+.header .button { font-size: 18px; }
+.menu-item-action .button { font-size: 16px; }
+.button-label small { font-family: Manrope,sans-serif; font-style: normal; }
+.menu-categories button > span:first-of-type { font-family: "Spartans Display", Impact, sans-serif; font-style: italic; font-weight: 900; text-transform: uppercase; font-size: 19px; letter-spacing: .01em; }
+.contact-card h3 { font-size: 36px; line-height: 1.05; }
+.shop-photo-caption h3 { font-size: 25px; line-height: 1.1; }
+.showcase-thumbnail > span { font-size: 25px; }
+.menu-item h3 { font-size: 25px; line-height: 1.15; }
+.menu-item-action > strong { font-size: 48px; }
+.footer-main h3 { font-size: 25px; }
+.footer-brand-name { font-size: 30px; }
+.footer-brand-name span { font-family: Manrope,sans-serif; font-style: normal; }
+@media(max-width:550px) {
+ .hero h1 { font-size: clamp(52px,15.8vw,80px); }
+ .header .button { font-size: 16px; }
+ .menu-categories button > span:first-of-type { font-size: 17px; }
+ .shop-photo-caption h3 { font-size: 23px; }
+ .contact-card h3 { font-size: 32px; }
+}
+.hero-ctas .button { font-size: 18px; gap: 18px; }
+.hero-ctas .text-link { font-family: "Spartans Display",Impact,sans-serif; font-weight: 900; font-style: italic; font-size: 16px; }
+.showcase-auto { font-family: "Spartans Display",Impact,sans-serif; font-weight: 900; font-style: italic; font-size: 16px; }

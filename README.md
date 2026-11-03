@@ -24,7 +24,7 @@ With the dev server running, use `npm run test:e2e` for browser checks and `npm 
 - `src/components/BrandLogo.tsx`: the shared helmet logo used in the header and automatic intro and footer. The PNG was prepared with image generation from the user's circular logo reference; it is not an original uploaded source file.
 - `src/components/ContactDock.tsx`: booking shortcuts on the Hero, hidden over the remaining content to avoid covering prices, photos or contact details.
 
-Fonts are self-hosted; OFL licences are in `public/fonts`. The previous AI hairstyle gallery, service image cards, placeholder staff profiles, generic editorial sections and booking welcome popup have been removed.
+Fonts are self-hosted; OFL licences are in `public/fonts`. Headlines and key buttons use Barlow Condensed Black Italic for the owner’s bold, condensed, slanted lettering reference; body copy retains Manrope for readability. The previous AI hairstyle gallery, service image cards, placeholder staff profiles, generic editorial sections and booking welcome popup have been removed.
 
 ## Booking
 
