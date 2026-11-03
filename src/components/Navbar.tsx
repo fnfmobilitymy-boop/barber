@@ -11,6 +11,7 @@ export const nav = [
   ["Home", "home"],
   ["Experience", "experience"],
   ["Services", "services"],
+  ["Prices", "pricing"],
   ["Our Barbers", "barbers"],
   ["Gallery", "gallery"],
   ["About", "about"],

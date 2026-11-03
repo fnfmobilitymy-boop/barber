@@ -245,34 +245,7 @@ export function ExperienceSection() {
     </section>
   );
 }
-export function PricingSection() {
-  return (
-    <section id="pricing" className="section">
-      <Eyebrow>06 / THE MENU</Eyebrow>
-      <AnimatedHeading>
-        The experience,
-        <br />
-        <em>your way.</em>
-      </AnimatedHeading>
-      <div className="pricing-grid">
-        {services.map((s, i) => (
-          <SectionReveal
-            className={`price-card ${i === 3 ? "liquid-glass featured" : ""}`}
-            key={s.name}
-          >
-            <span className="micro">
-              0{i + 1} / {i === 3 ? "THE FULL RITUAL" : "PERSONAL GROOMING"}
-            </span>
-            <h3>{i === 3 ? "Complete Grooming" : s.name}</h3>
-            <p>{s.description}</p>
-            <strong>{s.price ?? "Enquire for Price"}</strong>
-            <LiquidGlassButton>BOOK NOW</LiquidGlassButton>
-          </SectionReveal>
-        ))}
-      </div>
-    </section>
-  );
-}
+export { ServiceMenu as PricingSection } from "./ServiceMenu";
 export function TestimonialsSection() {
   return null; /* Only verified business testimonials may be added. */
 }

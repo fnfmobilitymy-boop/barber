@@ -27,36 +27,10 @@ export const whatsappHref =
   `https://wa.me/${business.whatsappNumber.replace(/\D/g, "")}?text=${encodeURIComponent("Hi Spartans, I'd like to book a haircut. Could you share your available barbers, dates and times?")}`;
 export const bookingHref = business.bookingUrl || whatsappHref;
 export const services = [
-  {
-    name: "Signature Haircut",
-    category: "THE ESSENTIAL",
-    description:
-      "Tailored cuts crafted around your face shape, lifestyle, and personal style.",
-    price: null,
-    image: "signature-service",
-  },
-  {
-    name: "Skin Fade",
-    category: "THE DETAIL",
-    description: "Sharp transitions, seamless blends, and precise finishing.",
-    price: null,
-    image: "fade-service",
-  },
-  {
-    name: "Beard Sculpting",
-    category: "THE FINISH",
-    description: "Professional shaping, detailing, and refinement.",
-    price: null,
-    image: "beard-service",
-  },
-  {
-    name: "The Complete Experience",
-    category: "THE RITUAL",
-    description:
-      "A personalized grooming session combining haircut and beard styling.",
-    price: null,
-    image: "complete-service",
-  },
+  { name: "Haircut & grooming", category: "POTONGAN & DANDANAN", description: "Haircuts, quick washes, kids’ cuts, beard grooming and premium steam shaves.", image: "signature-service" },
+  { name: "Hair colour", category: "PEWARNAAN RAMBUT", description: "Full hair colour, highlights and quick black dye touch-ups.", image: "fade-service" },
+  { name: "Hair treatment", category: "RAWATAN RAMBUT", description: "Scalp care, intensive hair treatments, perm treatments and facial combinations.", image: "beard-service" },
+  { name: "Spartans packages", category: "PAKEJ SPARTANS", description: "From Basic to Royal: explore five grooming packages with clearly listed inclusions.", image: "complete-service" },
 ];
 export const gallery = [
   {
