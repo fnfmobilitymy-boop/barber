@@ -34,7 +34,7 @@ Website booking buttons open https://spartansbarbershopsb02.setmore.com/ or the 
 
 The Hero uses `public/videos/barbershop-hero-web.mp4`, separately from the five showcase videos. The original source file `barbershop-hero.mp4` is retained; SHA-256: `736a16a00ad26d1fdf80bb9057d9a8f33e9130beb823ea9923934f38e6cc7746`.
 
-Videos pause offscreen and when the tab is hidden. The showcase supports play/pause, sound, automatic switching, thumbnails, previous/next, keyboard and touch input. Reduced motion disables automatic showcase playback and switching. The logo intro exits automatically without controls.
+Videos pause offscreen and when the tab is hidden. The showcase supports play/pause, sound, automatic switching, thumbnails, previous/next, keyboard and touch input. Reduced motion disables automatic showcase playback and switching. The logo intro uses a blue fluid-energy ring inspired by the owner’s supplied 1.43-second reference, then reveals the circular logo and exits automatically without controls. It is rendered as vector/CSS motion to avoid enlarging the 202×116 reference video. Reduced motion shows a brief static logo.
 
 ## Deployment
 

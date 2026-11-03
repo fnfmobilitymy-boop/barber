@@ -2532,3 +2532,31 @@ a.contact-card:hover { border-color: #ffffff60; background: var(--surface-elevat
 .barber-filter select:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 .barber-filter p { font-size: 13px; color: var(--accent); }
 @media(max-width:550px) { .barber-filter label { width: 100%; } .barber-filter select { flex: 1; } }
+
+/* Blue fluid-energy entrance inspired by the supplied short reference. */
+.brand-intro-halo { background: radial-gradient(ellipse, #082dd91c, transparent 65%); }
+.brand-intro-lockup { animation: intro-logo-materialize 4.6s cubic-bezier(.22,1,.36,1) both; }
+.intro-energy { position: absolute; top: 50%; left: 50%; width: min(94vw,560px); aspect-ratio: 1; pointer-events: none; animation: intro-energy-reveal 4.6s ease both; }
+.intro-energy > svg { display: block; width: 100%; height: 100%; overflow: visible; filter: drop-shadow(0 0 6px #134aff) drop-shadow(0 0 18px #0735ef88); }
+.intro-energy-spin, .intro-energy-counterspin { transform-origin: 200px 200px; }
+.intro-energy-spin { animation: intro-orbit 1.45s linear infinite; }
+.intro-energy-counterspin { animation: intro-orbit 2.1s linear reverse infinite; }
+@keyframes intro-orbit { to { transform: rotate(360deg); } }
+@keyframes intro-energy-reveal {
+  0% { opacity: 0; transform: translate(-50%,-50%) scale(.55); }
+  8% { opacity: 1; }
+  22% { opacity: 1; transform: translate(-50%,-50%) scale(.94); }
+  48% { opacity: 1; transform: translate(-50%,-50%) scale(1); }
+  68% { opacity: 0; transform: translate(-50%,-50%) scale(1.2); }
+  100% { opacity: 0; transform: translate(-50%,-50%) scale(1.2); }
+}
+@keyframes intro-logo-materialize {
+  0%, 16% { opacity: 0; transform: scale(.55); filter: blur(8px); }
+  34% { opacity: 1; transform: scale(.94); filter: blur(0); }
+  52%, 82% { opacity: 1; transform: scale(1); filter: blur(0); }
+  100% { opacity: 0; transform: scale(1.035); filter: blur(1px); }
+}
+@media(prefers-reduced-motion:reduce) {
+ .intro-energy { display: none; }
+ .brand-intro-lockup { animation: none; }
+}

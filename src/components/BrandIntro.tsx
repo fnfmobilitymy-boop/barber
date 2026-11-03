@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { IntroEnergy } from "./IntroEnergy";
 import { BrandLogo } from "./BrandLogo";
 import { useReducedMotion } from "../hooks/useReducedMotion";
 
@@ -33,6 +34,7 @@ export function BrandIntro() {
       aria-label="Welcome to Spartans Barbershop"
     >
       <div className="brand-intro-halo" aria-hidden="true" />
+      {!reducedMotion && <IntroEnergy />}
       <div className="brand-intro-lockup">
         <BrandLogo className="brand-intro-image" />
       </div>
