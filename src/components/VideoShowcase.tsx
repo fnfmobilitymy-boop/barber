@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { ArrowLeft, ArrowRight, Film, Pause, Play, Volume2, VolumeX } from "lucide-react";
 import { useReducedMotion } from "../hooks/useReducedMotion";
 import { showcaseVideos } from "../data/videos";
+import { ShowcasePreview } from "./ShowcasePreview";
 import { AnimatedHeading, Eyebrow } from "./UI";
 
 export function VideoShowcase() {
@@ -14,6 +15,9 @@ export function VideoShowcase() {
   const [muted, setMuted] = useState(true);
   const reduced = useReducedMotion();
   const stage = useRef<HTMLDivElement>(null);
+  const rail = useRef<HTMLDivElement>(null);
+  const [stageVisible, setStageVisible] = useState(false);
+  const [railVisible, setRailVisible] = useState(false);
   const video = useRef<HTMLVideoElement>(null);
   const touchStart = useRef<{ x: number; y: number } | null>(null);
   const current = showcaseVideos[active];
@@ -42,6 +46,7 @@ export function VideoShowcase() {
     };
     const observer = new IntersectionObserver(([entry]) => {
       visible = entry.isIntersecting;
+      setStageVisible(visible);
       reconcile();
     }, { threshold: 0.15 });
     observer.observe(stage.current);
@@ -55,6 +60,33 @@ export function VideoShowcase() {
       media.pause();
     };
   }, [active, reduced, userPaused, userStarted]);
+
+  useEffect(() => {
+    const track = rail.current;
+    if (!track) return;
+    const observer = new IntersectionObserver(([entry]) => setRailVisible(entry.isIntersecting), { threshold: 0.2 });
+    observer.observe(track);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const track = rail.current;
+    const card = track?.children[active] as HTMLElement | undefined;
+    if (!track || !card) return;
+    track.scrollTo({ left: card.offsetLeft - (track.clientWidth - card.clientWidth) / 2, behavior: reduced ? "instant" : "smooth" });
+  }, [active, reduced]);
+
+  useEffect(() => {
+    // When visitors scroll to the cards, keep that visible carousel moving.
+    // The offscreen main player remains paused instead of driving the timer.
+    if (!railVisible || stageVisible || !autoAdvance || userPaused || reduced) return;
+    const timer = window.setInterval(() => {
+      if (document.hidden) return;
+      setActive((index) => (index + 1) % showcaseVideos.length);
+      setFailed(false);
+    }, 5000);
+    return () => window.clearInterval(timer);
+  }, [active, railVisible, stageVisible, autoAdvance, userPaused, reduced]);
 
   return (
     <section id="films" className="section video-showcase" aria-label="Video showcase / Galeri video" aria-roledescription="carousel">
@@ -128,7 +160,7 @@ export function VideoShowcase() {
       <div className="showcase-toolbar">
         <div className="showcase-navigation">
           <button className="showcase-icon-button" aria-label="Previous video" onClick={() => goTo(active - 1)}><ArrowLeft size={20} /></button>
-          <span className="micro" aria-live={autoAdvance && playing ? "off" : "polite"}>{String(active + 1).padStart(2, "0")} / {String(showcaseVideos.length).padStart(2, "0")}</span>
+          <span className="micro" aria-live={autoAdvance && !reduced ? "off" : "polite"}>{String(active + 1).padStart(2, "0")} / {String(showcaseVideos.length).padStart(2, "0")}</span>
           <button className="showcase-icon-button" aria-label="Next video" onClick={() => goTo(active + 1)}><ArrowRight size={20} /></button>
         </div>
         <button className="showcase-auto" aria-pressed={autoAdvance && !reduced} disabled={!!reduced} onClick={() => setAutoAdvance(!autoAdvance)}>
@@ -136,10 +168,10 @@ export function VideoShowcase() {
           AUTO / AUTOMATIK {autoAdvance && !reduced ? "ON" : "OFF"}
         </button>
       </div>
-      <div className="showcase-thumbnails" aria-label="Choose a showcase video">
+      <div className="showcase-thumbnails" ref={rail} aria-label="Choose a showcase video">
         {showcaseVideos.map((item, index) => (
           <button key={item.id} className={`showcase-thumbnail ${index === active ? "is-active" : ""}`} aria-label={`Show video ${index + 1}: ${item.title}`} aria-current={index === active ? "true" : undefined} onClick={() => goTo(index)}>
-            <img src={`${import.meta.env.BASE_URL}${item.poster}`} alt="" />
+            {index === active ? <ShowcasePreview key={item.id} src={`${import.meta.env.BASE_URL}${item.src}`} poster={`${import.meta.env.BASE_URL}${item.poster}`} enabled={autoAdvance && !userPaused && (!reduced || userStarted)} /> : <img src={`${import.meta.env.BASE_URL}${item.poster}`} alt="" />}
             <span><span className="micro">0{index + 1}</span>{item.title}<small>{item.subtitle}</small></span>
             <Play size={16} aria-hidden="true" />
           </button>

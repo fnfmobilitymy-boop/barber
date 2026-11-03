@@ -2,10 +2,10 @@ export function BrandLogo({ className = "" }: { className?: string }) {
   return (
     <img
       className={`brand-logo-image ${className}`}
-      src={`${import.meta.env.BASE_URL}images/spartans-logo.png`}
+      src={`${import.meta.env.BASE_URL}images/spartans-logo-alt.png`}
       alt="Spartans Barbershop — Spartan helmet logo"
-      width={1254}
-      height={1254}
+      width={1536}
+      height={1024}
       decoding="async"
     />
   );

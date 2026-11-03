@@ -42,3 +42,7 @@ Push to `main` to run `.github/workflows/deploy.yml`. The workflow builds with `
 https://fnfmobilitymy-boop.github.io/barber/
 
 For a matching local production preview, run `GITHUB_PAGES=true npm run build`, then `GITHUB_PAGES=true npm run preview -- --port 5175 --strictPort`. Verify the workflow result after a push; a local build alone does not establish publication. Safari/iOS and Firefox require separate browser/device verification.
+
+The current trial uses `spartans-logo-alt.png`, prepared from the user's later transparent arch-logo reference. It displays as black artwork on a light plate for contrast on the dark site. The previous circular logo remains as `spartans-logo.png` for easy comparison.
+
+The showcase cards form a horizontal carousel. The selected visible card plays a muted preview. When only the card rail is visible, Auto advances every five seconds and scrolls the selected card into view; the main player pauses offscreen. Turning Auto off stops card previews and automatic switching. Reduced motion disables automatic animation.

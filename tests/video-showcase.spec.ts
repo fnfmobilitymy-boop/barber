@@ -7,7 +7,7 @@ for (const width of [390, 1440]) {
     await page.goto("/");
     const section = page.locator("#films");
     await section.scrollIntoViewIfNeeded();
-    const video = section.locator("video");
+    const video = section.locator(".showcase-stage > video");
     await expect(section.getByRole("button", { name: /AUTO/ })).toBeDisabled();
     expect(await video.evaluate((v) => (v as HTMLVideoElement).paused)).toBe(true);
     await section.getByRole("button", { name: "Next video", exact: true }).click();
@@ -36,7 +36,7 @@ test("video carousel advances at the end and pauses out of view", async ({ page 
   await expect(page.locator(".brand-intro")).toHaveCount(0, { timeout: 6500 });
   const section = page.locator("#films");
   await section.scrollIntoViewIfNeeded();
-  const video = section.locator("video");
+  const video = section.locator(".showcase-stage > video");
   await expect.poll(() => video.evaluate((v) => (v as HTMLVideoElement).currentTime)).toBeGreaterThan(.1);
   await video.evaluate((v) => { (v as HTMLVideoElement).currentTime = (v as HTMLVideoElement).duration - .15; });
   await expect(video).toHaveAttribute("src", /b\.mp4$/);
@@ -59,4 +59,22 @@ test("video carousel accepts horizontal touch gestures", async ({ page }) => {
     element.dispatchEvent(new TouchEvent("touchend", { bubbles: true, changedTouches: [end] }));
   });
   await expect(stage.locator("video")).toHaveAttribute("src", /b\.mp4$/);
+});
+
+
+test("thumbnail carousel previews and auto-scrolls independently of the offscreen main player", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto("/");
+  await expect(page.locator(".brand-intro")).toHaveCount(0, { timeout: 6500 });
+  const rail = page.locator(".showcase-thumbnails");
+  await rail.evaluate((element) => scrollTo({ top: element.getBoundingClientRect().top + scrollY - 130, behavior: "instant" }));
+  await rail.getByRole("button", { name: "Show video 3: Sharp detail.", exact: true }).click();
+  await expect.poll(() => rail.locator("video").evaluate((v) => (v as HTMLVideoElement).currentTime)).toBeGreaterThan(.1);
+  await expect.poll(() => page.locator(".showcase-stage > video").evaluate((v) => (v as HTMLVideoElement).paused)).toBe(true);
+  await expect(rail.getByRole("button", { name: "Show video 4: Natural movement.", exact: true })).toHaveAttribute("aria-current", "true", { timeout: 8000 });
+  await expect.poll(() => rail.evaluate((element) => element.scrollLeft)).toBeGreaterThan(100);
+  await page.getByRole("button", { name: /AUTO/ }).click();
+  await expect.poll(() => rail.locator("video").evaluate((v) => (v as HTMLVideoElement).paused)).toBe(true);
+  await page.waitForTimeout(5500);
+  await expect(rail.getByRole("button", { name: "Show video 4: Natural movement.", exact: true })).toHaveAttribute("aria-current", "true");
 });
