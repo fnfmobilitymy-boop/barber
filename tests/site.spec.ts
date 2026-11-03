@@ -41,10 +41,8 @@ for (const width of [375, 390, 430, 768, 1024, 1440, 1920]) {
       "craft",
       "philosophy",
       "the-space",
-      "services",
-      "gallery",
+      "films",
       "experience",
-      "barbers",
       "pricing",
       "faq",
       "booking",
@@ -75,23 +73,11 @@ for (const width of [375, 390, 430, 768, 1024, 1440, 1920]) {
     expect(errors).toEqual([]);
   });
 }
-test("gallery filtering, keyboard lightbox, FAQ and honest booking", async ({
-  page,
-}) => {
+test("retained FAQ, booking and navigation work without removed sections", async ({ page }) => {
   await page.goto("/");
-  await page.locator("#gallery").scrollIntoViewIfNeeded();
-  await page.getByRole("button", { name: "Skin Fade", exact: true }).click();
-  await expect(page.locator(".gallery-item")).toHaveCount(1);
-  await page.locator(".gallery-item").click();
-  await expect(page.getByRole("dialog")).toBeVisible();
-  await page.keyboard.press("Escape");
-  await expect(page.getByRole("dialog")).toHaveCount(0);
-  await page.getByRole("button", { name: "All", exact: true }).click();
-  await expect(page.locator(".gallery-item")).toHaveCount(4);
-  await page.locator(".gallery-item").first().click();
-  await page.keyboard.press("ArrowRight");
-  await expect(page.locator(".lightbox figcaption")).toContainText("2 / 4");
-  await page.keyboard.press("Escape");
+  await expect(page.locator("#gallery, #barbers, #services")).toHaveCount(0);
+  await expect(page.locator("#films")).toHaveCount(1);
+  await expect(page.locator("#pricing")).toHaveCount(1);
   await page.getByRole("button", { name: "Do I need an appointment?" }).click();
   await expect(page.locator("#answer-0")).toBeVisible();
   await page.getByRole("button", { name: "Do I need an appointment?" }).click();
@@ -154,7 +140,7 @@ for (const width of [390, 1440]) {
     await page.goto("/");
     const intro = page.getByRole("status", { name: "Welcome to Spartans Barbershop" });
     await expect(intro).toBeVisible();
-    await expect(intro).toContainText("SPARTANS");
+    await expect(intro.getByRole("img", { name: "Spartans Barbershop — Spartan helmet logo" })).toBeVisible();
     await expect(intro.locator("button, a, input")).toHaveCount(0);
     await expect(page.locator("#site-content")).toHaveJSProperty("inert", true);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
@@ -180,11 +166,11 @@ test("every editorial photograph is unique across sections", async ({
   const photos = await page
     .locator("[data-photo-id]")
     .evaluateAll((nodes) => nodes.map((n) => n.getAttribute("data-photo-id")));
-  expect(photos).toHaveLength(12);
-  expect(new Set(photos).size).toBe(12);
+  expect(photos).toHaveLength(4);
+  expect(new Set(photos).size).toBe(4);
   await page.locator("#the-space").scrollIntoViewIfNeeded();
   await expect(page.locator(".scene-card")).toHaveCount(2);
-  await page.locator("#gallery").scrollIntoViewIfNeeded();
+  await page.locator("#pricing").scrollIntoViewIfNeeded();
   await expect
     .poll(() =>
       page
@@ -343,7 +329,7 @@ test("mobile video plays two native loops without script seeks or stop/start cha
       () => (window as unknown as { scriptSeeks: number }).scriptSeeks,
     ),
   ).toBe(0);
-  await page.locator("#gallery").scrollIntoViewIfNeeded();
+  await page.locator("#pricing").scrollIntoViewIfNeeded();
   await expect
     .poll(() => video.evaluate((v) => (v as HTMLVideoElement).paused))
     .toBe(true);
@@ -352,7 +338,7 @@ test("mobile video plays two native loops without script seeks or stop/start cha
     .poll(() => video.evaluate((v) => (v as HTMLVideoElement).paused))
     .toBe(false);
   await page.getByRole("button", { name: "Pause background video" }).click();
-  await page.locator("#gallery").scrollIntoViewIfNeeded();
+  await page.locator("#pricing").scrollIntoViewIfNeeded();
   await page.evaluate(() => scrollTo({ top: 0, behavior: "instant" }));
   expect(await video.evaluate((v) => (v as HTMLVideoElement).paused)).toBe(
     true,

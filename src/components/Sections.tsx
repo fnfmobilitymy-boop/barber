@@ -4,7 +4,6 @@ import {
   ArrowUpRight,
   Plus,
   Minus,
-  Scissors,
   MessageCircle,
   MapPin,
   Mail,
@@ -14,7 +13,8 @@ import {
   Facebook,
   Instagram,
 } from "lucide-react";
-import { business, bookingHref, services, locations, googleMapsHref, whatsappHref } from "../data/business";
+import { business, locations, googleMapsHref, whatsappHref } from "../data/business";
+import { BrandLogo } from "./BrandLogo";
 import { EditorialPhoto } from "./EditorialPhoto";
 import {
   AnimatedHeading,
@@ -45,7 +45,7 @@ export function AboutSection() {
           </a>
         </SectionReveal>
       </div>
-      <span className="about-mark">H.</span>
+      <div className="about-brand-seal"><BrandLogo /></div>
     </section>
   );
 }
@@ -128,98 +128,6 @@ export function PhilosophySection() {
     </section>
   );
 }
-export function ServicesSection() {
-  return (
-    <section id="services" className="section">
-      <div className="section-top">
-        <div>
-          <Eyebrow>03 / THE GROOMING EXPERIENCE</Eyebrow>
-          <AnimatedHeading>
-            What we <em>do.</em>
-          </AnimatedHeading>
-        </div>
-        <p>
-          Your style. Our craft.
-          <br />A cut above the everyday.
-        </p>
-      </div>
-      <div className="service-grid">
-        {services.map((s, i) => (
-          <SectionReveal
-            key={s.name}
-            className="service-card"
-            delay={(i % 2) * 0.13}
-          >
-            <EditorialPhoto
-              image={s.image}
-              alt={`AI-generated ${s.name.toLowerCase()} style inspiration`}
-            />
-            <div className="service-top">
-              <span className="badge liquid-glass">{s.category}</span>
-              <span className="micro">0{i + 1}</span>
-            </div>
-            <div className="service-content">
-              <h3>{s.name}</h3>
-              <p>{s.description}</p>
-              <a
-                href={bookingHref}
-                className="service-link"
-                aria-label={`Enquire about ${s.name}`}
-              >
-                BOOK THIS EXPERIENCE <ArrowUpRight size={20} />
-              </a>
-            </div>
-          </SectionReveal>
-        ))}
-      </div>
-      <p className="media-disclosure">
-        AI-generated service inspiration. Individual results vary.
-      </p>
-    </section>
-  );
-}
-export function BarbersSection() {
-  return (
-    <section id="barbers" className="section">
-      <div className="section-top">
-        <div>
-          <Eyebrow>05 / THE PEOPLE</Eyebrow>
-          <AnimatedHeading>
-            The hands behind
-            <br />
-            <em>the craft.</em>
-          </AnimatedHeading>
-        </div>
-        <p>
-          Individual vision.
-          <br />A shared dedication to detail.
-        </p>
-      </div>
-      <div className="barber-grid">
-        {["Precision cutting", "Fades & texture", "Beard refinement"].map(
-          (s, i) => (
-            <SectionReveal className="barber-card" key={s}>
-              <div className="portrait-placeholder">
-                <Scissors size={42} strokeWidth={0.7} />
-                <span>PORTRAIT TO BE SUPPLIED</span>
-                <b>0{i + 1}</b>
-              </div>
-              <p className="micro">BARBER PROFILE — COMING SOON</p>
-              <h3>{s}</h3>
-              <p>
-                Meet the people behind your next look. Team names and
-                biographies will be added here.
-              </p>
-              <MagneticButton className="liquid-glass">
-                ENQUIRE ABOUT A BARBER
-              </MagneticButton>
-            </SectionReveal>
-          ),
-        )}
-      </div>
-    </section>
-  );
-}
 export function ExperienceSection() {
   return (
     <section id="experience" className="experience">
@@ -237,11 +145,11 @@ export function ExperienceSection() {
           A moment for yourself.
           <br />A feeling you take with you.
         </p>
-        <a className="text-link" href="#services">
+        <a className="text-link" href="#pricing">
           FIND YOUR EXPERIENCE <ArrowUpRight size={16} />
         </a>
       </SectionReveal>
-      <span className="experience-number">H / 01</span>
+      <span className="experience-number">S / 01</span>
     </section>
   );
 }
@@ -264,7 +172,7 @@ const faqs = [
   ],
   [
     "What services do you offer?",
-    "Explore signature haircuts, skin fades, beard sculpting, and complete grooming in our service menu. Final availability will be confirmed when booking.",
+    "Explore haircuts, beard grooming, hair colour, hair treatments and Spartans packages in our service and price menu. Select your service and available time on Setmore.",
   ],
   [
     "Can I request a specific barber?",
@@ -403,9 +311,7 @@ export function Footer() {
     <footer className="footer">
       <div className="footer-top">
         <a className="logo" href="#home">
-          <span>
-            SPARTANS<small>BARBERSHOP</small>
-          </span>
+          <BrandLogo />
         </a>
         <p>PRECISION. CULTURE. CONFIDENCE.</p>
         <a href="#home" className="text-link">
@@ -424,8 +330,7 @@ export function Footer() {
         </div>
         <div>
           <span className="micro">EXPLORE</span>
-          <a href="#services">Services</a>
-          <a href="#gallery">Lookbook</a>
+          <a href="#pricing">Services</a>
           <a href="#films">Films / Galeri video</a>
           <a href="#booking">Bookings & contact</a>
           <a href={whatsappHref}>WhatsApp {business.whatsappNumber}</a>
@@ -454,9 +359,7 @@ export function Footer() {
           )}
         </div>
       </div>
-      <div className="footer-wordmark" aria-hidden="true">
-        SPARTANS
-      </div>
+      <div className="footer-brand-seal"><BrandLogo /></div>
       <div className="footer-bottom">
         <span>
           © {new Date().getFullYear()} {business.name}

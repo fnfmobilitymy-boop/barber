@@ -22,13 +22,13 @@
 }
 @import "tailwindcss";
 :root {
-  --background: #080808;
-  --surface: #151515;
-  --surface-elevated: #202020;
-  --foreground: #f5f5f5;
-  --muted: #a4a4a4;
-  --accent: #ffffff;
-  --accent-dark: #303030;
+  --background: #0c1010;
+  --surface: #171c1a;
+  --surface-elevated: #252c28;
+  --foreground: #f7f2e9;
+  --muted: #b4aca0;
+  --accent: #d9b77b;
+  --accent-dark: #86542d;
   --border: rgba(255, 255, 255, 0.12);
   font-family: Manrope, sans-serif;
   color: var(--foreground);
@@ -331,7 +331,7 @@ em {
   height: 100%;
   object-fit: cover;
   object-position: 62% center;
-  filter: grayscale(1);
+  filter: none;
 }
 .cinematic-video video {
   opacity: 0;
@@ -489,7 +489,7 @@ em {
   position: relative;
 }
 .craft-frame > img {
-  filter: grayscale(1) brightness(0.62);
+  filter: brightness(0.62);
   transition: transform 1.2s;
 }
 .craft-frame:hover > img {
@@ -543,7 +543,7 @@ em {
   position: relative;
 }
 .philosophy-image img {
-  filter: grayscale(1) brightness(0.75);
+  filter: brightness(0.75);
 }
 .philosophy-image .media-caption {
   top: auto;
@@ -585,7 +585,7 @@ em {
 .service-card > img {
   position: absolute;
   inset: 0;
-  filter: grayscale(1) brightness(0.55) grayscale(1);
+  filter: brightness(0.55);
   transition: transform 0.8s;
 }
 .service-card:after {
@@ -680,14 +680,14 @@ em {
   margin-top: 45px;
 }
 .gallery-item img {
-  filter: grayscale(1) brightness(0.8);
+  filter: brightness(0.8);
   transition:
     transform 0.7s,
     filter 0.7s;
 }
 .gallery-item:hover img {
   transform: scale(1.05);
-  filter: grayscale(1);
+  filter: none;
 }
 .gallery-item > span {
   position: absolute;
@@ -1772,7 +1772,7 @@ em {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  filter: grayscale(1) brightness(0.72);
+  filter: brightness(0.72);
 }
 .philosophy-image > .editorial-photo {
   min-height: 100%;
@@ -1782,13 +1782,13 @@ em {
   transform: translateX(-50%);
 }
 .philosophy-image .editorial-photo img {
-  filter: grayscale(1) brightness(0.8);
+  filter: brightness(0.8);
 }
 .service-card > .editorial-photo {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  filter: grayscale(1) brightness(0.75);
+  filter: brightness(0.75);
 }
 .gallery-item > .editorial-photo {
   position: absolute;
@@ -2297,7 +2297,7 @@ a.contact-card:hover { border-color: #ffffff60; background: var(--surface-elevat
 .showcase-thumbnail { min-width: 0; display: flex; align-items: center; text-align: left; gap: 14px; border: 1px solid var(--border); border-radius: 12px; padding: 12px; background: var(--surface); transition: border-color .2s; }
 .showcase-thumbnail.is-active { border-color: #fff; }
 .showcase-thumbnail:hover { border-color: #aaa; }
-.showcase-thumbnail > img { width: 90px; height: 64px; border-radius: 6px; filter: grayscale(1); flex-shrink: 0; }
+.showcase-thumbnail > img { width: 90px; height: 64px; border-radius: 6px; filter: none; flex-shrink: 0; }
 .showcase-thumbnail > span { display: flex; flex-direction: column; gap: 5px; font-family: "Instrument Serif", serif; font-size: 21px; }
 .showcase-thumbnail .micro, .showcase-thumbnail small { font-family: Manrope, sans-serif; font-size: 9px; color: var(--muted); }
 .showcase-thumbnail > svg { margin-left: auto; flex-shrink: 0; }
@@ -2363,4 +2363,39 @@ a.contact-card:hover { border-color: #ffffff60; background: var(--surface-elevat
  .menu-item-action { flex-direction: row; align-items: center; justify-content: space-between; }
  .menu-item-action > strong { font-size: 34px; }
  .menu-inclusions { grid-template-columns: minmax(0,1fr); }
+}
+
+/* Full helmet identity with warm gold, forest green and original media colours. */
+.brand-logo-image { display: block; width: 82px; height: 82px; aspect-ratio: 1; object-fit: contain; border-radius: 50%; flex-shrink: 0; }
+.header { padding-top: 14px; padding-bottom: 14px; }
+.header .logo { flex-shrink: 0; }
+.header .brand-logo-image { width: 76px; height: 76px; }
+.brand-intro-lockup { width: min(64vw, 340px); }
+.brand-intro-image { width: 100%; height: auto; }
+.about-brand-seal { align-self: center; opacity: .85; }
+.about-brand-seal .brand-logo-image { width: clamp(90px, 12vw, 170px); height: auto; }
+.footer-brand-seal { display: flex; justify-content: center; padding: 36px 0; }
+.footer-brand-seal .brand-logo-image { width: clamp(140px, 20vw, 230px); height: auto; }
+.button:not(.liquid-glass) { background: var(--accent); color: #17130b; }
+.button:not(.liquid-glass):hover { background: #eed2a1; }
+.button.liquid-glass { border: 1px solid #d9b77b40; }
+.brand-strip { background: #172820; border-color: #d9b77b30; }
+.experience { background: radial-gradient(ellipse at 80% 40%, #315b4166, transparent 65%), linear-gradient(130deg, #17261e, #0c1010); }
+.booking { background: radial-gradient(ellipse at 50% 90%, #244b3544, transparent 65%); }
+.menu-categories button[aria-pressed="true"] { background: var(--accent); color: #17130b; }
+.menu-item-action > strong { color: var(--accent); }
+.contact-card > svg, .location-hours > svg { color: var(--accent); }
+.floating-whatsapp { background: #176c4b; color: #fff; border: 1px solid #51c69280; }
+.floating-whatsapp:hover { background: #20875f; }
+.booking-actions .liquid-glass { background: #175d42; color: #fff; border-color: #51c69260; }
+.booking-actions .liquid-glass:hover { background: #217951; }
+.social-link[href*="facebook"] > svg:first-child { color: #8db3ff; }
+.social-link[href*="instagram"] > svg:first-child { color: #eeb2cf; }
+.showcase-thumbnail.is-active { border-color: var(--accent); }
+.showcase-thumbnail .micro { color: var(--accent); }
+@media (max-width: 600px) {
+ .header .brand-logo-image { width: 62px; height: 62px; }
+ .header { padding-top: 10px; padding-bottom: 10px; }
+ .about-brand-seal { display: none; }
+ .footer-top .brand-logo-image { width: 80px; height: 80px; }
 }

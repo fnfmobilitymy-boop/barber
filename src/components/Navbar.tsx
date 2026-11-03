@@ -6,14 +6,13 @@ import {
   useMotionValueEvent,
 } from "motion/react";
 import { Menu, X, CalendarDays } from "lucide-react";
+import { BrandLogo } from "./BrandLogo";
 import { LiquidGlassButton } from "./UI";
 export const nav = [
   ["Home", "home"],
   ["Experience", "experience"],
-  ["Services", "services"],
-  ["Prices", "pricing"],
-  ["Our Barbers", "barbers"],
-  ["Gallery", "gallery"],
+  ["Services & Prices", "pricing"],
+  ["Videos", "films"],
   ["About", "about"],
   ["Contact", "booking"],
 ];
@@ -42,9 +41,7 @@ export function Navbar() {
       transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
     >
       <a className="logo" href="#home" aria-label="Spartans Barbershop home">
-        <span>
-          SPARTANS<small>BARBERSHOP</small>
-        </span>
+        <BrandLogo />
       </a>
       <nav className="desktop-nav liquid-glass" aria-label="Main navigation">
         {nav.map(([label, id]) => (

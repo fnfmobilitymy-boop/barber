@@ -26,35 +26,3 @@ export const business = {
 export const whatsappHref =
   `https://wa.me/${business.whatsappNumber.replace(/\D/g, "")}?text=${encodeURIComponent("Hi Spartans, I'd like to book a haircut. Could you share your available barbers, dates and times?")}`;
 export const bookingHref = business.bookingUrl || whatsappHref;
-export const services = [
-  { name: "Haircut & grooming", category: "POTONGAN & DANDANAN", description: "Haircuts, quick washes, kids’ cuts, beard grooming and premium steam shaves.", image: "signature-service" },
-  { name: "Hair colour", category: "PEWARNAAN RAMBUT", description: "Full hair colour, highlights and quick black dye touch-ups.", image: "fade-service" },
-  { name: "Hair treatment", category: "RAWATAN RAMBUT", description: "Scalp care, intensive hair treatments, perm treatments and facial combinations.", image: "beard-service" },
-  { name: "Spartans packages", category: "PAKEJ SPARTANS", description: "From Basic to Royal: explore five grooming packages with clearly listed inclusions.", image: "complete-service" },
-];
-export const gallery = [
-  {
-    image: "low-fade",
-    category: "Skin Fade",
-    title: "The low fade",
-    description: "A seamless blend. A sharper silhouette.",
-  },
-  {
-    image: "classic-pompadour",
-    category: "Classic",
-    title: "The modern classic",
-    description: "Timeless structure with effortless volume.",
-  },
-  {
-    image: "textured-crop",
-    category: "Textured",
-    title: "The textured crop",
-    description: "Natural movement. Deliberate detail.",
-  },
-  {
-    image: "sculpted-beard",
-    category: "Beard",
-    title: "The sculpted finish",
-    description: "Clean contours. Individual character.",
-  },
-];

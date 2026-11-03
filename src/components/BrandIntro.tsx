@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { BrandLogo } from "./BrandLogo";
 import { useReducedMotion } from "../hooks/useReducedMotion";
 
 /** Automatic brand entrance; no interaction is required to reach the site. */
@@ -33,10 +34,7 @@ export function BrandIntro() {
     >
       <div className="brand-intro-halo" aria-hidden="true" />
       <div className="brand-intro-lockup">
-        <div className="brand-intro-wordmark" aria-hidden="true">
-          <span>SPARTANS</span>
-          <small>BARBERSHOP</small>
-        </div>
+        <BrandLogo className="brand-intro-image" />
       </div>
     </div>
   );

@@ -5,13 +5,10 @@ import { ShopScenesSection } from "./components/ShopScenesSection";
 import { Navbar } from "./components/Navbar";
 import { HeroSection } from "./components/HeroSection";
 import { VideoShowcase } from "./components/VideoShowcase";
-import { GallerySection } from "./components/GallerySection";
 import {
   AboutSection,
   FeaturedVideoSection,
   PhilosophySection,
-  ServicesSection,
-  BarbersSection,
   ExperienceSection,
   PricingSection,
   TestimonialsSection,
@@ -49,11 +46,8 @@ export default function App() {
           <FeaturedVideoSection />
           <PhilosophySection />
           <ShopScenesSection />
-          <ServicesSection />
-          <GallerySection />
           <VideoShowcase />
           <ExperienceSection />
-          <BarbersSection />
           <PricingSection />
           <TestimonialsSection />
           <FAQSection />
