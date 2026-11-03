@@ -10,14 +10,14 @@ export const locations: ShopLocation[] = [
   {
     id: "petaling-jaya",
     name: "Petaling Jaya · Seksyen 14",
-    label: "MAIN BRANCH / CAWANGAN UTAMA",
+    label: "MAIN BRANCH",
     address: "5B, Jalan 14/20, Seksyen 14, 46100 Petaling Jaya, Selangor",
     hours: "10:00–21:00",
   },
   {
     id: "bandar-saujana-putra",
     name: "Bandar Saujana Putra",
-    label: "BRANCH 02 / CAWANGAN 02",
+    label: "BRANCH 02",
     address: "36-1, Jalan SP 1/2, Bandar Saujana Putra, 42610 Jenjarom, Selangor",
     hours: null,
   },

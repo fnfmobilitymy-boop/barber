@@ -8,10 +8,10 @@ export function ShopScenesSection() {
     <section id="the-space" className="section shop-scenes">
       <div className="section-top">
         <div>
-          <Eyebrow><Camera size={14} aria-hidden="true" />OUR SPACE / RUANG KAMI</Eyebrow>
+          <Eyebrow><Camera size={14} aria-hidden="true" />OUR SPACE</Eyebrow>
           <AnimatedHeading>Inside <em>Spartans.</em></AnimatedHeading>
         </div>
-        <p>A look inside our spaces.<br />Kenali suasana Spartans.</p>
+        <p>Home of sharp cuts.</p>
       </div>
       <div className="shop-photo-grid">
         {shopPhotos.filter((photo) => photo.placement === "gallery").map((photo) => (
@@ -20,7 +20,6 @@ export function ShopScenesSection() {
               <ShopPhoto id={photo.id} />
               <div className="shop-photo-caption">
                 <h3>{photo.title}</h3>
-                <p lang="ms">{photo.titleMs}</p>
                 <ArrowUpRight size={19} aria-hidden="true" />
               </div>
             </a>

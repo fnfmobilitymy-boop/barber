@@ -22,23 +22,23 @@ import {
   MagneticButton,
 } from "./UI";
 const faqs = [
-  ["Do I need an appointment?", "Perlukah saya membuat tempahan?", "Book through Setmore or message us on WhatsApp. WhatsApp appointments are confirmed by our team.", "Tempah melalui Setmore atau WhatsApp. Tempahan WhatsApp akan disahkan oleh pasukan kami."],
-  ["How long does a haircut take?", "Berapa lama untuk potongan rambut?", "A standard haircut takes 30 minutes. Service and package durations are listed in the price menu.", "Potongan rambut biasa mengambil masa 30 minit. Tempoh setiap perkhidmatan dan pakej tertera dalam senarai harga."],
-  ["Can I choose my barber?", "Bolehkah saya memilih tukang gunting?", "Choose from the available team members on Setmore, or ask us on WhatsApp for your preferred barber.", "Pilih tukang gunting yang tersedia di Setmore, atau hubungi kami melalui WhatsApp untuk pilihan anda."],
-  ["Which branch should I visit?", "Cawangan mana yang perlu saya kunjungi?", "We have branches in Seksyen 14, Petaling Jaya and Bandar Saujana Putra. Confirm your preferred branch when booking; use the map links below for directions.", "Kami mempunyai cawangan di Seksyen 14, Petaling Jaya dan Bandar Saujana Putra. Sahkan cawangan pilihan semasa membuat tempahan; gunakan pautan peta di bawah untuk arah perjalanan."],
+  ["Do I need an appointment?", "Book through Setmore or message us on WhatsApp. WhatsApp appointments are confirmed by our team."],
+  ["How long does a haircut take?", "A standard haircut takes 30 minutes. Service and package durations are listed in the price menu."],
+  ["Can I choose my barber?", "Choose from the available team members on Setmore, or ask us on WhatsApp for your preferred barber."],
+  ["Which branch should I visit?", "We have branches in Seksyen 14, Petaling Jaya and Bandar Saujana Putra. Confirm your preferred branch when booking; use the map links below for directions."],
 ];
 export function FAQSection() {
   const [open, setOpen] = useState<number | null>(null);
   return (
     <section className="section faq" id="faq">
       <div>
-        <Eyebrow>FAQ / SOALAN LAZIM</Eyebrow>
+        <Eyebrow>FAQ</Eyebrow>
         <AnimatedHeading>
           Before your <em>visit.</em>
         </AnimatedHeading>
       </div>
       <div>
-        {faqs.map(([q, qMs, a, aMs], i) => (
+        {faqs.map(([q, a], i) => (
           <article className="faq-item" key={q}>
             <h3>
               <button
@@ -46,7 +46,7 @@ export function FAQSection() {
                 aria-controls={`answer-${i}`}
                 onClick={() => setOpen(open === i ? null : i)}
               >
-                <span>{q}<small lang="ms">{qMs}</small></span>
+                <span>{q}</span>
                 {open === i ? <Minus size={18} /> : <Plus size={18} />}
               </button>
             </h3>
@@ -59,7 +59,6 @@ export function FAQSection() {
                   exit={{ height: 0, opacity: 0 }}
                 >
                   <p>{a}</p>
-                  <p lang="ms" className="faq-translation">{aMs}</p>
                 </motion.div>
               )}
             </AnimatePresence>
@@ -74,11 +73,11 @@ function OpeningHours({ hours }: { hours: string | null }) {
     <div className="location-hours">
       <Clock3 size={19} aria-hidden="true" />
       <div>
-        <span className="micro">OPENING HOURS / WAKTU OPERASI</span>
+        <span className="micro">OPENING HOURS</span>
         {hours ? <>
-          <p>Daily / Setiap hari <strong>{hours}</strong></p>
-          <small>Public holiday hours may vary.<br />Waktu operasi pada cuti umum mungkin berbeza.</small>
-        </> : <p>Contact us for opening hours.<br />Hubungi kami untuk waktu operasi.</p>}
+          <p>Daily <strong>{hours}</strong></p>
+          <small>Public holiday hours may vary.</small>
+        </> : <p>Contact us for opening hours.</p>}
       </div>
     </div>
   );
@@ -87,19 +86,19 @@ function OpeningHours({ hours }: { hours: string | null }) {
 export function BookingSection() {
   return (
     <section id="booking" className="section booking">
-      <Eyebrow>BOOK & VISIT / TEMPAH & KUNJUNGI</Eyebrow>
+      <Eyebrow>BOOK & VISIT</Eyebrow>
       <AnimatedHeading>
-        Book your <em>visit.</em>
+        Claim your <em>seat.</em>
       </AnimatedHeading>
-      <p>Book with Spartans on Setmore, or contact our team on WhatsApp.<br />Tempah melalui Setmore atau hubungi kami melalui WhatsApp.</p>
+      <p>Book with Spartans on Setmore, or contact our team on WhatsApp.</p>
       <div className="booking-actions">
         <MagneticButton><CalendarDays size={18} aria-hidden="true" />BOOK ON SETMORE</MagneticButton>
         <LiquidGlassButton href={whatsappHref}>
           <MessageCircle size={18} aria-hidden="true" />
-          <span className="button-label">BOOK VIA WHATSAPP<small>Tempah melalui WhatsApp</small></span>
+          <span className="button-label">BOOK VIA WHATSAPP</span>
         </LiquidGlassButton>
       </div>
-      <p className="booking-confirmation-note">Please confirm your preferred branch when booking.<br />Sila sahkan cawangan pilihan semasa membuat tempahan.</p>
+      <p className="booking-confirmation-note">Please confirm your preferred branch when booking.</p>
       <div className="contact-grid">
         {locations.map((location) => (
           <a
@@ -115,16 +114,16 @@ export function BookingSection() {
             <h3>{location.name}</h3>
             <address>{location.address}</address>
             <OpeningHours hours={location.hours} />
-            <span className="contact-card-link">GOOGLE MAPS / PETA LOKASI <ArrowUpRight size={15} aria-hidden="true" /></span>
+            <span className="contact-card-link">GOOGLE MAPS <ArrowUpRight size={15} aria-hidden="true" /></span>
           </a>
         ))}
         <div className="contact-card">
           <MessageCircle size={22} aria-hidden="true" />
-          <span className="micro">CONTACT / HUBUNGI KAMI</span>
+          <span className="micro">CONTACT</span>
           <h3>Talk to Spartans.</h3>
           <a className="contact-detail" href={whatsappHref}><MessageCircle size={17} aria-hidden="true" />WhatsApp {business.whatsappNumber}</a>
           <a className="contact-detail" href={`mailto:${business.email}`}><Mail size={17} aria-hidden="true" />{business.email}</a>
-          <a className="contact-detail" href={`tel:${business.whatsappNumber}`}><Phone size={17} aria-hidden="true" />Call / Hubungi kedai</a>
+          <a className="contact-detail" href={`tel:${business.whatsappNumber}`}><Phone size={17} aria-hidden="true" />Call the shop</a>
         </div>
       </div>
     </section>
@@ -138,7 +137,7 @@ export function Footer() {
         <a className="logo" href="#home">
           <BrandLogo />
         </a>
-        <p>PRECISION. CULTURE. CONFIDENCE.</p>
+        <p>PRECISION. DISCIPLINE. CONFIDENCE.</p>
         <a href="#home" className="text-link">
           BACK TO TOP ↑
         </a>
@@ -155,12 +154,12 @@ export function Footer() {
         <div>
           <span className="micro">EXPLORE</span>
           <a href="#pricing">Services</a>
-          <a href="#films">Films / Galeri video</a>
-          <a href="#the-space">Our space / Ruang kami</a>
+          <a href="#films">Videos</a>
+          <a href="#the-space">Our space</a>
           <a href="#booking">Bookings & contact</a>
         </div>
         <div>
-          <span className="micro">FOLLOW US / IKUTI KAMI</span>
+          <span className="micro">FOLLOW US</span>
           {Object.entries(business.socials)
             .filter(([, url]) => url)
             .map(([name, url]) => (

@@ -77,10 +77,10 @@ export function HeroSection() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2, duration: 1 }}
         >
-          <span className="live-dot" /> SPARTANS BARBERSHOP · SELANGOR
+          <span className="live-dot" /> PRECISION. DISCIPLINE. CONFIDENCE.
         </motion.p>
         <h1>
-          {["NOT JUST", "A HAIRCUT.", "A LIFESTYLE."].map((line, i) => (
+          {["CUT SHARP.", "STAND TALL.", "SPARTANS."].map((line, i) => (
             <span className="title-line" key={line}>
               <motion.span
                 initial={reduced ? false : { y: "110%", opacity: 0 }}
@@ -103,7 +103,7 @@ export function HeroSection() {
           transition={{ delay: 1, duration: 0.8 }}
         >
           <p className="hero-description">
-            Haircuts, beard grooming, colour and treatments.
+            Precision cuts. Clean finishes.
             <br />
             Petaling Jaya · Bandar Saujana Putra.
           </p>
@@ -116,7 +116,7 @@ export function HeroSection() {
         </motion.div>
       </div>
       <div className="hero-bottom">
-        <span>HAIRCUT RM25 · POTONGAN RAMBUT RM25</span>
+        <span>HAIRCUT RM25</span>
         <a href="#pricing" aria-label="Scroll to services and prices">
           <ArrowDown size={16} /> SCROLL TO DISCOVER
         </a>

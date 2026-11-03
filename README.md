@@ -1,6 +1,6 @@
 # Spartans Barbershop
 
-A React + TypeScript landing page for Spartans Barbershop. The page contains the Hero, service prices, five-video showcase, real shop photos, FAQs, booking/contact details and two branch maps. Copy is in English and Malay. There is no local booking database.
+A React + TypeScript landing page for Spartans Barbershop. The page contains the Hero, service prices, five-video showcase, real shop photos, FAQs, booking/contact details and two branch maps. Copy is in English only. There is no local booking database.
 
 ## Development
 
@@ -18,6 +18,7 @@ With the dev server running, use `npm run test:e2e` for browser checks and `npm 
 
 - `src/data/business.ts`: contact details and the two confirmed locations, each with a Google Maps link. Branch 02 hours have not been supplied; customers are directed to contact the team. The proposed third branch is omitted at the user's request.
 - `src/data/serviceMenu.ts`: 18 services across four categories, with RM prices, durations and package inclusions supplied by the user.
+- `src/data/barbers.ts`: confirmed staff services. Ali Shah offers the 13 haircut/grooming, hair-colour and package services supplied by the owner. Zabih offers all 18 listed services, including treatments. No branch assignments were supplied. The menu filter changes the displayed services; customers must choose their barber on Setmore.
 - `src/data/videos.ts`: five independent showcase clips supplied as a–e. They never replace or enter the Hero player. Full framing, original colour and audio are retained, with muted playback by default.
 - `src/data/shopPhotos.ts`: eight original photos copied unchanged from `iloveimg-compressed.zip` to `public/images/shop/`. Each appears once. Photos are not assigned to specific branches because no branch mapping was supplied.
 - `src/components/BrandLogo.tsx`: the shared helmet logo used in the header and automatic intro and footer. The PNG was prepared with image generation from the user's circular logo reference; it is not an original uploaded source file.

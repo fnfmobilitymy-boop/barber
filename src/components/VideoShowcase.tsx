@@ -89,13 +89,13 @@ export function VideoShowcase() {
   }, [active, railVisible, stageVisible, autoAdvance, userPaused, reduced]);
 
   return (
-    <section id="films" className="section video-showcase" aria-label="Video showcase / Galeri video" aria-roledescription="carousel">
+    <section id="films" className="section video-showcase" aria-label="Video showcase" aria-roledescription="carousel">
       <div className="section-top">
         <div>
-          <Eyebrow><Film size={14} aria-hidden="true" />OUR WORK / HASIL KERJA KAMI</Eyebrow>
-          <AnimatedHeading>Fresh cuts.<br /><em>Real style.</em></AnimatedHeading>
+          <Eyebrow><Film size={14} aria-hidden="true" />OUR WORK</Eyebrow>
+          <AnimatedHeading>Precision <em>in motion.</em></AnimatedHeading>
         </div>
-        <p>Watch our latest looks.<br />Lihat gaya terkini kami.</p>
+        <p>See the detail. Own the look.</p>
       </div>
       <div
         className="showcase-stage"
@@ -142,7 +142,6 @@ export function VideoShowcase() {
         <div className="showcase-caption">
           <span className="micro">SPARTANS / THE LOOKS</span>
           <h3>{current.title}</h3>
-          <p>{current.subtitle}</p>
         </div>
         <div className="showcase-playback">
           <button className="showcase-icon-button liquid-glass" aria-label={playing ? "Pause showcase video" : "Play showcase video"} onClick={() => {
@@ -154,7 +153,7 @@ export function VideoShowcase() {
           <button className="showcase-icon-button liquid-glass" aria-label={muted ? "Unmute showcase video" : "Mute showcase video"} aria-pressed={!muted} onClick={() => setMuted(!muted)}>
             {muted ? <VolumeX size={20} /> : <Volume2 size={20} />}
           </button>
-          {failed && <p role="status">Video unavailable. Try another video.<br />Video tidak tersedia. Cuba video lain.</p>}
+          {failed && <p role="status">Video unavailable. Try another video.</p>}
         </div>
       </div>
       <div className="showcase-toolbar">
@@ -165,14 +164,14 @@ export function VideoShowcase() {
         </div>
         <button className="showcase-auto" aria-pressed={autoAdvance && !reduced} disabled={!!reduced} onClick={() => setAutoAdvance(!autoAdvance)}>
           {autoAdvance && !reduced ? <Pause size={14} /> : <Play size={14} />}
-          AUTO / AUTOMATIK {autoAdvance && !reduced ? "ON" : "OFF"}
+          AUTO {autoAdvance && !reduced ? "ON" : "OFF"}
         </button>
       </div>
       <div className="showcase-thumbnails" ref={rail} aria-label="Choose a showcase video">
         {showcaseVideos.map((item, index) => (
           <button key={item.id} className={`showcase-thumbnail ${index === active ? "is-active" : ""}`} aria-label={`Show video ${index + 1}: ${item.title}`} aria-current={index === active ? "true" : undefined} onClick={() => goTo(index)}>
             {index === active ? <ShowcasePreview key={item.id} src={`${import.meta.env.BASE_URL}${item.src}`} poster={`${import.meta.env.BASE_URL}${item.poster}`} enabled={autoAdvance && !userPaused && (!reduced || userStarted)} /> : <img src={`${import.meta.env.BASE_URL}${item.poster}`} alt="" />}
-            <span><span className="micro">0{index + 1}</span>{item.title}<small>{item.subtitle}</small></span>
+            <span><span className="micro">0{index + 1}</span>{item.title}</span>
             <Play size={16} aria-hidden="true" />
           </button>
         ))}

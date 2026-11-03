@@ -2521,3 +2521,14 @@ a.contact-card:hover { border-color: #ffffff60; background: var(--surface-elevat
  .showcase-thumbnail > .showcase-card-preview { aspect-ratio: 4 / 3; }
 }
 @media(prefers-reduced-motion:reduce) { .showcase-stage > video { animation: none; } }
+
+@media(max-width:550px) {
+ .hero h1 { font-size: clamp(48px,13.6vw,75px); }
+}
+
+.barber-filter { display: flex; align-items: center; flex-wrap: wrap; gap: 12px 18px; margin-bottom: 24px; }
+.barber-filter label { font-size: 14px; font-weight: 500; }
+.barber-filter select { font: inherit; font-size: 14px; color: var(--foreground); background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 12px 36px 12px 14px; min-height: 46px; max-width: 100%; }
+.barber-filter select:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.barber-filter p { font-size: 13px; color: var(--accent); }
+@media(max-width:550px) { .barber-filter label { width: 100%; } .barber-filter select { flex: 1; } }

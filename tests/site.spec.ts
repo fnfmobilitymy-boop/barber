@@ -8,7 +8,7 @@ for (const width of [375, 390, 430, 768, 1024, 1440, 1920]) {
     await page.setViewportSize({ width, height: 900 });
     await page.goto("/");
     await page.evaluate(() => document.fonts.ready);
-    await expect(page.locator("h1")).toContainText("A LIFESTYLE.");
+    await expect(page.locator("h1")).toContainText("CUT SHARP.");
     await expect
       .poll(() =>
         page.evaluate(() => document.documentElement.scrollWidth <= innerWidth),
