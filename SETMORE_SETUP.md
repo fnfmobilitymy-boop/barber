@@ -2,7 +2,7 @@
 
 Booking page: https://spartansbarbershopsb02.setmore.com/
 
-The website header, hero, service cards, pricing, booking section and floating booking link use the configured Setmore URL. Customers complete their booking on Setmore. No API key or customer database is needed in this website.
+The website header, hero, service price menu, booking section and floating booking link use the configured Setmore URL. Customers complete their booking on Setmore. No API key or customer database is needed in this website.
 
 ## 店主需要在 Setmore 内完成的设置
 

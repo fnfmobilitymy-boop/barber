@@ -32,17 +32,6 @@ export function HeroSection() {
           scrub: 1,
         },
       });
-      gsap.to(".hero-display-word", {
-        xPercent: -8,
-        yPercent: 25,
-        opacity: 0,
-        scrollTrigger: {
-          trigger: ref.current,
-          start: "top top",
-          end: "bottom 30%",
-          scrub: 1,
-        },
-      });
       gsap.to(".hero-shade", {
         opacity: 0.9,
         scrollTrigger: {
@@ -81,15 +70,6 @@ export function HeroSection() {
         <CinematicVideo />
         <div className="hero-shade" />
       </div>
-      <motion.div
-        className="hero-display-word"
-        aria-hidden="true"
-        initial={reduced ? false : { y: 60, opacity: 0 }}
-        animate={{ y: 0, opacity: 0.12 }}
-        transition={{ duration: 1.3, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
-      >
-        SPARTANS
-      </motion.div>
       <div className="hero-content">
         <motion.p
           className="hero-kicker"
@@ -97,7 +77,7 @@ export function HeroSection() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2, duration: 1 }}
         >
-          <span className="live-dot" /> PRECISION. CULTURE. CONFIDENCE.
+          <span className="live-dot" /> SPARTANS BARBERSHOP · SELANGOR
         </motion.p>
         <h1>
           {["NOT JUST", "A HAIRCUT.", "A LIFESTYLE."].map((line, i) => (
@@ -123,26 +103,24 @@ export function HeroSection() {
           transition={{ delay: 1, duration: 0.8 }}
         >
           <p className="hero-description">
-            Precision cuts. Sharp fades. Timeless confidence.
+            Haircuts, beard grooming, colour and treatments.
             <br />
-            Experience grooming beyond the ordinary.
+            Petaling Jaya · Bandar Saujana Putra.
           </p>
           <div className="hero-ctas">
             <MagneticButton>BOOK YOUR CUT</MagneticButton>
-            <a className="text-link" href="#experience">
-              EXPLORE THE EXPERIENCE <ArrowUpRight size={16} />
+            <a className="text-link" href="#pricing">
+              SERVICES & PRICES <ArrowUpRight size={16} />
             </a>
           </div>
         </motion.div>
       </div>
       <div className="hero-bottom">
-        <span>INDIVIDUAL STYLE. UNCOMPROMISING CRAFT.</span>
-        <a href="#about" aria-label="Scroll to the culture section">
+        <span>HAIRCUT RM25 · POTONGAN RAMBUT RM25</span>
+        <a href="#pricing" aria-label="Scroll to services and prices">
           <ArrowDown size={16} /> SCROLL TO DISCOVER
         </a>
-        <span>SPARTANS / VOL. 01</span>
       </div>
-      <span className="hero-side">GOOD HAIR. GREAT ENERGY.</span>
     </section>
   );
 }

@@ -2432,3 +2432,69 @@ a.contact-card:hover { border-color: #ffffff60; background: var(--surface-elevat
  .header, .header.header-scrolled { background-color: #121a16eb; }
  .desktop-nav, .header .button { background-color: #28332ef5; }
 }
+
+.footer-location + .footer-location { margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--border); }
+.footer-location-label { display: block; color: var(--accent); font-size: 9px; letter-spacing: .08em; margin-bottom: 8px; }
+
+/* Original supplied shop photography; colours and source files are retained. */
+.shop-photo-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 22px; }
+.shop-photo-reveal { min-width: 0; }
+.shop-photo-card { display: block; border-radius: 18px; overflow: hidden; border: 1px solid var(--border); background: var(--surface); height: 100%; }
+.shop-photo-card > img { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; filter: none; }
+.shop-photo-caption { position: relative; padding: 22px 44px 22px 20px; }
+.shop-photo-caption h3 { font-family: "Instrument Serif",serif; font-size: 28px; }
+.shop-photo-caption p { color: var(--muted); font-size: 11px; margin-top: 4px; }
+.shop-photo-caption > svg { position: absolute; top: 26px; right: 18px; color: var(--accent); }
+.shop-photo-card:hover { border-color: var(--accent); }
+.craft-frame > .shop-craft-photo { filter: brightness(.75); object-position: center 45%; }
+.philosophy-image > [data-shop-photo] { filter: none; object-fit: cover; }
+@media (max-width: 1000px) { .shop-photo-grid { grid-template-columns: repeat(2,minmax(0,1fr)); } }
+@media (max-width: 550px) {
+ .shop-photo-grid { gap: 12px; }
+ .shop-photo-card { border-radius: 12px; }
+ .shop-photo-card > img { aspect-ratio: 3 / 4; }
+ .shop-photo-caption { padding: 15px 27px 15px 12px; }
+ .shop-photo-caption h3 { font-size: 21px; }
+ .shop-photo-caption p { font-size: 10px; }
+ .shop-photo-caption > svg { width: 14px; right: 10px; top: 20px; }
+}
+
+.contact-grid > .contact-card:last-child:nth-child(odd) { grid-column: 1 / -1; }
+
+/* Final landing-page rhythm and readable bilingual copy. */
+.section { padding-top: 80px; padding-bottom: 80px; }
+.booking { padding-bottom: 80px; }
+.booking h2 { font-size: clamp(48px, 7vw, 96px); }
+.booking > p { max-width: 680px; margin-left: auto; margin-right: auto; font-size: 14px; }
+.contact-dock[hidden] { display: none; }
+.shop-photo-grid { grid-template-columns: repeat(4,minmax(0,1fr)); gap: 20px; }
+.shop-photo-caption h3 { font-size: 25px; }
+.faq-item h3 button { gap: 18px; font-size: 17px; line-height: 1.5; }
+.faq-item h3 button > span { text-align: left; }
+.faq-item h3 button small { display: block; font-size: 12px; font-weight: 400; color: var(--muted); margin-top: 5px; }
+.faq-item h3 button > svg { flex-shrink: 0; }
+.faq-item p { font-size: 14px; }
+.faq-item .faq-translation { margin-top: 12px; color: var(--muted); font-size: 12px; }
+.menu-translation { font-size: 13px; }
+.menu-details { font-size: 14px; }
+.menu-duration, .menu-inclusions li { font-size: 13px; }
+.menu-inclusions small { font-size: 12px; }
+.contact-detail { font-size: 14px; }
+.footer-columns p, .footer-columns a { font-size: 13px; }
+.footer-columns > div:first-child > a { padding: 8px 0; }
+.footer-columns > div:first-child > a svg { display: inline-block; vertical-align: middle; color: var(--accent); }
+.footer-top .brand-logo-image { width: 88px; height: 88px; }
+.footer { padding-bottom: 28px; }
+.privacy a { text-decoration: underline; overflow-wrap: anywhere; }
+@media(max-width:1000px) { .shop-photo-grid { grid-template-columns: repeat(2,minmax(0,1fr)); } }
+@media(max-width:600px) {
+ .section { padding-top: 60px; padding-bottom: 60px; }
+ .shop-photo-grid { gap: 12px; }
+ .shop-photo-caption h3 { font-size: 21px; }
+ .booking .contact-card { padding: 24px; }
+ .hero-description { font-size: 14px; }
+ .hero-bottom { justify-content: space-between; }
+}
+
+.contact-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+@media(max-width:650px) { .contact-grid { grid-template-columns: minmax(0,1fr); } }

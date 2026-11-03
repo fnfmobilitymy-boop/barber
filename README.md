@@ -1,67 +1,44 @@
-# The Hustle Barber Club
+# Spartans Barbershop
 
-A cinematic React + TypeScript landing page. The brand is an editable concept name, not a claim of ownership.
+A React + TypeScript landing page for Spartans Barbershop. The page contains the Hero, service prices, five-video showcase, real shop photos, FAQs, booking/contact details and two branch maps. Copy is in English and Malay. There is no local booking database.
 
 ## Development
 
-Node 24 was used to validate this project.
+Use the existing isolated checkout; do not create a Git worktree unless explicitly requested. Node 24 and `/usr/bin/chromium` are available in the managed environment.
 
 ```sh
 cd /workspace/barber
 npm ci --no-audit --no-fund
-npm run dev -- --port 5173
-npm run build
-npm run test:e2e
+npm run dev -- --port 5173 --strictPort
 ```
 
-Browser tests use the system Chromium at `/usr/bin/chromium`, with the development server already running. The cloud environment is isolated: use this checkout; do not create worktrees unless explicitly requested. Processes must be restarted after restoring a snapshot.
+With the dev server running, use `npm run test:e2e` for browser checks and `npm run build` for TypeScript and production validation. Processes must restart after restoring a cloud snapshot.
 
-## Before launch
+## Content
 
-The website booking buttons link to https://spartansbarbershopsb02.setmore.com/ via `bookingUrl` in `src/data/business.ts`. Customers complete appointments on Setmore; the website does not store appointment data. See `SETMORE_SETUP.md` for the remaining owner-side staff/calendar configuration and live acceptance checks. Edit the remaining business details with verified information. No local reservation backend, customer form, analytics or fabricated review data is included. Confirm pricing, staff, address, opening hours, social accounts, brand ownership and a business-specific privacy policy. Edit title, description and Open Graph metadata in `index.html`; add canonical URL and business schema only after the domain and business details are confirmed.
+- `src/data/business.ts`: contact details and the two confirmed locations, each with a Google Maps link. Branch 02 hours have not been supplied; customers are directed to contact the team. The proposed third branch is omitted at the user's request.
+- `src/data/serviceMenu.ts`: 18 services across four categories, with RM prices, durations and package inclusions supplied by the user.
+- `src/data/videos.ts`: five independent showcase clips supplied as a–e. They never replace or enter the Hero player. Full framing, original colour and audio are retained, with muted playback by default.
+- `src/data/shopPhotos.ts`: eight original photos copied unchanged from `iloveimg-compressed.zip` to `public/images/shop/`. Each appears once. Photos are not assigned to specific branches because no branch mapping was supplied.
+- `src/components/BrandLogo.tsx`: the shared helmet logo used in the header and automatic intro and footer. The PNG was prepared with image generation from the user's circular logo reference; it is not an original uploaded source file.
+- `src/components/ContactDock.tsx`: booking shortcuts on the Hero, hidden over the remaining content to avoid covering prices, photos or contact details.
 
-The remaining editorial sections use **four distinct AI-generated photographs** across shop scenes and craft. The earlier hairstyle gallery and service image cards have been removed. They are disclosed as generated inspiration, not genuine shop/customer results. Each photo appears in only one content location (the lightbox enlarges its selected thumbnail). Replace them with business-provided photography when available; staff portraits still await real images. The craft section is a still, clearly labeled as awaiting a film. The separate video carousel below the shop-scenes section uses the five customer-supplied a–e clips. These clips never replace or enter the Hero player.
+Fonts are self-hosted; OFL licences are in `public/fonts`. The previous AI hairstyle gallery, service image cards, placeholder staff profiles, generic editorial sections and booking welcome popup have been removed.
 
-## Media
+## Booking
 
-`public/videos/barbershop-hero.mp4` is the exact 10.04-second, 1280×720 user-uploaded Kling file (8.93 MB), copied without recompression. SHA-256: `736a16a00ad26d1fdf80bb9057d9a8f33e9130beb823ea9923934f38e6cc7746`.
+Website booking buttons open https://spartansbarbershopsb02.setmore.com/ or the supplied WhatsApp number. Customers confirm their intended branch when booking. No per-branch booking URLs were supplied. Setmore staff accounts, calendar permissions, service availability and notifications must be configured by the owner; see `SETMORE_SETUP.md`. A website link does not configure those permissions.
 
-`public/videos/barbershop-hero-web.mp4` is the playback-optimized derivative of that same exact footage: 1,899,583 bytes (about 79% smaller), 1280×720, 24 fps, 241 frames, 10.04 seconds. It uses H.264 Main/yuv420p, CRF 23, capped 2.2 Mbps video, two-second keyframe intervals, fast-start metadata, and no unnecessary audio track. The untouched original remains available as the source asset.
+## Media behaviour
 
-`public/images/hero-poster.jpg` is a frame extracted at 2 seconds. `lookbook-editorial.png` and `services-editorial.png` are original AI-generated contact sheets, each containing six distinct photographs. `EditorialPhoto.tsx` displays selected cells from the sheets using CSS; the remaining photographs are not duplicated between sections. `src/data/videos.ts` configures the independent five-video showcase; `public/videos/showcase/` contains the supplied a–e clips remuxed losslessly with fast-start metadata and `public/images/showcase/` their poster frames. Original picture framing, colour and audio are retained; playback starts muted with a sound toggle. Only the selected video plays; it pauses offscreen and when the tab is hidden. Videos advance on completion, with an automatic-switching toggle, manual play/pause, previous/next, thumbnail, keyboard and touch controls. Reduced motion disables automatic playback and switching.
+The Hero uses `public/videos/barbershop-hero-web.mp4`, separately from the five showcase videos. The original source file `barbershop-hero.mp4` is retained; SHA-256: `736a16a00ad26d1fdf80bb9057d9a8f33e9130beb823ea9923934f38e6cc7746`.
 
-Instrument Serif and Manrope are self-hosted from the official Google Fonts repository; corresponding OFL licenses are included in `public/fonts`. No external font request is required at runtime. Automatic playback is muted, inline and optional: the poster remains when playback fails or reduced motion is enabled. A video control supports pause/resume; playback pauses when offscreen or when the tab is hidden. The browser owns native looping; there are no playback-time writes or per-frame JavaScript opacity changes. The initial reveal uses a CSS opacity transition once, then stays visible across loops. A stable container with an offscreen margin avoids pause/resume chatter near the viewport edge. Play requests are coalesced and late results respect manual pause/tab visibility.
+Videos pause offscreen and when the tab is hidden. The showcase supports play/pause, sound, automatic switching, thumbnails, previous/next, keyboard and touch input. Reduced motion disables automatic showcase playback and switching. The logo intro exits automatically without controls.
 
-## Architecture
+## Deployment
 
-- `src/components/HeroSection.tsx`: Hero entrance, mouse parallax and GSAP scroll transition.
-- `src/components/CinematicVideo.tsx`: video lifecycle, poster and media primitives.
-- `src/components/Navbar.tsx`: desktop and animated keyboard-accessible mobile navigation.
-- `src/components/Sections.tsx`: editable editorial, service, pricing, team, FAQ, booking and footer sections. Testimonials are deliberately omitted until verified reviews are supplied.
-- `src/components/BookingWelcome.tsx`: accessible entry booking invitation, shown after 1.2 seconds and remembered once dismissed for the tab session. Escape, backdrop, close, explore and booking CTA dismiss it. The CTA uses configured booking details or clearly labeled booking information.
-- `src/components/ShopScenesSection.tsx`: two unique atmosphere/tool compositions, disclosed as generated inspiration.
-- `src/components/EditorialPhoto.tsx`: unique contact-sheet cell mapping for all twelve photographs.
-- `src/components/VideoShowcase.tsx`: the separate five-video showcase with playback, audio, touch and keyboard controls.
-- `src/components/ServiceMenu.tsx`: the bilingual 18-service price menu.
-- The AI hairstyle gallery, service image cards and placeholder barber profiles have been removed; navigation now points to the real video showcase and service price menu.
-- `src/components/UI.tsx`: reusable reveals, headings, magnetic and liquid-glass buttons.
-- `src/index.css`: responsive art direction and the supplied foundational liquid-glass effect.
-- `tests/site.spec.ts`: seven responsive widths, video playback, navigation, FAQ and reduced-motion checks.
+Push to `main` to run `.github/workflows/deploy.yml`. The workflow builds with `GITHUB_PAGES=true`, using `/barber/` as the base path, and deploys to GitHub Pages:
 
-The development runtime is tested in Chromium. Safari/iOS and Firefox require separate device/browser verification before launch. Deployment and live Setmore account configuration are separate from the local production build.
+https://fnfmobilitymy-boop.github.io/barber/
 
-## GitHub Actions deployment
-
-Push to `main` to run `.github/workflows/deploy.yml`. The workflow installs from the lockfile, builds with `GITHUB_PAGES=true` (base `/barber/`), uploads the Pages artifact and deploys using GitHub's official Pages actions. No third-party hosting service or deployment secret is required.
-
-Expected project URL after a successful deployment: https://fnfmobilitymy-boop.github.io/barber/
-
-If initial Pages auto-enablement is denied by GitHub, a repository administrator must select **Settings → Pages → Build and deployment → Source → GitHub Actions**, then rerun the workflow. Availability depends on repository visibility and the account's GitHub Pages plan. The expected URL is not evidence of successful deployment.
-
-## Reference-inspired motion
-
-The supplied short reference montage informs masked word entrances, oversized Hero typography, scroll-linked media expansion, a sculpted/notched craft frame, layered scene parallax, compact sticky navigation and footer typography reveals. `src/hooks/useEditorialMotion.ts` owns the scrub timelines and cleans them up when responsive/reduced-motion settings change. `UI.tsx` provides accessible masked headings and restrained staggered reveals. Animation wrappers keep Motion entrances separate from GSAP transforms, and scroll motion uses transforms rather than changing document layout. Mobile uses shorter travel distances and no scroll pinning; reduced motion leaves all content static and visible. The original Hero video and four remaining unique photograph placements are retained.
-
-## Brand asset
-
-`public/images/spartans-logo.png` is a web asset prepared with image generation from the user-supplied circular helmet-logo reference. It is not an original uploaded source file. The same asset is shared by navigation, automatic intro, footer, the about seal and browser icons. The interface uses warm gold and forest green accents while photos and video retain their colours.
+For a matching local production preview, run `GITHUB_PAGES=true npm run build`, then `GITHUB_PAGES=true npm run preview -- --port 5175 --strictPort`. Verify the workflow result after a push; a local build alone does not establish publication. Safari/iOS and Firefox require separate browser/device verification.

@@ -17,7 +17,7 @@ export function ServiceMenu() {
       <div className="section-top">
         <div>
           <Eyebrow>THE MENU / SENARAI HARGA</Eyebrow>
-          <div id="service-menu-heading"><AnimatedHeading>Your style.<br /><em>Your ritual.</em></AnimatedHeading></div>
+          <div id="service-menu-heading"><AnimatedHeading>Services <em>& prices.</em></AnimatedHeading></div>
         </div>
         <p>Services, timing and prices in RM.<br />Perkhidmatan, tempoh dan harga dalam RM.</p>
       </div>

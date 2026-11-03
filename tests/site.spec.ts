@@ -1,10 +1,4 @@
 import { test, expect } from "@playwright/test";
-test.beforeEach(async ({ page }) => {
-  await page.addInitScript(() => {
-    if (!location.search.includes("welcome-test"))
-      sessionStorage.setItem("hustle-booking-welcome-dismissed", "true");
-  });
-});
 for (const width of [375, 390, 430, 768, 1024, 1440, 1920]) {
   test(`responsive ${width}px: media, navigation and no overflow`, async ({
     page,
@@ -37,12 +31,8 @@ for (const width of [375, 390, 430, 768, 1024, 1440, 1920]) {
       await expect(page.locator("#mobile-nav")).toHaveCount(0);
     }
     for (const id of [
-      "about",
-      "craft",
-      "philosophy",
       "the-space",
       "films",
-      "experience",
       "pricing",
       "faq",
       "booking",
@@ -82,7 +72,7 @@ test("retained FAQ, booking and navigation work without removed sections", async
   await expect(page.locator("#answer-0")).toBeVisible();
   await page.getByRole("button", { name: "Do I need an appointment?" }).click();
   await expect(page.locator("#answer-0")).toHaveCount(0);
-  await expect(page.locator("#booking")).toContainText("Book with Spartans on Setmore.");
+  await expect(page.locator("#booking")).toContainText("Book with Spartans on Setmore,");
   await expect(page.locator("#booking .booking-notice")).toHaveCount(0);
   const broken = await page
     .locator('a[href^="#"]')
@@ -159,22 +149,22 @@ test("reduced motion bypasses the animated entrance promptly", async ({ page }) 
   await expect(page.locator(".brand-intro")).toHaveCount(0, { timeout: 1500 });
   await expect(page.locator("#site-content")).toHaveJSProperty("inert", false);
 });
-test("every editorial photograph is unique across sections", async ({
+test("real shop photographs are unique across sections", async ({
   page,
 }) => {
   await page.goto("/");
   const photos = await page
-    .locator("[data-photo-id]")
-    .evaluateAll((nodes) => nodes.map((n) => n.getAttribute("data-photo-id")));
-  expect(photos).toHaveLength(4);
-  expect(new Set(photos).size).toBe(4);
+    .locator("[data-shop-photo]")
+    .evaluateAll((nodes) => nodes.map((n) => n.getAttribute("data-shop-photo")));
+  expect(photos).toHaveLength(8);
+  expect(new Set(photos).size).toBe(8);
   await page.locator("#the-space").scrollIntoViewIfNeeded();
-  await expect(page.locator(".scene-card")).toHaveCount(2);
+  await expect(page.locator(".shop-photo-card")).toHaveCount(8);
   await page.locator("#pricing").scrollIntoViewIfNeeded();
   await expect
     .poll(() =>
       page
-        .locator(".editorial-photo img")
+        .locator("img[data-shop-photo]")
         .evaluateAll((imgs) =>
           imgs.every(
             (i) =>
@@ -184,60 +174,6 @@ test("every editorial photograph is unique across sections", async ({
         ),
     )
     .toBe(true);
-});
-
-test("editorial scroll motion follows scrolling and respects reduced motion", async ({
-  page,
-}) => {
-  await page.setViewportSize({ width: 1440, height: 1000 });
-  await page.goto("/");
-  await page.evaluate(() => document.fonts.ready);
-  const frame = page.locator(".craft-frame");
-  await page.evaluate(() =>
-    scrollTo({
-      top:
-        document.querySelector("#craft")!.getBoundingClientRect().top +
-        scrollY -
-        850,
-      behavior: "instant",
-    }),
-  );
-  await page.waitForTimeout(1100);
-  const startScale = await frame.evaluate(
-    (el) => new DOMMatrix(getComputedStyle(el).transform).a,
-  );
-  await page.evaluate(() => scrollBy({ top: 550, behavior: "instant" }));
-  await page.waitForTimeout(1300);
-  const endScale = await frame.evaluate(
-    (el) => new DOMMatrix(getComputedStyle(el).transform).a,
-  );
-  expect(endScale).toBeGreaterThan(startScale + 0.025);
-  expect(await frame.evaluate((el) => getComputedStyle(el).clipPath)).toContain(
-    "polygon",
-  );
-  await expect(page.locator(".header")).toHaveClass(/header-scrolled/);
-  await page.locator("#about").scrollIntoViewIfNeeded();
-  await expect
-    .poll(() =>
-      page
-        .locator("#about .heading-word")
-        .evaluateAll((words) =>
-          words.every((w) => Number(getComputedStyle(w).opacity) > 0.95),
-        ),
-    )
-    .toBe(true);
-  await page.emulateMedia({ reducedMotion: "reduce" });
-  await page.reload();
-  await page.locator("#about").scrollIntoViewIfNeeded();
-  expect(await frame.evaluate((el) => getComputedStyle(el).clipPath)).toBe(
-    "none",
-  );
-  expect(
-    await page
-      .locator("#about .heading-word")
-      .first()
-      .evaluate((el) => getComputedStyle(el).transform),
-  ).toBe("none");
 });
 
 test("mobile video plays two native loops without script seeks or stop/start chatter", async ({

@@ -60,10 +60,10 @@ export function VideoShowcase() {
     <section id="films" className="section video-showcase" aria-label="Video showcase / Galeri video" aria-roledescription="carousel">
       <div className="section-top">
         <div>
-          <Eyebrow><Film size={14} aria-hidden="true" />FILMS / GALERI VIDEO</Eyebrow>
-          <AnimatedHeading>Style in <em>motion.</em></AnimatedHeading>
+          <Eyebrow><Film size={14} aria-hidden="true" />OUR WORK / HASIL KERJA KAMI</Eyebrow>
+          <AnimatedHeading>Fresh cuts.<br /><em>Real style.</em></AnimatedHeading>
         </div>
-        <p>Five looks. One Spartans.<br />Lima gaya. Satu Spartans.</p>
+        <p>Watch our latest looks.<br />Lihat gaya terkini kami.</p>
       </div>
       <div
         className="showcase-stage"
@@ -145,7 +145,6 @@ export function VideoShowcase() {
           </button>
         ))}
       </div>
-      <p className="media-disclosure">Explore the looks. Book your next cut. / Terokai gaya. Tempah potongan anda.</p>
     </section>
   );
 }

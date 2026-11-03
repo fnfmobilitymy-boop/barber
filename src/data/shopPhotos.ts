@@ -1,0 +1,10 @@
+export const shopPhotos = [
+  { id: "styling-stations", title: "The barber stations", titleMs: "Ruang gunting rambut", alt: "Spartans barbershop chairs and illuminated wall mirrors", src: "images/shop/styling-stations.jpg", placement: "gallery" },
+  { id: "reception", title: "A warm welcome", titleMs: "Sambutan mesra", alt: "Spartans reception counter and grooming product shelves", src: "images/shop/reception.jpg", placement: "gallery" },
+  { id: "lounge", title: "Take a moment", titleMs: "Ruang menunggu", alt: "Spartans waiting lounge with sofas beside the windows", src: "images/shop/lounge.jpg", placement: "gallery" },
+  { id: "spartans-mural", title: "The Spartans spirit", titleMs: "Semangat Spartans", alt: "Colourful Spartan helmet mural inside the barbershop", src: "images/shop/spartans-mural.jpg", placement: "gallery" },
+  { id: "barber-chair", title: "Your next seat", titleMs: "Tempat untuk gaya anda", alt: "Barber chair and mirror inside Spartans", src: "images/shop/barber-chair.jpg", placement: "gallery" },
+  { id: "shop-front", title: "Find Spartans", titleMs: "Temui Spartans", alt: "Spartans Barbershop sign on the shop exterior", src: "images/shop/shop-front.jpg", placement: "gallery" },
+  { id: "grooming-space", title: "Inside the shop", titleMs: "Di dalam kedai", alt: "Spartans barber chairs with the waiting area in the background", src: "images/shop/grooming-space.jpg", placement: "gallery" },
+  { id: "bright-interior", title: "Space for your style", titleMs: "Ruang untuk gaya anda", alt: "Bright barbershop interior with chairs and circular mirrors", src: "images/shop/bright-interior.jpg", placement: "gallery" },
+];

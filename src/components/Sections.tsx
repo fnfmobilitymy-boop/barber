@@ -15,188 +15,30 @@ import {
 } from "lucide-react";
 import { business, locations, googleMapsHref, whatsappHref } from "../data/business";
 import { BrandLogo } from "./BrandLogo";
-import { EditorialPhoto } from "./EditorialPhoto";
 import {
   AnimatedHeading,
   Eyebrow,
   LiquidGlassButton,
   MagneticButton,
-  SectionReveal,
 } from "./UI";
-export function AboutSection() {
-  return (
-    <section id="about" className="section about">
-      <SectionReveal>
-        <Eyebrow>01 / THE CULTURE</Eyebrow>
-      </SectionReveal>
-      <div>
-        <AnimatedHeading>
-          More than a cut.
-          <br />
-          It's who you <em>become.</em>
-        </AnimatedHeading>
-        <SectionReveal>
-          <p className="body-copy">
-            We believe a great haircut is more than appearance. It's confidence,
-            identity, and the feeling you carry into the world.
-          </p>
-          <a className="text-link" href="#craft">
-            WELCOME TO THE CLUB <ArrowUpRight size={16} />
-          </a>
-        </SectionReveal>
-      </div>
-      <div className="about-brand-seal"><BrandLogo /></div>
-    </section>
-  );
-}
-export function FeaturedVideoSection() {
-  return (
-    <section id="craft" className="section craft">
-      <div className="section-top">
-        <Eyebrow>02 / THE ART OF THE CRAFT</Eyebrow>
-        <span className="micro">PRECISION IN EVERY FRAME</span>
-      </div>
-      <div className="craft-frame">
-        <EditorialPhoto
-          image="craft-scene"
-          alt="AI-generated cinematic inspiration of a barber working in a warm, dark shop"
-        />
-        <span className="media-caption">
-          AI EDITORIAL STILL / CRAFT FILM COMING SOON
-        </span>
-        <div className="craft-card liquid-glass">
-          <Eyebrow>OUR APPROACH</Eyebrow>
-          <h3>
-            Nothing ordinary.
-            <br />
-            <em>Every detail intentional.</em>
-          </h3>
-          <p>
-            Every fade is intentional. Every detail matters. Our craft combines
-            precision, creativity, and a relentless commitment to personal
-            style.
-          </p>
-          <LiquidGlassButton href="#philosophy">
-            DISCOVER OUR CRAFT
-          </LiquidGlassButton>
-        </div>
-      </div>
-    </section>
-  );
-}
-export function PhilosophySection() {
-  return (
-    <section id="philosophy" className="section philosophy">
-      <AnimatedHeading>
-        Precision <em>× personality.</em>
-      </AnimatedHeading>
-      <div className="split">
-        <SectionReveal className="philosophy-image">
-          <EditorialPhoto
-            image="scissor-detail"
-            alt="AI-generated editorial close-up of scissors and comb shaping a haircut"
-          />
-          <span className="media-caption">
-            AI EDITORIAL / THE DETAILS MAKE THE DIFFERENCE
-          </span>
-        </SectionReveal>
-        <SectionReveal className="philosophy-copy">
-          <article>
-            <span className="micro">01 — THE ART OF PRECISION</span>
-            <h3>
-              A considered cut.
-              <br />
-              <em>A signature finish.</em>
-            </h3>
-            <p>
-              Great grooming is built on patience, skill, and an eye for detail.
-              From sharp fades to classic cuts, every movement has a purpose.
-            </p>
-          </article>
-          <article>
-            <span className="micro">02 — THE POWER OF CONFIDENCE</span>
-            <h3>
-              Made to feel <em>like you.</em>
-            </h3>
-            <p>
-              Style is personal. We create looks that complement your
-              individuality and give you the confidence to own every moment.
-            </p>
-          </article>
-        </SectionReveal>
-      </div>
-    </section>
-  );
-}
-export function ExperienceSection() {
-  return (
-    <section id="experience" className="experience">
-      <div className="experience-lines" />
-      <SectionReveal>
-        <Eyebrow>MORE THAN THE MIRROR</Eyebrow>
-        <h2>
-          THE CHAIR.
-          <br />
-          <em>THE CULTURE.</em>
-          <br />
-          THE CONFIDENCE.
-        </h2>
-        <p>
-          A moment for yourself.
-          <br />A feeling you take with you.
-        </p>
-        <a className="text-link" href="#pricing">
-          FIND YOUR EXPERIENCE <ArrowUpRight size={16} />
-        </a>
-      </SectionReveal>
-      <span className="experience-number">S / 01</span>
-    </section>
-  );
-}
-export { ServiceMenu as PricingSection } from "./ServiceMenu";
-export function TestimonialsSection() {
-  return null; /* Only verified business testimonials may be added. */
-}
 const faqs = [
-  [
-    "Do I need an appointment?",
-    "Book online through our Setmore booking page. Choose from the services, barbers, dates and times available there.",
-  ],
-  [
-    "Do you accept walk-ins?",
-    "Walk-in availability and policy will be confirmed by the team.",
-  ],
-  [
-    "How long does a haircut take?",
-    "Timing depends on the service and style. Please confirm your session length with the team.",
-  ],
-  [
-    "What services do you offer?",
-    "Explore haircuts, beard grooming, hair colour, hair treatments and Spartans packages in our service and price menu. Select your service and available time on Setmore.",
-  ],
-  [
-    "Can I request a specific barber?",
-    "Choose your preferred barber from the available team members on our Setmore booking page. Available dates and times depend on their schedule.",
-  ],
-  [
-    "Where is the barbershop located?",
-    `Find us at ${business.address}. Use the Google Maps link in our contact section for directions.`,
-  ],
+  ["Do I need an appointment?", "Perlukah saya membuat tempahan?", "Book through Setmore or message us on WhatsApp. WhatsApp appointments are confirmed by our team.", "Tempah melalui Setmore atau WhatsApp. Tempahan WhatsApp akan disahkan oleh pasukan kami."],
+  ["How long does a haircut take?", "Berapa lama untuk potongan rambut?", "A standard haircut takes 30 minutes. Service and package durations are listed in the price menu.", "Potongan rambut biasa mengambil masa 30 minit. Tempoh setiap perkhidmatan dan pakej tertera dalam senarai harga."],
+  ["Can I choose my barber?", "Bolehkah saya memilih tukang gunting?", "Choose from the available team members on Setmore, or ask us on WhatsApp for your preferred barber.", "Pilih tukang gunting yang tersedia di Setmore, atau hubungi kami melalui WhatsApp untuk pilihan anda."],
+  ["Which branch should I visit?", "Cawangan mana yang perlu saya kunjungi?", "We have branches in Seksyen 14, Petaling Jaya and Bandar Saujana Putra. Confirm your preferred branch when booking; use the map links below for directions.", "Kami mempunyai cawangan di Seksyen 14, Petaling Jaya dan Bandar Saujana Putra. Sahkan cawangan pilihan semasa membuat tempahan; gunakan pautan peta di bawah untuk arah perjalanan."],
 ];
 export function FAQSection() {
   const [open, setOpen] = useState<number | null>(null);
   return (
     <section className="section faq" id="faq">
       <div>
-        <Eyebrow>A FEW THINGS TO KNOW</Eyebrow>
+        <Eyebrow>FAQ / SOALAN LAZIM</Eyebrow>
         <AnimatedHeading>
-          Before you
-          <br />
-          <em>take a seat.</em>
+          Before your <em>visit.</em>
         </AnimatedHeading>
       </div>
       <div>
-        {faqs.map(([q, a], i) => (
+        {faqs.map(([q, qMs, a, aMs], i) => (
           <article className="faq-item" key={q}>
             <h3>
               <button
@@ -204,7 +46,7 @@ export function FAQSection() {
                 aria-controls={`answer-${i}`}
                 onClick={() => setOpen(open === i ? null : i)}
               >
-                {q}
+                <span>{q}<small lang="ms">{qMs}</small></span>
                 {open === i ? <Minus size={18} /> : <Plus size={18} />}
               </button>
             </h3>
@@ -217,6 +59,7 @@ export function FAQSection() {
                   exit={{ height: 0, opacity: 0 }}
                 >
                   <p>{a}</p>
+                  <p lang="ms" className="faq-translation">{aMs}</p>
                 </motion.div>
               )}
             </AnimatePresence>
@@ -226,55 +69,37 @@ export function FAQSection() {
     </section>
   );
 }
-function OpeningHours({ hours }: { hours: string }) {
+function OpeningHours({ hours }: { hours: string | null }) {
   return (
     <div className="location-hours">
       <Clock3 size={19} aria-hidden="true" />
       <div>
         <span className="micro">OPENING HOURS / WAKTU OPERASI</span>
-        <p>Daily / Setiap hari <strong>{hours}</strong></p>
-        <small>Public holiday hours may vary.<br />Waktu operasi pada cuti umum mungkin berbeza.</small>
+        {hours ? <>
+          <p>Daily / Setiap hari <strong>{hours}</strong></p>
+          <small>Public holiday hours may vary.<br />Waktu operasi pada cuti umum mungkin berbeza.</small>
+        </> : <p>Contact us for opening hours.<br />Hubungi kami untuk waktu operasi.</p>}
       </div>
     </div>
   );
 }
 
 export function BookingSection() {
-  const configured = !!(business.bookingUrl || business.whatsappNumber);
   return (
     <section id="booking" className="section booking">
-      <Eyebrow>YOUR CHAIR IS WAITING</Eyebrow>
+      <Eyebrow>BOOK & VISIT / TEMPAH & KUNJUNGI</Eyebrow>
       <AnimatedHeading>
-        Your next look
-        <br />
-        starts <em>here.</em>
+        Book your <em>visit.</em>
       </AnimatedHeading>
-      <p>Book with Spartans on Setmore. Choose your service, preferred barber, date and available time, or message us on WhatsApp to arrange your visit.</p>
-      {configured ? (
-        <div className="booking-actions">
-          <MagneticButton><CalendarDays size={18} aria-hidden="true" />BOOK ON SETMORE</MagneticButton>
-          {business.whatsappNumber && (
-            <LiquidGlassButton
-              href={whatsappHref}
-            >
-              <MessageCircle size={18} aria-hidden="true" />
-              <span className="button-label">BOOK VIA WHATSAPP<small>Tempah melalui WhatsApp</small></span>
-            </LiquidGlassButton>
-          )}
-        </div>
-      ) : (
-        <div className="booking-notice liquid-glass">
-          <MessageCircle size={22} />
-          <div>
-            <strong>Booking opens soon.</strong>
-            <p>
-              Our appointment and WhatsApp details are being finalized. Check
-              back for availability.
-            </p>
-          </div>
-        </div>
-      )}
-      <p className="booking-confirmation-note">For WhatsApp bookings, our team will confirm your date and time in the chat.</p>
+      <p>Book with Spartans on Setmore, or contact our team on WhatsApp.<br />Tempah melalui Setmore atau hubungi kami melalui WhatsApp.</p>
+      <div className="booking-actions">
+        <MagneticButton><CalendarDays size={18} aria-hidden="true" />BOOK ON SETMORE</MagneticButton>
+        <LiquidGlassButton href={whatsappHref}>
+          <MessageCircle size={18} aria-hidden="true" />
+          <span className="button-label">BOOK VIA WHATSAPP<small>Tempah melalui WhatsApp</small></span>
+        </LiquidGlassButton>
+      </div>
+      <p className="booking-confirmation-note">Please confirm your preferred branch when booking.<br />Sila sahkan cawangan pilihan semasa membuat tempahan.</p>
       <div className="contact-grid">
         {locations.map((location) => (
           <a
@@ -286,7 +111,7 @@ export function BookingSection() {
             aria-label={`Open ${location.name} in Google Maps`}
           >
             <MapPin size={22} aria-hidden="true" />
-            <span className="micro">VISIT US / KUNJUNGI KAMI</span>
+            <span className="micro">{location.label}</span>
             <h3>{location.name}</h3>
             <address>{location.address}</address>
             <OpeningHours hours={location.hours} />
@@ -323,18 +148,16 @@ export function Footer() {
           <span className="micro">FIND SPARTANS</span>
           {locations.map((location) => (
             <a key={location.id} href={googleMapsHref(location.address)} target="_blank" rel="noopener noreferrer">
-              {location.name}<br />{location.address}<br />Open Google Maps ↗
+              <MapPin size={14} aria-hidden="true" /> {location.name} ↗
             </a>
           ))}
-          <OpeningHours hours={business.hours} />
         </div>
         <div>
           <span className="micro">EXPLORE</span>
           <a href="#pricing">Services</a>
           <a href="#films">Films / Galeri video</a>
+          <a href="#the-space">Our space / Ruang kami</a>
           <a href="#booking">Bookings & contact</a>
-          <a href={whatsappHref}>WhatsApp {business.whatsappNumber}</a>
-          <a href={`mailto:${business.email}`}>{business.email}</a>
         </div>
         <div>
           <span className="micro">FOLLOW US / IKUTI KAMI</span>
@@ -354,31 +177,25 @@ export function Footer() {
                 <ArrowUpRight size={14} aria-hidden="true" />
               </a>
             ))}
-          {!Object.values(business.socials).some(Boolean) && (
-            <p>Social channels coming soon.</p>
-          )}
         </div>
       </div>
-      <div className="footer-brand-seal"><BrandLogo /></div>
       <div className="footer-bottom">
         <span>
           © {new Date().getFullYear()} {business.name}
         </span>
-        <button onClick={() => setPrivacy(!privacy)} aria-expanded={privacy}>
+        <button onClick={() => setPrivacy(!privacy)} aria-expanded={privacy} aria-controls="privacy-notice">
           Privacy Policy {privacy ? "−" : "+"}
         </button>
-        <span>NOT JUST A HAIRCUT. A LIFESTYLE.</span>
       </div>
       {privacy && (
-        <div className="privacy">
+        <div className="privacy" id="privacy-notice">
           <h3>Privacy notice</h3>
           <p>
             Online appointments are completed on Setmore, or arranged directly
             with our team on WhatsApp. Information you share is handled by
             the respective service and Spartans Barbershop under their
             applicable privacy policies. This website does not store
-            appointment details. Fonts are hosted locally. A business-specific
-            privacy policy must be supplied before launch.
+            appointment details. For privacy questions, contact <a href={`mailto:${business.email}`}>{business.email}</a>.
           </p>
         </div>
       )}
