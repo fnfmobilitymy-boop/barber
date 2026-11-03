@@ -23,11 +23,11 @@ for (const width of [375, 390, 430, 768, 1024, 1440, 1920]) {
     await expect
       .poll(() =>
         page
-          .locator("video")
+          .locator(".cinematic-video video")
           .evaluate((v) => (v as HTMLVideoElement).currentTime),
       )
       .toBeGreaterThan(0.1);
-    expect(await page.locator("video source").getAttribute("src")).toBe(
+    expect(await page.locator(".cinematic-video video source").getAttribute("src")).toBe(
       "/videos/barbershop-hero-web.mp4",
     );
     if (width <= 850) {
@@ -96,7 +96,8 @@ test("gallery filtering, keyboard lightbox, FAQ and honest booking", async ({
   await expect(page.locator("#answer-0")).toBeVisible();
   await page.getByRole("button", { name: "Do I need an appointment?" }).click();
   await expect(page.locator("#answer-0")).toHaveCount(0);
-  await expect(page.locator("#booking")).toContainText("Booking opens soon.");
+  await expect(page.locator("#booking")).toContainText("Book with Spartans on Setmore.");
+  await expect(page.locator("#booking .booking-notice")).toHaveCount(0);
   const broken = await page
     .locator('a[href^="#"]')
     .evaluateAll((links) =>
@@ -113,7 +114,7 @@ test("reduced motion shows static hero and local fonts load", async ({
   await page.goto("/");
   await page.evaluate(() => document.fonts.ready);
   await expect(page.locator(".poster")).toBeVisible();
-  await expect(page.locator("video")).toBeHidden();
+  await expect(page.locator(".cinematic-video video")).toBeHidden();
   expect(
     await page.evaluate(
       () =>
@@ -124,7 +125,7 @@ test("reduced motion shows static hero and local fonts load", async ({
 });
 test("hero video can pause, resume and loop natively", async ({ page }) => {
   await page.goto("/");
-  const video = page.locator("video");
+  const video = page.locator(".cinematic-video video");
   await expect
     .poll(() => video.evaluate((v) => (v as HTMLVideoElement).currentTime))
     .toBeGreaterThan(0.6);
@@ -148,46 +149,29 @@ test("hero video can pause, resume and loop natively", async ({ page }) => {
 });
 
 for (const width of [390, 1440]) {
-  test(`booking welcome ${width}px: dismissal, focus and session persistence`, async ({
-    page,
-  }) => {
+  test(`automatic brand intro ${width}px: no controls, then reveal the site`, async ({ page }) => {
     await page.setViewportSize({ width, height: 850 });
-    await page.goto("/?welcome-test");
-    const dialog = page.getByRole("dialog", {
-      name: "Good hair. Great energy.",
-    });
-    await expect(dialog).toBeVisible();
+    await page.goto("/");
+    const intro = page.getByRole("status", { name: "Welcome to Spartans Barbershop" });
+    await expect(intro).toBeVisible();
+    await expect(intro).toContainText("SPARTANS");
+    await expect(intro.locator("button, a, input")).toHaveCount(0);
     await expect(page.locator("#site-content")).toHaveJSProperty("inert", true);
-    expect(
-      await page.evaluate(
-        () => document.documentElement.scrollWidth <= innerWidth,
-      ),
-    ).toBe(true);
-    await expect(
-      page.getByRole("button", { name: "Close booking invitation" }),
-    ).toBeFocused();
-    await page.keyboard.press("Shift+Tab");
-    await expect(
-      page.getByRole("button", { name: "KEEP EXPLORING" }),
-    ).toBeFocused();
-    await page.screenshot({ path: `test-results/welcome-${width}.png` });
-    await page.keyboard.press("Escape");
-    await expect(dialog).toHaveCount(0);
-    await expect(page.locator("#site-content")).toHaveJSProperty(
-      "inert",
-      false,
-    );
-    await page.reload();
-    await page.waitForTimeout(1600);
-    await expect(dialog).toHaveCount(0);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+    await page.waitForTimeout(2000);
+    await page.screenshot({ path: `test-results/intro-${width}.png` });
+    await expect(intro).toHaveCount(0, { timeout: 5000 });
+    await expect(page.locator("#site-content")).toHaveJSProperty("inert", false);
+    expect(await page.evaluate(() => document.body.style.overflow)).not.toBe("hidden");
+    await expect(page.getByRole("dialog")).toHaveCount(0);
+    await page.getByRole("link", { name: "Spartans Barbershop home" }).click();
   });
 }
-test("booking welcome CTA goes to booking information", async ({ page }) => {
-  await page.goto("/?welcome-test");
-  await page.getByRole("link", { name: "VIEW BOOKING INFO" }).click();
-  await expect(page).toHaveURL(/#booking$/);
-  await expect(page.locator(".welcome-dialog")).toHaveCount(0);
-  await expect(page.locator("#booking")).toContainText("Booking opens soon.");
+test("reduced motion bypasses the animated entrance promptly", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/");
+  await expect(page.locator(".brand-intro")).toHaveCount(0, { timeout: 1500 });
+  await expect(page.locator("#site-content")).toHaveJSProperty("inert", false);
 });
 test("every editorial photograph is unique across sections", async ({
   page,
@@ -299,7 +283,7 @@ test("mobile video plays two native loops without script seeks or stop/start cha
     connectionType: "cellular4g",
   });
   await page.goto("/");
-  const video = page.locator("video");
+  const video = page.locator(".cinematic-video video");
   await expect
     .poll(
       () =>
@@ -373,4 +357,23 @@ test("mobile video plays two native loops without script seeks or stop/start cha
   expect(await video.evaluate((v) => (v as HTMLVideoElement).paused)).toBe(
     true,
   );
+});
+
+
+test("booking links navigate to the configured Setmore booking page", async ({ page }) => {
+  const bookingUrl = "https://spartansbarbershopsb02.setmore.com/";
+  // Stub only the destination: verify navigation without creating a real booking.
+  await page.route(bookingUrl, (route) => route.fulfill({
+    contentType: "text/html",
+    body: "<title>Booking destination test</title>",
+  }));
+  await page.goto("/");
+  const bookingLinks = page.locator(`a[href="${bookingUrl}"]`);
+  expect(await bookingLinks.count()).toBeGreaterThanOrEqual(5);
+  await expect(page.getByRole("link", { name: "BOOK A VISIT", exact: true })).toHaveAttribute("href", bookingUrl);
+  await expect(page.getByRole("link", { name: "BOOK YOUR CUT", exact: true })).toHaveAttribute("href", bookingUrl);
+  await expect(page.getByRole("link", { name: "BOOK ON SETMORE", exact: true })).toHaveAttribute("href", bookingUrl);
+  await page.getByRole("link", { name: "Book an appointment on Setmore", exact: true }).click();
+  await expect(page).toHaveURL(bookingUrl);
+  await expect(page).toHaveTitle("Booking destination test");
 });

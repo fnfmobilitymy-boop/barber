@@ -6,8 +6,15 @@ import {
   Minus,
   Scissors,
   MessageCircle,
+  MapPin,
+  Mail,
+  Phone,
+  CalendarDays,
+  Clock3,
+  Facebook,
+  Instagram,
 } from "lucide-react";
-import { business, bookingHref, services } from "../data/business";
+import { business, bookingHref, services, locations, googleMapsHref, whatsappHref } from "../data/business";
 import { EditorialPhoto } from "./EditorialPhoto";
 import {
   AnimatedHeading,
@@ -272,7 +279,7 @@ export function TestimonialsSection() {
 const faqs = [
   [
     "Do I need an appointment?",
-    "Please enquire using the booking contact once available to confirm appointment availability.",
+    "Book online through our Setmore booking page. Choose from the services, barbers, dates and times available there.",
   ],
   [
     "Do you accept walk-ins?",
@@ -288,11 +295,11 @@ const faqs = [
   ],
   [
     "Can I request a specific barber?",
-    "You can mention your preferred barber when enquiring. Requests are subject to team availability.",
+    "Choose your preferred barber from the available team members on our Setmore booking page. Available dates and times depend on their schedule.",
   ],
   [
     "Where is the barbershop located?",
-    "Our confirmed address and opening hours will be published here before launch.",
+    `Find us at ${business.address}. Use the Google Maps link in our contact section for directions.`,
   ],
 ];
 export function FAQSection() {
@@ -338,6 +345,19 @@ export function FAQSection() {
     </section>
   );
 }
+function OpeningHours({ hours }: { hours: string }) {
+  return (
+    <div className="location-hours">
+      <Clock3 size={19} aria-hidden="true" />
+      <div>
+        <span className="micro">OPENING HOURS / WAKTU OPERASI</span>
+        <p>Daily / Setiap hari <strong>{hours}</strong></p>
+        <small>Public holiday hours may vary.<br />Waktu operasi pada cuti umum mungkin berbeza.</small>
+      </div>
+    </div>
+  );
+}
+
 export function BookingSection() {
   const configured = !!(business.bookingUrl || business.whatsappNumber);
   return (
@@ -348,15 +368,16 @@ export function BookingSection() {
         <br />
         starts <em>here.</em>
       </AnimatedHeading>
-      <p>Ready for a sharper look? Book your next grooming experience.</p>
+      <p>Book with Spartans on Setmore. Choose your service, preferred barber, date and available time, or message us on WhatsApp to arrange your visit.</p>
       {configured ? (
         <div className="booking-actions">
-          <MagneticButton>BOOK AN APPOINTMENT</MagneticButton>
+          <MagneticButton><CalendarDays size={18} aria-hidden="true" />BOOK ON SETMORE</MagneticButton>
           {business.whatsappNumber && (
             <LiquidGlassButton
-              href={`https://wa.me/${business.whatsappNumber.replace(/\D/g, "")}?text=${encodeURIComponent("Hi, I'd like to book a haircut. Could you share your available slots?")}`}
+              href={whatsappHref}
             >
-              CHAT ON WHATSAPP
+              <MessageCircle size={18} aria-hidden="true" />
+              <span className="button-label">BOOK VIA WHATSAPP<small>Tempah melalui WhatsApp</small></span>
             </LiquidGlassButton>
           )}
         </div>
@@ -372,6 +393,34 @@ export function BookingSection() {
           </div>
         </div>
       )}
+      <p className="booking-confirmation-note">For WhatsApp bookings, our team will confirm your date and time in the chat.</p>
+      <div className="contact-grid">
+        {locations.map((location) => (
+          <a
+            key={location.id}
+            className="contact-card"
+            href={googleMapsHref(location.address)}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`Open ${location.name} in Google Maps`}
+          >
+            <MapPin size={22} aria-hidden="true" />
+            <span className="micro">VISIT US / KUNJUNGI KAMI</span>
+            <h3>{location.name}</h3>
+            <address>{location.address}</address>
+            <OpeningHours hours={location.hours} />
+            <span className="contact-card-link">GOOGLE MAPS / PETA LOKASI <ArrowUpRight size={15} aria-hidden="true" /></span>
+          </a>
+        ))}
+        <div className="contact-card">
+          <MessageCircle size={22} aria-hidden="true" />
+          <span className="micro">CONTACT / HUBUNGI KAMI</span>
+          <h3>Talk to Spartans.</h3>
+          <a className="contact-detail" href={whatsappHref}><MessageCircle size={17} aria-hidden="true" />WhatsApp {business.whatsappNumber}</a>
+          <a className="contact-detail" href={`mailto:${business.email}`}><Mail size={17} aria-hidden="true" />{business.email}</a>
+          <a className="contact-detail" href={`tel:${business.whatsappNumber}`}><Phone size={17} aria-hidden="true" />Call / Hubungi kedai</a>
+        </div>
+      </div>
     </section>
   );
 }
@@ -381,9 +430,8 @@ export function Footer() {
     <footer className="footer">
       <div className="footer-top">
         <a className="logo" href="#home">
-          <Scissors />
           <span>
-            THE HUSTLE<small>BARBER CLUB</small>
+            SPARTANS<small>BARBERSHOP</small>
           </span>
         </a>
         <p>PRECISION. CULTURE. CONFIDENCE.</p>
@@ -393,23 +441,39 @@ export function Footer() {
       </div>
       <div className="footer-columns">
         <div>
-          <span className="micro">FIND THE CLUB</span>
-          <p>{business.address || "Location to be announced."}</p>
-          <p>{business.hours || "Opening hours coming soon."}</p>
+          <span className="micro">FIND SPARTANS</span>
+          {locations.map((location) => (
+            <a key={location.id} href={googleMapsHref(location.address)} target="_blank" rel="noopener noreferrer">
+              {location.name}<br />{location.address}<br />Open Google Maps ↗
+            </a>
+          ))}
+          <OpeningHours hours={business.hours} />
         </div>
         <div>
           <span className="micro">EXPLORE</span>
           <a href="#services">Services</a>
           <a href="#gallery">Lookbook</a>
+          <a href="#films">Films / Galeri video</a>
           <a href="#booking">Bookings & contact</a>
+          <a href={whatsappHref}>WhatsApp {business.whatsappNumber}</a>
+          <a href={`mailto:${business.email}`}>{business.email}</a>
         </div>
         <div>
-          <span className="micro">FOLLOW THE CULTURE</span>
+          <span className="micro">FOLLOW US / IKUTI KAMI</span>
           {Object.entries(business.socials)
             .filter(([, url]) => url)
             .map(([name, url]) => (
-              <a href={url} key={name}>
-                {name}
+              <a
+                href={url}
+                key={name}
+                className="social-link"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {name === "facebook" && <Facebook size={18} aria-hidden="true" />}
+                {name === "instagram" && <Instagram size={18} aria-hidden="true" />}
+                <span>{name === "facebook" ? "Facebook" : name === "instagram" ? "Instagram" : name}</span>
+                <ArrowUpRight size={14} aria-hidden="true" />
               </a>
             ))}
           {!Object.values(business.socials).some(Boolean) && (
@@ -418,11 +482,11 @@ export function Footer() {
         </div>
       </div>
       <div className="footer-wordmark" aria-hidden="true">
-        THE HUSTLE
+        SPARTANS
       </div>
       <div className="footer-bottom">
         <span>
-          © {new Date().getFullYear()} {business.name} · Concept brand
+          © {new Date().getFullYear()} {business.name}
         </span>
         <button onClick={() => setPrivacy(!privacy)} aria-expanded={privacy}>
           Privacy Policy {privacy ? "−" : "+"}
@@ -433,10 +497,12 @@ export function Footer() {
         <div className="privacy">
           <h3>Privacy notice</h3>
           <p>
-            This concept website has no booking form, analytics, or customer
-            database. Fonts are requested from Google Fonts. Configured external
-            booking or social services have their own privacy policies. A
-            business-specific privacy policy must be supplied before launch.
+            Online appointments are completed on Setmore, or arranged directly
+            with our team on WhatsApp. Information you share is handled by
+            the respective service and Spartans Barbershop under their
+            applicable privacy policies. This website does not store
+            appointment details. Fonts are hosted locally. A business-specific
+            privacy policy must be supplied before launch.
           </p>
         </div>
       )}

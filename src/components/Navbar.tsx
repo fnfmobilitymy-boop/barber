@@ -5,7 +5,7 @@ import {
   useScroll,
   useMotionValueEvent,
 } from "motion/react";
-import { Menu, X, Scissors } from "lucide-react";
+import { Menu, X, CalendarDays } from "lucide-react";
 import { LiquidGlassButton } from "./UI";
 export const nav = [
   ["Home", "home"],
@@ -40,10 +40,9 @@ export function Navbar() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
     >
-      <a className="logo" href="#home" aria-label="The Hustle Barber Club home">
-        <Scissors size={27} />
+      <a className="logo" href="#home" aria-label="Spartans Barbershop home">
         <span>
-          THE HUSTLE<small>BARBER CLUB</small>
+          SPARTANS<small>BARBERSHOP</small>
         </span>
       </a>
       <nav className="desktop-nav liquid-glass" aria-label="Main navigation">
@@ -54,7 +53,7 @@ export function Navbar() {
         ))}
       </nav>
       <div className="header-actions">
-        <LiquidGlassButton>BOOK A VISIT</LiquidGlassButton>
+        <LiquidGlassButton><CalendarDays size={15} aria-hidden="true" />BOOK A VISIT</LiquidGlassButton>
         <button
           ref={button}
           className="menu-button"

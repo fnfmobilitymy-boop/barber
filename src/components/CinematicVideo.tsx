@@ -109,7 +109,7 @@ export function CinematicVideo() {
         loop
         preload={reduced ? "none" : "auto"}
         poster={`${import.meta.env.BASE_URL}images/hero-poster.jpg`}
-        aria-label="The Hustle cinematic campaign"
+        aria-label="Spartans cinematic campaign"
       >
         <source
           src={`${import.meta.env.BASE_URL}videos/barbershop-hero-web.mp4`}

@@ -88,7 +88,7 @@ export function HeroSection() {
         animate={{ y: 0, opacity: 0.12 }}
         transition={{ duration: 1.3, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
       >
-        THE HUSTLE
+        SPARTANS
       </motion.div>
       <div className="hero-content">
         <motion.p
@@ -140,7 +140,7 @@ export function HeroSection() {
         <a href="#about" aria-label="Scroll to the culture section">
           <ArrowDown size={16} /> SCROLL TO DISCOVER
         </a>
-        <span>THE HUSTLE / VOL. 01</span>
+        <span>SPARTANS / VOL. 01</span>
       </div>
       <span className="hero-side">GOOD HAIR. GREAT ENERGY.</span>
     </section>

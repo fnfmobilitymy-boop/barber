@@ -124,7 +124,7 @@ export function BookingWelcome() {
             <button className="welcome-explore" onClick={dismiss}>
               KEEP EXPLORING
             </button>
-            <span className="welcome-signature">THE HUSTLE BARBER CLUB</span>
+            <span className="welcome-signature">SPARTANS BARBERSHOP</span>
           </motion.div>
         </motion.div>
       )}
