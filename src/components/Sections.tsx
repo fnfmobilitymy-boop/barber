@@ -133,69 +133,64 @@ export function Footer() {
   const [privacy, setPrivacy] = useState(false);
   return (
     <footer className="footer">
-      <div className="footer-top">
-        <a className="logo" href="#home">
-          <BrandLogo />
-        </a>
-        <p>PRECISION. DISCIPLINE. CONFIDENCE.</p>
-        <a href="#home" className="text-link">
-          BACK TO TOP ↑
-        </a>
-      </div>
-      <div className="footer-columns">
-        <div>
-          <span className="micro">FIND SPARTANS</span>
+      <div className="footer-main">
+        <div className="footer-brand">
+          <a className="footer-brand-identity" href="#home" aria-label="Spartans Barbershop — back to top">
+            <BrandLogo />
+            <p className="footer-brand-name">SPARTANS<span>BARBERSHOP</span></p>
+          </a>
+          <div className="footer-brand-copy">
+            <p className="footer-motto">Precision. Discipline. Confidence.</p>
+            <p>Haircuts, grooming, colour and care.<br />Two locations. One Spartans standard.</p>
+          </div>
+        </div>
+        <div className="footer-branches">
+          <h3>Visit Spartans</h3>
           {locations.map((location) => (
-            <a key={location.id} href={googleMapsHref(location.address)} target="_blank" rel="noopener noreferrer">
-              <MapPin size={14} aria-hidden="true" /> {location.name} ↗
-            </a>
+            <div className="footer-branch" key={location.id}>
+              <span>{location.label}</span>
+              <strong>{location.name}</strong>
+              <address>{location.address}</address>
+              <a href={googleMapsHref(location.address)} target="_blank" rel="noopener noreferrer" aria-label={`Directions to ${location.name}`}>
+                <MapPin size={16} aria-hidden="true" />Google Maps<ArrowUpRight size={14} aria-hidden="true" />
+              </a>
+            </div>
           ))}
         </div>
-        <div>
-          <span className="micro">EXPLORE</span>
-          <a href="#pricing">Services</a>
-          <a href="#films">Videos</a>
-          <a href="#the-space">Our space</a>
-          <a href="#booking">Bookings & contact</a>
-        </div>
-        <div>
-          <span className="micro">FOLLOW US</span>
-          {Object.entries(business.socials)
-            .filter(([, url]) => url)
-            .map(([name, url]) => (
-              <a
-                href={url}
-                key={name}
-                className="social-link"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+        <div className="footer-contact">
+          <h3>Get in touch</h3>
+          <a href={`tel:${business.whatsappNumber}`}><Phone size={17} aria-hidden="true" />{business.whatsappNumber}</a>
+          <a href={whatsappHref}><MessageCircle size={17} aria-hidden="true" />Message on WhatsApp<ArrowUpRight size={14} aria-hidden="true" /></a>
+          <a href={`mailto:${business.email}`}><Mail size={17} aria-hidden="true" /><span>{business.email}</span></a>
+          <div className="footer-socials">
+            {Object.entries(business.socials).filter(([, url]) => url).map(([name, url]) => (
+              <a href={url} key={name} className="social-link" target="_blank" rel="noopener noreferrer">
                 {name === "facebook" && <Facebook size={18} aria-hidden="true" />}
                 {name === "instagram" && <Instagram size={18} aria-hidden="true" />}
-                <span>{name === "facebook" ? "Facebook" : name === "instagram" ? "Instagram" : name}</span>
+                {name === "facebook" ? "Facebook" : name === "instagram" ? "Instagram" : name}
                 <ArrowUpRight size={14} aria-hidden="true" />
               </a>
             ))}
+          </div>
         </div>
       </div>
+      <div className="footer-menu-row">
+        <nav className="footer-quicklinks" aria-label="Footer navigation">
+          <a href="#pricing">Services & Prices</a>
+          <a href="#films">Videos</a>
+          <a href="#the-space">Our Space</a>
+          <a href="#booking">Book & Visit</a>
+        </nav>
+        <a href="#home" className="footer-back-top">Back to top ↑</a>
+      </div>
       <div className="footer-bottom">
-        <span>
-          © {new Date().getFullYear()} {business.name}
-        </span>
-        <button onClick={() => setPrivacy(!privacy)} aria-expanded={privacy} aria-controls="privacy-notice">
-          Privacy Policy {privacy ? "−" : "+"}
-        </button>
+        <span>© {new Date().getFullYear()} {business.name}</span>
+        <button onClick={() => setPrivacy(!privacy)} aria-expanded={privacy} aria-controls="privacy-notice">Privacy Policy {privacy ? "−" : "+"}</button>
       </div>
       {privacy && (
         <div className="privacy" id="privacy-notice">
           <h3>Privacy notice</h3>
-          <p>
-            Online appointments are completed on Setmore, or arranged directly
-            with our team on WhatsApp. Information you share is handled by
-            the respective service and Spartans Barbershop under their
-            applicable privacy policies. This website does not store
-            appointment details. For privacy questions, contact <a href={`mailto:${business.email}`}>{business.email}</a>.
-          </p>
+          <p>Online appointments are completed on Setmore, or arranged directly with our team on WhatsApp. Information you share is handled by the respective service and Spartans Barbershop under their applicable privacy policies. This website does not store appointment details. For privacy questions, contact <a href={`mailto:${business.email}`}>{business.email}</a>.</p>
         </div>
       )}
     </footer>

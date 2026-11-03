@@ -46,4 +46,4 @@ For a matching local production preview, run `GITHUB_PAGES=true npm run build`, 
 
 The circular helmet logo (`spartans-logo.png`) is restored throughout the website and browser icons. The alternative arch-logo trial remains recoverable in Git history.
 
-The showcase cards form a horizontal carousel. The selected visible card plays a muted preview. When only the card rail is visible, Auto advances every five seconds and scrolls the selected card into view; the main player pauses offscreen. Turning Auto off stops card previews and automatic switching. Reduced motion disables automatic animation.
+The showcase cards form a curved 3D coverflow carousel based on the owner’s later reference. The selected card is centred and enlarged while neighbouring cards tilt and recede into perspective. The selected visible card plays a muted preview. When only the card rail is visible, Auto advances every 3.5 seconds and moves the selected card to the centre; the main player pauses offscreen. Turning Auto off stops card previews and automatic switching. Reduced motion disables automatic animation.

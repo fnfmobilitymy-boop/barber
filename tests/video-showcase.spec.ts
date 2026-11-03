@@ -14,11 +14,13 @@ for (const width of [390, 1440]) {
     await expect(video).toHaveAttribute("src", /b\.mp4$/);
     await section.getByRole("button", { name: "Previous video", exact: true }).click();
     await expect(video).toHaveAttribute("src", /a\.mp4$/);
+    await section.getByRole("button", { name: "Show video 3: Sharp detail.", exact: true }).focus();
     await section.getByRole("button", { name: "Show video 3: Sharp detail.", exact: true }).click();
     await expect(video).toHaveAttribute("src", /c\.mp4$/);
     await section.locator(".showcase-stage").focus();
     await page.keyboard.press("ArrowRight");
     await expect(video).toHaveAttribute("src", /d\.mp4$/);
+    await section.getByRole("button", { name: "Show video 1: Clean lines.", exact: true }).focus();
     await section.getByRole("button", { name: "Show video 1: Clean lines.", exact: true }).click();
     await expect(video).toHaveAttribute("src", /a\.mp4$/);
     await section.getByRole("button", { name: "Play showcase video", exact: true }).click();
@@ -59,10 +61,22 @@ test("video carousel accepts horizontal touch gestures", async ({ page }) => {
     element.dispatchEvent(new TouchEvent("touchend", { bubbles: true, changedTouches: [end] }));
   });
   await expect(stage.locator("video")).toHaveAttribute("src", /b\.mp4$/);
+  const rail = page.locator(".showcase-thumbnails");
+  await rail.scrollIntoViewIfNeeded();
+  await rail.evaluate((element) => {
+    const start = new Touch({ identifier: 2, target: element, clientX: 290, clientY: 300 });
+    const end = new Touch({ identifier: 2, target: element, clientX: 100, clientY: 310 });
+    element.dispatchEvent(new TouchEvent("touchstart", { bubbles: true, touches: [start] }));
+    element.dispatchEvent(new TouchEvent("touchend", { bubbles: true, changedTouches: [end] }));
+  });
+  await expect(stage.locator("video")).toHaveAttribute("src", /c\.mp4$/);
+  await rail.getByRole("button", { name: "Show video 1: Clean lines.", exact: true }).focus();
+  await page.keyboard.press("ArrowRight");
+  await expect(stage.locator("video")).toHaveAttribute("src", /b\.mp4$/);
 });
 
 
-test("thumbnail carousel previews and auto-scrolls independently of the offscreen main player", async ({ page }) => {
+test("3D carousel previews and automatically centres cards independently of the offscreen main player", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto("/");
   await expect(page.locator(".brand-intro")).toHaveCount(0, { timeout: 6500 });
@@ -72,7 +86,11 @@ test("thumbnail carousel previews and auto-scrolls independently of the offscree
   await expect.poll(() => rail.locator("video").evaluate((v) => (v as HTMLVideoElement).currentTime)).toBeGreaterThan(.1);
   await expect.poll(() => page.locator(".showcase-stage > video").evaluate((v) => (v as HTMLVideoElement).paused)).toBe(true);
   await expect(rail.getByRole("button", { name: "Show video 4: Natural movement.", exact: true })).toHaveAttribute("aria-current", "true", { timeout: 8000 });
-  await expect.poll(() => rail.evaluate((element) => element.scrollLeft)).toBeGreaterThan(100);
+  await expect.poll(() => rail.evaluate((element) => {
+    const card = element.querySelector('[aria-current="true"]')!;
+    const a = card.getBoundingClientRect(), b = element.getBoundingClientRect();
+    return Math.abs((a.left + a.width / 2) - (b.left + b.width / 2));
+  })).toBeLessThan(4);
   await page.getByRole("button", { name: /AUTO/ }).click();
   await expect.poll(() => rail.locator("video").evaluate((v) => (v as HTMLVideoElement).paused)).toBe(true);
   await page.waitForTimeout(5500);

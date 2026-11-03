@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import type { CSSProperties } from "react";
 import { ArrowLeft, ArrowRight, Film, Pause, Play, Volume2, VolumeX } from "lucide-react";
 import { useReducedMotion } from "../hooks/useReducedMotion";
 import { showcaseVideos } from "../data/videos";
@@ -70,13 +71,6 @@ export function VideoShowcase() {
   }, []);
 
   useEffect(() => {
-    const track = rail.current;
-    const card = track?.children[active] as HTMLElement | undefined;
-    if (!track || !card) return;
-    track.scrollTo({ left: card.offsetLeft - (track.clientWidth - card.clientWidth) / 2, behavior: reduced ? "instant" : "smooth" });
-  }, [active, reduced]);
-
-  useEffect(() => {
     // When visitors scroll to the cards, keep that visible carousel moving.
     // The offscreen main player remains paused instead of driving the timer.
     if (!railVisible || stageVisible || !autoAdvance || userPaused || reduced) return;
@@ -84,7 +78,7 @@ export function VideoShowcase() {
       if (document.hidden) return;
       setActive((index) => (index + 1) % showcaseVideos.length);
       setFailed(false);
-    }, 5000);
+    }, 3500);
     return () => window.clearInterval(timer);
   }, [active, railVisible, stageVisible, autoAdvance, userPaused, reduced]);
 
@@ -167,14 +161,58 @@ export function VideoShowcase() {
           AUTO {autoAdvance && !reduced ? "ON" : "OFF"}
         </button>
       </div>
-      <div className="showcase-thumbnails" ref={rail} aria-label="Choose a showcase video">
-        {showcaseVideos.map((item, index) => (
-          <button key={item.id} className={`showcase-thumbnail ${index === active ? "is-active" : ""}`} aria-label={`Show video ${index + 1}: ${item.title}`} aria-current={index === active ? "true" : undefined} onClick={() => goTo(index)}>
-            {index === active ? <ShowcasePreview key={item.id} src={`${import.meta.env.BASE_URL}${item.src}`} poster={`${import.meta.env.BASE_URL}${item.poster}`} enabled={autoAdvance && !userPaused && (!reduced || userStarted)} /> : <img src={`${import.meta.env.BASE_URL}${item.poster}`} alt="" />}
-            <span><span className="micro">0{index + 1}</span>{item.title}</span>
-            <Play size={16} aria-hidden="true" />
-          </button>
-        ))}
+      <div
+        className="showcase-thumbnails"
+        ref={rail}
+        role="group"
+        aria-label="Choose a showcase video"
+        onKeyDown={(event) => {
+          if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
+          event.preventDefault();
+          const next = (active + (event.key === "ArrowRight" ? 1 : -1) + showcaseVideos.length) % showcaseVideos.length;
+          goTo(next);
+          (rail.current?.children[next] as HTMLButtonElement | undefined)?.focus({ preventScroll: true });
+        }}
+        onTouchStart={(event) => {
+          const touch = event.touches[0];
+          touchStart.current = { x: touch.clientX, y: touch.clientY };
+        }}
+        onTouchEnd={(event) => {
+          const start = touchStart.current;
+          touchStart.current = null;
+          if (!start) return;
+          const touch = event.changedTouches[0];
+          const dx = touch.clientX - start.x, dy = touch.clientY - start.y;
+          if (Math.abs(dx) > 55 && Math.abs(dx) > Math.abs(dy) * 1.5) goTo(active + (dx < 0 ? 1 : -1));
+        }}
+      >
+        {showcaseVideos.map((item, index) => {
+          const offset = ((index - active + showcaseVideos.length + 2) % showcaseVideos.length) - 2;
+          const distance = Math.abs(offset);
+          const style = {
+            "--card-offset": offset,
+            "--card-depth": `${-135 * distance}px`,
+            "--card-turn": `${-30 * offset}deg`,
+            "--card-rise": `${14 * distance}px`,
+            opacity: 1 - distance * .16,
+            zIndex: 5 - distance,
+          } as CSSProperties;
+          return (
+            <button
+              key={item.id}
+              className={`showcase-thumbnail ${index === active ? "is-active" : ""}`}
+              style={style}
+              aria-label={`Show video ${index + 1}: ${item.title}`}
+              aria-current={index === active ? "true" : undefined}
+              onClick={() => goTo(index)}
+              onFocus={(event) => { if (event.currentTarget.matches(":focus-visible")) goTo(index); }}
+            >
+              {index === active ? <ShowcasePreview key={item.id} src={`${import.meta.env.BASE_URL}${item.src}`} poster={`${import.meta.env.BASE_URL}${item.poster}`} enabled={autoAdvance && !userPaused && (!reduced || userStarted)} /> : <img src={`${import.meta.env.BASE_URL}${item.poster}`} alt="" />}
+              <span><span className="micro">0{index + 1}</span>{item.title}</span>
+              <Play size={16} aria-hidden="true" />
+            </button>
+          );
+        })}
       </div>
     </section>
   );
