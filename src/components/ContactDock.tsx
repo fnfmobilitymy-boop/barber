@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { CalendarDays, MessageCircle } from "lucide-react";
-import { bookingHref, whatsappHref } from "../data/business";
+import { activeBranch, bookingHref, whatsappHref } from "../data/business";
 
 export function ContactDock() {
   const [hidden, setHidden] = useState(false);
@@ -17,7 +17,7 @@ export function ContactDock() {
       <a href={whatsappHref} className="floating-whatsapp liquid-glass" aria-label="Book via WhatsApp">
         <MessageCircle size={21} aria-hidden="true" /><span>WHATSAPP</span>
       </a>
-      <a href={bookingHref} className="floating-booking liquid-glass" aria-label="Book an appointment on Setmore">
+      <a href={bookingHref} className="floating-booking liquid-glass" aria-label={activeBranch?.bookingUrl ? "Book an appointment on Setmore" : activeBranch ? "Ask about appointments" : "Choose a branch to book"}>
         <CalendarDays size={21} aria-hidden="true" /><span>BOOK NOW</span>
       </a>
     </div>

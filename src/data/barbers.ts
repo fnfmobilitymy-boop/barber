@@ -1,10 +1,10 @@
-// Confirmed staff information supplied by the owner. No branch assignment given.
+// Confirmed staff information supplied by the owner. Taman Medan branch.
 export const barbers = [
   {
     id: "ali-shah",
     name: "Ali Shah",
     role: "Barber",
-    serviceCategories: ["haircut", "colour", "packages"],
+    serviceCategories: ["haircut", "colour", "treatment", "packages"],
   },
   {
     id: "zabih",

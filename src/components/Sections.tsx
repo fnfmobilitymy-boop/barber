@@ -13,7 +13,7 @@ import {
   Facebook,
   Instagram,
 } from "lucide-react";
-import { business, locations, googleMapsHref, whatsappHref } from "../data/business";
+import { business, locations, visibleLocations, activeBranch, branchHref, googleMapsHref, whatsappHref } from "../data/business";
 import { BrandLogo } from "./BrandLogo";
 import {
   AnimatedHeading,
@@ -25,7 +25,7 @@ const faqs = [
   ["Do I need an appointment?", "Book through Setmore or message us on WhatsApp. WhatsApp appointments are confirmed by our team."],
   ["How long does a haircut take?", "A standard haircut takes 30 minutes. Service and package durations are listed in the price menu."],
   ["Can I choose my barber?", "Choose from the available team members on Setmore, or ask us on WhatsApp for your preferred barber."],
-  ["Which branch should I visit?", "We have branches in Seksyen 14, Petaling Jaya and Bandar Saujana Putra. Confirm your preferred branch when booking; use the map links below for directions."],
+  ["Which branch should I visit?", "Choose your branch using the branch pages. Each branch has its own prices and booking options; use its map for directions."],
 ];
 export function FAQSection() {
   const [open, setOpen] = useState<number | null>(null);
@@ -90,32 +90,32 @@ export function BookingSection() {
       <AnimatedHeading>
         Claim your <em>seat.</em>
       </AnimatedHeading>
-      <p>Book with Spartans on Setmore, or contact our team on WhatsApp.</p>
+      <p>{activeBranch ? `Plan your visit to Spartans ${activeBranch.name}.` : "Choose your branch for its booking options."}</p>
       <div className="booking-actions">
-        <MagneticButton><CalendarDays size={18} aria-hidden="true" />BOOK ON SETMORE</MagneticButton>
+        <MagneticButton><CalendarDays size={18} aria-hidden="true" />{activeBranch?.bookingUrl ? "BOOK ON SETMORE" : activeBranch ? "ASK ABOUT APPOINTMENTS" : "CHOOSE YOUR BRANCH"}</MagneticButton>
         <LiquidGlassButton href={whatsappHref}>
           <MessageCircle size={18} aria-hidden="true" />
           <span className="button-label">BOOK VIA WHATSAPP</span>
         </LiquidGlassButton>
       </div>
-      <p className="booking-confirmation-note">Please confirm your preferred branch when booking.</p>
+      <p className="booking-confirmation-note">{activeBranch ? `Booking enquiries for ${activeBranch.name}.` : "Select a branch before booking."}</p>
       <div className="contact-grid">
-        {locations.map((location) => (
-          <a
-            key={location.id}
-            className="contact-card"
-            href={googleMapsHref(location.address)}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={`Open ${location.name} in Google Maps`}
-          >
+        {visibleLocations.map((location) => (
+          <article key={location.id} className="contact-card">
             <MapPin size={22} aria-hidden="true" />
             <span className="micro">{location.label}</span>
             <h3>{location.name}</h3>
             <address>{location.address}</address>
             <OpeningHours hours={location.hours} />
-            <span className="contact-card-link">GOOGLE MAPS <ArrowUpRight size={15} aria-hidden="true" /></span>
-          </a>
+            <iframe className="branch-map" title={`Google Map — ${location.name}`} src={`https://www.google.com/maps?q=${encodeURIComponent(location.address)}&output=embed`} loading="lazy" referrerPolicy="no-referrer-when-downgrade" allowFullScreen />
+            <a className="contact-card-link" href={googleMapsHref(location.address)} target="_blank" rel="noopener noreferrer">GOOGLE MAPS & DIRECTIONS <ArrowUpRight size={15} /></a>
+            <a className="contact-card-link" href={branchHref(location.id)}>VIEW BRANCH <ArrowUpRight size={15} /></a>
+            <div className="branch-reviews">
+              <h4>Google reviews</h4>
+              <p>Visited this branch? Find our business on Google Maps to read reviews or share your experience.</p>
+              <a className="contact-card-link" href={googleMapsHref(`Spartans Barbershop ${location.address}`)} target="_blank" rel="noopener noreferrer">FIND US ON GOOGLE <ArrowUpRight size={15} /></a>
+            </div>
+          </article>
         ))}
         <div className="contact-card">
           <MessageCircle size={22} aria-hidden="true" />
@@ -141,7 +141,7 @@ export function Footer() {
           </a>
           <div className="footer-brand-copy">
             <p className="footer-motto">Precision. Discipline. Confidence.</p>
-            <p>Haircuts, grooming, colour and care.<br />Two locations. One Spartans standard.</p>
+            <p>Haircuts, grooming, colour and care.<br />Your branch. Your Spartans standard.</p>
           </div>
         </div>
         <div className="footer-branches">

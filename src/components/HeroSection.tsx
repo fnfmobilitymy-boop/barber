@@ -1,3 +1,4 @@
+import { activeBranch } from "../data/business";
 import { useEffect, useRef } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import gsap from "gsap";
@@ -105,7 +106,7 @@ export function HeroSection() {
           <p className="hero-description">
             Precision cuts. Clean finishes.
             <br />
-            Petaling Jaya · Bandar Saujana Putra.
+            {activeBranch ? activeBranch.name : "Find your Spartans branch."}
           </p>
           <div className="hero-ctas">
             <MagneticButton>BOOK YOUR CUT</MagneticButton>
@@ -116,7 +117,7 @@ export function HeroSection() {
         </motion.div>
       </div>
       <div className="hero-bottom">
-        <span>HAIRCUT RM25</span>
+        <span>{activeBranch?.id === "taman-medan" ? "HAIRCUT RM25 · TAMAN MEDAN" : "PRECISION. DISCIPLINE. CONFIDENCE."}</span>
         <a href="#pricing" aria-label="Scroll to services and prices">
           <ArrowDown size={16} /> SCROLL TO DISCOVER
         </a>

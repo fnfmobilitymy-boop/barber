@@ -289,7 +289,7 @@ test("booking links navigate to the configured Setmore booking page", async ({ p
     contentType: "text/html",
     body: "<title>Booking destination test</title>",
   }));
-  await page.goto("/");
+  await page.goto("/?branch=taman-medan");
   const bookingLinks = page.locator(`a[href="${bookingUrl}"]`);
   expect(await bookingLinks.count()).toBeGreaterThanOrEqual(5);
   await expect(page.getByRole("link", { name: "BOOK A VISIT", exact: true })).toHaveAttribute("href", bookingUrl);

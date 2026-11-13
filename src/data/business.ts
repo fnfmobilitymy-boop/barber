@@ -4,6 +4,7 @@ export type ShopLocation = {
   label: string;
   address: string;
   hours: string | null;
+  bookingUrl?: string;
 };
 
 export const locations: ShopLocation[] = [
@@ -15,20 +16,33 @@ export const locations: ShopLocation[] = [
     hours: "10:00–21:00",
   },
   {
+    id: "taman-medan",
+    name: "Taman Medan",
+    label: "BRANCH 02",
+    address: "B3-4-1, Jalan PJS 3/11C, Taman JRK Delta, 46000 Petaling Jaya, Selangor",
+    hours: null,
+    bookingUrl: "https://spartansbarbershopsb02.setmore.com/",
+  },
+  {
     id: "bandar-saujana-putra",
     name: "Bandar Saujana Putra",
-    label: "BRANCH 02",
+    label: "BRANCH 03",
     address: "36-1, Jalan SP 1/2, Bandar Saujana Putra, 42610 Jenjarom, Selangor",
     hours: null,
   },
 ];
+
+// Query URLs work on static GitHub Pages and can be opened directly or refreshed.
+export const branchHref = (id: string) => `${import.meta.env.BASE_URL}?branch=${encodeURIComponent(id)}`;
+export const activeBranch = locations.find((location) => location.id === new URLSearchParams(window.location.search).get("branch"));
+export const visibleLocations = activeBranch ? [activeBranch] : locations;
 
 export const googleMapsHref = (address: string) =>
   `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
 
 export const business = {
   name: "SPARTANS BARBERSHOP",
-  bookingUrl: "https://spartansbarbershopsb02.setmore.com/",
+  bookingUrl: activeBranch?.bookingUrl ?? "",
   whatsappNumber: "+60146277166",
   email: "spartansbarbershophq@gmail.com",
   address: locations[0].address,
@@ -40,5 +54,5 @@ export const business = {
   },
 };
 export const whatsappHref =
-  `https://wa.me/${business.whatsappNumber.replace(/\D/g, "")}?text=${encodeURIComponent("Hi Spartans, I'd like to book a haircut. Could you share your available barbers, dates and times?")}`;
-export const bookingHref = business.bookingUrl || whatsappHref;
+  `https://wa.me/${business.whatsappNumber.replace(/\D/g, "")}?text=${encodeURIComponent(`Hi Spartans, I'd like to book a haircut${activeBranch ? ` at ${activeBranch.name}` : ""}. Could you share your available barbers, dates and times?`)}`;
+export const bookingHref = activeBranch ? (activeBranch.bookingUrl || whatsappHref) : "#branches";

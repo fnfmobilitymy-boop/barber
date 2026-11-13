@@ -14,11 +14,21 @@ npm run dev -- --port 5173 --strictPort
 
 With the dev server running, use `npm run test:e2e` for browser checks and `npm run build` for TypeScript and production validation. Processes must restart after restoring a cloud snapshot.
 
+## Branch pages
+
+Static-host-compatible branch URLs use the `branch` query parameter and survive refresh:
+
+- `?branch=petaling-jaya`: Seksyen 14 (existing address).
+- `?branch=taman-medan`: Branch 02, with its confirmed Setmore URL and 18 services for both Ali Shah and Zabih.
+- `?branch=bandar-saujana-putra`: existing Bandar Saujana Putra location.
+
+The homepage asks customers to select a branch before booking. Prices and Setmore booking are shown only for Taman Medan until the other branch menus and URLs are supplied. The other pages offer branch-specific WhatsApp enquiries. Branch numbering and identities beyond Taman Medan need owner confirmation. Maps use Google Maps address embeds; Google review links currently search for the business and address. Supply exact Google Business Profile/review links to target the listings directly. Setmore ratings are not Google ratings and are not displayed as such.
+
 ## Content
 
-- `src/data/business.ts`: contact details and the two confirmed locations, each with a Google Maps link. Branch 02 hours have not been supplied; customers are directed to contact the team. The proposed third branch is omitted at the user's request.
-- `src/data/serviceMenu.ts`: 18 services across four categories, with RM prices, durations and package inclusions supplied by the user.
-- `src/data/barbers.ts`: confirmed staff services. Ali Shah offers the 13 haircut/grooming, hair-colour and package services supplied by the owner. Zabih offers all 18 listed services, including treatments. No branch assignments were supplied. The menu filter changes the displayed services; customers must choose their barber on Setmore.
+- `src/data/business.ts`: contact details and branch addresses, each with a Google Maps embed and directions link. Branch 02 hours have not been supplied; customers are directed to contact the team. The proposed third branch is omitted at the user's request.
+- `src/data/serviceMenu.ts`: 18 Taman Medan services across four categories, with RM prices, durations and package inclusions supplied by the user.
+- `src/data/barbers.ts`: Taman Medan staff Ali Shah and Zabih, both offering all 18 confirmed services.
 - `src/data/videos.ts`: five independent showcase clips supplied as a–e. They never replace or enter the Hero player. Full framing, original colour and audio are retained, with muted playback by default.
 - `src/data/shopPhotos.ts`: eight original photos copied unchanged from `iloveimg-compressed.zip` to `public/images/shop/`. Each appears once. Photos are not assigned to specific branches because no branch mapping was supplied.
 - `src/components/BrandLogo.tsx`: the shared helmet logo used in the header and automatic intro and footer. The PNG was prepared with image generation from the user's circular logo reference; it is not an original uploaded source file.
@@ -28,7 +38,7 @@ Fonts are self-hosted; OFL licences are in `public/fonts`. Headlines and key but
 
 ## Booking
 
-Website booking buttons open https://spartansbarbershopsb02.setmore.com/ or the supplied WhatsApp number. Customers confirm their intended branch when booking. No per-branch booking URLs were supplied. Setmore staff accounts, calendar permissions, service availability and notifications must be configured by the owner; see `SETMORE_SETUP.md`. A website link does not configure those permissions.
+Taman Medan booking buttons open https://spartansbarbershopsb02.setmore.com/. The other branch pages use WhatsApp enquiries until their booking URLs are supplied. Homepage booking buttons lead to branch selection. Setmore staff accounts, calendar permissions, service availability and notifications must be configured by the owner; see `SETMORE_SETUP.md`. A website link does not configure those permissions.
 
 ## Media behaviour
 

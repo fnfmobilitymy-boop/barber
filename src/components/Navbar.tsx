@@ -10,6 +10,7 @@ import { BrandLogo } from "./BrandLogo";
 import { LiquidGlassButton } from "./UI";
 export const nav = [
   ["Home", "home"],
+  ["Branches", "branches"],
   ["Services & Prices", "pricing"],
   ["Videos", "films"],
   ["Our Space", "the-space"],

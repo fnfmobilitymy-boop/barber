@@ -1,3 +1,5 @@
+import { BranchSelector } from "./components/BranchSelector";
+import { activeBranch } from "./data/business";
 import { motion, MotionConfig, useScroll, useSpring } from "motion/react";
 import { BrandIntro } from "./components/BrandIntro";
 import { ContactDock } from "./components/ContactDock";
@@ -22,7 +24,8 @@ export default function App() {
         <Navbar />
         <main id="main">
           <HeroSection />
-          <ServiceMenu />
+          <BranchSelector />
+          {activeBranch?.id === "taman-medan" ? <ServiceMenu /> : <section id="pricing" className="section"><h2>Services & prices</h2><p>{activeBranch ? "Contact our team for this branch’s current prices and appointments." : "Choose your branch to view its services, prices and booking options."}</p></section>}
           <VideoShowcase />
           <ShopScenesSection />
           <FAQSection />

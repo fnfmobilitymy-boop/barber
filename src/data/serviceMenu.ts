@@ -9,7 +9,7 @@ export const serviceMenu: { id: string; name: string; items: MenuItem[] }[] = [
   {
     id: "haircut", name: "Haircut",
     items: [
-      { name: "HAIRCUT", minutes: 30, price: 25, description: "Get a fresh, stylish cut tailored to your look and personality. Every haircut includes a complimentary hair wash before or after your service for a clean, comfortable, and refreshing experience. Perfect finish with expert styling to keep you looking sharp and confident." },
+      { name: "HAIRCUT", minutes: 30, price: 25 },
       { name: "HAIRCUT & QUICK WASH", minutes: 30, price: 30 },
       { name: "HAIRCUT KID (<12Y)", minutes: 30, price: 15 },
       { name: "BEARD GROOMING", minutes: 20, price: 10 },

@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 
 test("staff filtering matches Ali Shah and Zabih's supplied services", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
-  await page.goto("/");
+  await page.goto("/?branch=taman-medan");
   await expect(page.locator(".brand-intro")).toHaveCount(0);
   const menu = page.locator("#pricing");
   await menu.scrollIntoViewIfNeeded();
@@ -11,15 +11,15 @@ test("staff filtering matches Ali Shah and Zabih's supplied services", async ({ 
   await expect(staff.locator("option")).toHaveCount(3);
   await expect(categories.getByRole("button")).toHaveCount(4);
   await staff.selectOption("ali-shah");
-  await expect(categories.getByRole("button")).toHaveCount(3);
-  await expect(categories.getByRole("button", { name: /^Hair treatment/ })).toHaveCount(0);
+  await expect(categories.getByRole("button")).toHaveCount(4);
+  await expect(categories.getByRole("button", { name: /^Hair treatment/ })).toHaveCount(1);
   let total = 0;
-  for (const [name, count] of [["Haircut", 5], ["Hair colour", 3], ["Spartans packages", 5]] as const) {
+  for (const [name, count] of [["Haircut", 5], ["Hair colour", 3], ["Hair treatment", 5], ["Spartans packages", 5]] as const) {
     await categories.getByRole("button", { name: new RegExp(`^${name}`) }).click();
     await expect(menu.locator(".menu-item")).toHaveCount(count);
     total += count;
   }
-  expect(total).toBe(13);
+  expect(total).toBe(18);
   await expect(menu.locator(".menu-booking-note")).toContainText("Select Ali Shah");
   await staff.selectOption("zabih");
   await expect(categories.getByRole("button")).toHaveCount(4);
