@@ -13,7 +13,7 @@ import {
   Facebook,
   Instagram,
 } from "lucide-react";
-import { business, locations, visibleLocations, activeBranch, branchHref, googleMapsHref, whatsappHref } from "../data/business";
+import { business, visibleLocations, activeBranch, branchHref, googleMapsHref, whatsappHref } from "../data/business";
 import { BrandLogo } from "./BrandLogo";
 import {
   AnimatedHeading,
@@ -146,7 +146,7 @@ export function Footer() {
         </div>
         <div className="footer-branches">
           <h3>Visit Spartans</h3>
-          {locations.map((location) => (
+          {visibleLocations.map((location) => (
             <div className="footer-branch" key={location.id}>
               <span>{location.label}</span>
               <strong>{location.name}</strong>
