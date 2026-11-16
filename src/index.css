@@ -2763,3 +2763,9 @@ h2 em, .hero h1 .serif { font-weight: 900; }
 .native-works-orbit { position: absolute; inset: 0; transform-style: preserve-3d; transform: translateZ(calc(-1 * var(--orbit-radius))) rotateY(var(--orbit-rotation)); transition: transform 1.35s cubic-bezier(.22,.7,.25,1); }
 .native-works .showcase-thumbnail { transform: translate(-50%, -50%) rotateY(var(--orbit-angle)) translateZ(var(--orbit-radius)); transition: border-color .3s, background-color .3s; backface-visibility: hidden; }
 @media(prefers-reduced-motion:reduce) { .native-works-orbit { transition: none; } }
+
+/* Use desktop width for the orbit instead of clustering the cards in the middle. */
+@media(min-width:900px) {
+  .native-works .showcase-thumbnails { --orbit-radius: clamp(330px, 42vw, 740px); perspective: 2400px; height: clamp(560px, 48vw, 700px); }
+  .native-works .showcase-thumbnail { width: clamp(300px, 30vw, 400px); }
+}
