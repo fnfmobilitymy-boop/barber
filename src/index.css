@@ -2769,3 +2769,27 @@ h2 em, .hero h1 .serif { font-weight: 900; }
   .native-works .showcase-thumbnails { --orbit-radius: clamp(330px, 42vw, 740px); perspective: 2400px; height: clamp(560px, 48vw, 700px); }
   .native-works .showcase-thumbnail { width: clamp(300px, 30vw, 400px); }
 }
+
+/* Hover accents sit above each card without changing its 3D orbit transform. */
+.native-works .showcase-thumbnail { isolation: isolate; transition: border-color .3s, background-color .3s, box-shadow .3s, scale .35s, translate .35s; }
+.native-works .showcase-thumbnail::after { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; opacity: 0; background: radial-gradient(circle at var(--hover-x, 50%) var(--hover-y, 50%), #f8dfa435, transparent 58%); transition: opacity .3s; }
+@media(hover:hover) and (pointer:fine) {
+  .native-works .showcase-thumbnail:hover { translate: 0 -8px; scale: 1.035; border-color: #f4d390; background-color: #2c3c30; box-shadow: 0 30px 60px #0009, 0 0 32px #d9b77b30; }
+  .native-works .showcase-thumbnail:hover::after { opacity: 1; }
+}
+.native-works .showcase-thumbnail:focus-visible { outline: 2px solid #f4d390; outline-offset: 5px; }
+@media(prefers-reduced-motion:reduce) {
+  .native-works .showcase-thumbnail { transition: border-color .2s, background-color .2s; }
+  .native-works .showcase-thumbnail:hover { translate: none; scale: 1; }
+  .native-works .showcase-thumbnail::after { display: none; }
+}
+
+/* Give the video cards a solid edge and separated layers, with pointer-driven tilt. */
+.native-works .showcase-thumbnail { isolation: auto; transform-style: preserve-3d; box-shadow: 1px 1px 0 #3a4c3c, 3px 3px 0 #253629, 6px 6px 0 #142017, 0 22px 48px #0008; }
+.native-works .showcase-thumbnail::before { content: ""; position: absolute; inset: 0; border-radius: inherit; background: #18251d; border: 1px solid #79683f; transform: translateZ(-7px); pointer-events: none; }
+.native-works .showcase-thumbnail > img, .native-works .native-work-video { transform: translateZ(4px); }
+.native-works .showcase-thumbnail > span { transform: translateZ(10px); }
+.native-works .showcase-thumbnail::after { transform: translateZ(12px); }
+@media(hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference) {
+  .native-works .showcase-thumbnail:hover { transform: translate(-50%, -50%) rotateY(var(--orbit-angle)) translateZ(calc(var(--orbit-radius) + 18px)) rotateX(var(--hover-tilt-x, 0deg)) rotateY(var(--hover-tilt-y, 0deg)); transition: transform .18s ease-out, scale .35s, translate .35s, border-color .3s, background-color .3s, box-shadow .3s; box-shadow: 1px 1px 0 #8f7c50, 3px 3px 0 #526045, 7px 7px 0 #1d2c21, 0 38px 65px #000b, 0 0 36px #d9b77b30; }
+}

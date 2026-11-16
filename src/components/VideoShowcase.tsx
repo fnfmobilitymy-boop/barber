@@ -93,7 +93,15 @@ export function VideoShowcase() {
         const style = { "--orbit-angle": `${index * 360 / showcaseVideos.length}deg` } as CSSProperties;
         return <button key={work.id} className={`showcase-thumbnail ${index === active ? "is-active" : ""}`} style={style}
           aria-label={`Show video ${index + 1}: ${work.title}`} aria-current={index === active ? "true" : undefined}
-          tabIndex={index === active ? 0 : -1} onClick={() => change(index)} onFocus={() => change(index)}>
+          tabIndex={index === active ? 0 : -1} onClick={() => change(index)} onFocus={() => change(index)}
+          onPointerMove={event => {
+            if (event.pointerType !== "mouse" || reduced) return;
+            const bounds = event.currentTarget.getBoundingClientRect();
+            event.currentTarget.style.setProperty("--hover-x", `${Math.max(0, Math.min(100, (event.clientX - bounds.left) / bounds.width * 100))}%`);
+            event.currentTarget.style.setProperty("--hover-y", `${Math.max(0, Math.min(100, (event.clientY - bounds.top) / bounds.height * 100))}%`);
+            event.currentTarget.style.setProperty("--hover-tilt-x", `${(0.5 - (event.clientY - bounds.top) / bounds.height) * 10}deg`);
+            event.currentTarget.style.setProperty("--hover-tilt-y", `${((event.clientX - bounds.left) / bounds.width - 0.5) * 12}deg`);
+          }}>
           {index === active ? <video key={work.id} ref={video} src={`${import.meta.env.BASE_URL}${work.src}`} poster={`${import.meta.env.BASE_URL}${work.poster}`} muted={muted} playsInline preload="none" className="native-work-video" aria-label={work.title}
             onPlaying={() => { setPlaying(true); setFailed(false); }} onPause={() => setPlaying(false)} onError={() => { setFailed(true); setPlaying(false); }}
             onEnded={() => { setPlaying(false); if (automatic && !reduced) change(active + 1); else setPaused(true); }} />
