@@ -5,6 +5,7 @@ export type ShopLocation = {
   address: string;
   hours: string | null;
   bookingUrl?: string;
+  mapsUrl?: string;
 };
 
 export const locations: ShopLocation[] = [
@@ -14,6 +15,7 @@ export const locations: ShopLocation[] = [
     label: "MAIN BRANCH",
     address: "5B, Jalan 14/20, Seksyen 14, 46100 Petaling Jaya, Selangor",
     hours: "10:00–21:00",
+    bookingUrl: "https://spartansbarbershop.setmore.com/",
   },
   {
     id: "taman-medan",
@@ -22,6 +24,7 @@ export const locations: ShopLocation[] = [
     address: "B3-4-1, Jalan PJS 3/11C, Taman JRK Delta, 46000 Petaling Jaya, Selangor",
     hours: null,
     bookingUrl: "https://spartansbarbershopsb02.setmore.com/",
+    mapsUrl: "https://share.google/F8jnjL6oJDZ10VNNe",
   },
   {
     id: "bandar-saujana-putra",
@@ -29,6 +32,7 @@ export const locations: ShopLocation[] = [
     label: "BRANCH 03",
     address: "36-1, Jalan SP 1/2, Bandar Saujana Putra, 42610 Jenjarom, Selangor",
     hours: null,
+    bookingUrl: "https://spartansbarbershopsb03.setmore.com/",
   },
 ];
 
@@ -49,7 +53,7 @@ export const business = {
   hours: locations[0].hours,
   socials: {
     instagram: "https://www.instagram.com/_spartansbarbershop/",
-    tiktok: "",
+    tiktok: "https://www.tiktok.com/@spartansbarbershop",
     facebook: "https://www.facebook.com/p/Spartans-Barbershop-100086754182552/",
   },
 };

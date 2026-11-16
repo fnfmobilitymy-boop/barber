@@ -26,7 +26,11 @@ test("branch pages survive reload and isolate booking, prices and maps", async (
       await expect(cta).toHaveAttribute("href", "https://spartansbarbershopsb02.setmore.com/");
       await expect(page.locator(".menu-item").first()).toContainText("RM 25");
     } else {
-      await expect(cta).toHaveAttribute("href", new RegExp(`https://wa.me/.+${encodeURIComponent(name)}`));
+      const bookingUrl = id === "petaling-jaya"
+        ? "https://spartansbarbershop.setmore.com/"
+        : "https://spartansbarbershopsb03.setmore.com/";
+      await expect(cta).toHaveAttribute("href", bookingUrl);
+      await expect(page.getByRole("link", { name: "VIEW SERVICES & PRICES ON SETMORE", exact: true })).toHaveAttribute("href", bookingUrl);
       await expect(page.locator(".menu-item")).toHaveCount(0);
       await expect(page.locator('a[href="https://spartansbarbershopsb02.setmore.com/"]')).toHaveCount(0);
     }

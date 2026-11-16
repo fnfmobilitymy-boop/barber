@@ -108,12 +108,12 @@ export function BookingSection() {
             <address>{location.address}</address>
             <OpeningHours hours={location.hours} />
             <iframe className="branch-map" title={`Google Map — ${location.name}`} src={`https://www.google.com/maps?q=${encodeURIComponent(location.address)}&output=embed`} loading="lazy" referrerPolicy="no-referrer-when-downgrade" allowFullScreen />
-            <a className="contact-card-link" href={googleMapsHref(location.address)} target="_blank" rel="noopener noreferrer">GOOGLE MAPS & DIRECTIONS <ArrowUpRight size={15} /></a>
+            <a className="contact-card-link" href={location.mapsUrl || googleMapsHref(location.address)} target="_blank" rel="noopener noreferrer">GOOGLE MAPS & DIRECTIONS <ArrowUpRight size={15} /></a>
             <a className="contact-card-link" href={branchHref(location.id)}>VIEW BRANCH <ArrowUpRight size={15} /></a>
             <div className="branch-reviews">
               <h4>Google reviews</h4>
               <p>Visited this branch? Find our business on Google Maps to read reviews or share your experience.</p>
-              <a className="contact-card-link" href={googleMapsHref(`Spartans Barbershop ${location.address}`)} target="_blank" rel="noopener noreferrer">FIND US ON GOOGLE <ArrowUpRight size={15} /></a>
+              <a className="contact-card-link" href={location.mapsUrl || googleMapsHref(`Spartans Barbershop ${location.address}`)} target="_blank" rel="noopener noreferrer">FIND US ON GOOGLE <ArrowUpRight size={15} /></a>
             </div>
           </article>
         ))}
@@ -151,7 +151,7 @@ export function Footer() {
               <span>{location.label}</span>
               <strong>{location.name}</strong>
               <address>{location.address}</address>
-              <a href={googleMapsHref(location.address)} target="_blank" rel="noopener noreferrer" aria-label={`Directions to ${location.name}`}>
+              <a href={location.mapsUrl || googleMapsHref(location.address)} target="_blank" rel="noopener noreferrer" aria-label={`Directions to ${location.name}`}>
                 <MapPin size={16} aria-hidden="true" />Google Maps<ArrowUpRight size={14} aria-hidden="true" />
               </a>
             </div>
@@ -167,7 +167,7 @@ export function Footer() {
               <a href={url} key={name} className="social-link" target="_blank" rel="noopener noreferrer">
                 {name === "facebook" && <Facebook size={18} aria-hidden="true" />}
                 {name === "instagram" && <Instagram size={18} aria-hidden="true" />}
-                {name === "facebook" ? "Facebook" : name === "instagram" ? "Instagram" : name}
+                {name === "facebook" ? "Facebook" : name === "instagram" ? "Instagram" : name === "tiktok" ? "TikTok" : name}
                 <ArrowUpRight size={14} aria-hidden="true" />
               </a>
             ))}

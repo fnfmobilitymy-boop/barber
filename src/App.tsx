@@ -25,7 +25,7 @@ export default function App() {
         <main id="main">
           <HeroSection />
           <BranchSelector />
-          {activeBranch?.id === "taman-medan" ? <ServiceMenu /> : <section id="pricing" className="section"><h2>Services & prices</h2><p>{activeBranch ? "Contact our team for this branch’s current prices and appointments." : "Choose your branch to view its services, prices and booking options."}</p></section>}
+          {activeBranch?.id === "taman-medan" ? <ServiceMenu /> : <section id="pricing" className="section"><h2>Services & prices</h2><p>{activeBranch ? "View this branch’s current services, prices and appointment times on Setmore." : "Choose your branch to view its services, prices and booking options."}</p>{activeBranch?.bookingUrl && <a className="button liquid-glass" href={activeBranch.bookingUrl}>VIEW SERVICES & PRICES ON SETMORE</a>}</section>}
           <VideoShowcase />
           <ShopScenesSection />
           <FAQSection />

@@ -2697,3 +2697,22 @@ h2 em, .hero h1 .serif { font-weight: 900; }
 .branch-reviews p { font-size: 14px; line-height: 1.7; }
 .contact-card .contact-card-link { display: flex; min-height: 44px; align-items: center; gap: 8px; }
 @media (max-width: 900px) { .branch-grid { grid-template-columns: 1fr; } }
+
+/* Black-stage liquid chrome entrance, matching the supplied metallic reference. */
+.brand-intro-lockup { width: min(92vw, 660px); animation: intro-chrome-reveal 4.6s ease both; }
+.intro-chrome { display: block; width: 100%; height: auto; overflow: visible; }
+.intro-chrome-reflection { transform-origin: 627px 627px; animation: intro-chrome-flow 2.2s linear infinite; }
+@keyframes intro-chrome-flow {
+  0% { transform: translate(-430px, -240px) rotate(-22deg); }
+  50% { transform: translate(30px, 80px) rotate(12deg); }
+  100% { transform: translate(430px, 280px) rotate(30deg); }
+}
+@keyframes intro-chrome-reveal {
+  0% { opacity: 0; transform: scale(.96); }
+  12%, 83% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1.015); }
+}
+@media(prefers-reduced-motion:reduce) {
+  .brand-intro-lockup { width: min(64vw, 340px); animation: none; }
+  .intro-chrome-reflection { animation: none; }
+}
