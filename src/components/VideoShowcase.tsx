@@ -6,7 +6,8 @@ import { useReducedMotion } from "../hooks/useReducedMotion";
 import { AnimatedHeading, Eyebrow } from "./UI";
 
 export function VideoShowcase() {
-  const [active, setActive] = useState(0);
+  const [rotation, setRotation] = useState(0);
+  const active = ((rotation % showcaseVideos.length) + showcaseVideos.length) % showcaseVideos.length;
   const [automatic, setAutomatic] = useState(true);
   const [paused, setPaused] = useState(false);
   const [started, setStarted] = useState(false);
@@ -18,7 +19,13 @@ export function VideoShowcase() {
   const touch = useRef<{ x: number; y: number } | null>(null);
   const reduced = useReducedMotion();
   const change = (index: number) => {
-    setActive((index + showcaseVideos.length) % showcaseVideos.length);
+    const count = showcaseVideos.length;
+    const target = ((index % count) + count) % count;
+    setRotation(value => {
+      const current = ((value % count) + count) % count;
+      const delta = ((target - current + count + Math.floor(count / 2)) % count) - Math.floor(count / 2);
+      return value + delta;
+    });
     setFailed(false);
   };
 
@@ -56,7 +63,7 @@ export function VideoShowcase() {
     if (!visible || !automatic || paused || reduced) return;
     const timer = window.setInterval(() => {
       if (!document.hidden) {
-        setActive(index => (index + 1) % showcaseVideos.length);
+        setRotation(value => value + 1);
         setFailed(false);
       }
     }, 10000);
@@ -71,7 +78,7 @@ export function VideoShowcase() {
           event.preventDefault();
           const next = (active + (event.key === "ArrowRight" ? 1 : -1) + showcaseVideos.length) % showcaseVideos.length;
           change(next);
-          (event.currentTarget.children[next] as HTMLButtonElement).focus({ preventScroll: true });
+          event.currentTarget.querySelectorAll<HTMLButtonElement>(".showcase-thumbnail")[next].focus({ preventScroll: true });
         }
       }}
       onTouchStart={event => { const point = event.touches[0]; touch.current = { x: point.clientX, y: point.clientY }; }}
@@ -81,11 +88,9 @@ export function VideoShowcase() {
         const point = event.changedTouches[0], dx = point.clientX - start.x, dy = point.clientY - start.y;
         if (Math.abs(dx) > 55 && Math.abs(dx) > Math.abs(dy) * 1.5) change(active + (dx < 0 ? 1 : -1));
       }}>
+      <div className="native-works-orbit" style={{ "--orbit-rotation": `${-rotation * 360 / showcaseVideos.length}deg` } as CSSProperties}>
       {showcaseVideos.map((work, index) => {
-        const half = Math.floor(showcaseVideos.length / 2);
-        const offset = ((index - active + showcaseVideos.length + half) % showcaseVideos.length) - half;
-        const distance = Math.abs(offset);
-        const style = { "--card-offset": offset, "--card-depth": `${-135 * distance}px`, "--card-turn": `${-30 * offset}deg`, "--card-rise": `${14 * distance}px`, opacity: distance > 2 ? 0 : 1 - distance * .16, zIndex: showcaseVideos.length - distance } as CSSProperties;
+        const style = { "--orbit-angle": `${index * 360 / showcaseVideos.length}deg` } as CSSProperties;
         return <button key={work.id} className={`showcase-thumbnail ${index === active ? "is-active" : ""}`} style={style}
           aria-label={`Show video ${index + 1}: ${work.title}`} aria-current={index === active ? "true" : undefined}
           tabIndex={index === active ? 0 : -1} onClick={() => change(index)} onFocus={() => change(index)}>
@@ -96,6 +101,7 @@ export function VideoShowcase() {
           <span><span className="micro">SPARTANS / {String(index + 1).padStart(2, "0")}</span>{work.title}</span>
         </button>;
       })}
+      </div>
     </div>
     <div className="showcase-toolbar">
       <div className="showcase-navigation">

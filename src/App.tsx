@@ -27,9 +27,10 @@ export default function App() {
         <Navbar />
         <main id="main">
           {!activeBranch && <HeroSection />}
+          {!activeBranch && <VideoShowcase />}
           <BranchSelector />
           {activeBranch ? <ServiceMenu /> : <section id="pricing" className="section"><h2>Services & prices</h2><p>Choose your branch to view its services, prices and booking options.</p></section>}
-          <VideoShowcase />
+          {activeBranch && <VideoShowcase />}
           <ShopScenesSection />
           <FAQSection />
           <OpportunitiesLinks />

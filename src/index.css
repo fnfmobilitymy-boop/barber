@@ -2757,3 +2757,9 @@ h2 em, .hero h1 .serif { font-weight: 900; }
 .native-works .native-work-video { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: contain; border-radius: 6px; background: #000; pointer-events: none; }
 .native-works-controls { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
 @media(max-width:550px) { .native-works .showcase-toolbar { flex-wrap: wrap; gap: 18px; } .native-works .showcase-thumbnail > span { font-size: 22px; } }
+
+/* Cards orbit a shared vertical axis, matching the supplied rotating-ring reference. */
+.native-works .showcase-thumbnails { --orbit-radius: clamp(150px, 20vw, 220px); perspective: 1000px; perspective-origin: 50% 50%; }
+.native-works-orbit { position: absolute; inset: 0; transform-style: preserve-3d; transform: translateZ(calc(-1 * var(--orbit-radius))) rotateY(var(--orbit-rotation)); transition: transform 1.35s cubic-bezier(.22,.7,.25,1); }
+.native-works .showcase-thumbnail { transform: translate(-50%, -50%) rotateY(var(--orbit-angle)) translateZ(var(--orbit-radius)); transition: border-color .3s, background-color .3s; backface-visibility: hidden; }
+@media(prefers-reduced-motion:reduce) { .native-works-orbit { transition: none; } }

@@ -14,13 +14,20 @@ export function BrandIntro() {
     const previousInert = page?.inert ?? false;
     if (page) page.inert = true;
     document.body.style.overflow = "hidden";
+    let anchorFrame = 0;
     const timer = window.setTimeout(() => {
       setVisible(false);
       if (page) page.inert = previousInert;
       document.body.style.overflow = previousOverflow;
+      // The entrance temporarily blocks scrolling, so restore deep-link navigation.
+      anchorFrame = window.requestAnimationFrame(() => {
+        const target = document.getElementById(window.location.hash.slice(1));
+        target?.scrollIntoView({ behavior: "instant", block: "start" });
+      });
     }, reducedMotion ? 350 : 4600);
     return () => {
       window.clearTimeout(timer);
+      window.cancelAnimationFrame(anchorFrame);
       if (page) page.inert = previousInert;
       document.body.style.overflow = previousOverflow;
     };

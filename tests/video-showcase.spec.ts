@@ -71,3 +71,35 @@ test("native carousel automatically advances, centres its card, and pauses in a 
   });
   await expect.poll(() => section.locator("video").evaluate(v => (v as HTMLVideoElement).paused)).toBe(false);
 });
+
+test("ring navigation wraps forward and backward without reversing a full turn or skipping focused cards", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/");
+  const section = page.locator("#films");
+  await section.locator(".showcase-thumbnails").scrollIntoViewIfNeeded();
+  await section.getByRole("button", { name: "Previous video", exact: true }).click();
+  await expect(section.locator("video")).toHaveAttribute("src", "/videos/showcase/work-06.mp4");
+  await expect(section.locator(".native-works-orbit")).toHaveAttribute("style", /60deg/);
+  await section.getByRole("button", { name: "Next video", exact: true }).click();
+  await expect(section.locator("video")).toHaveAttribute("src", "/videos/showcase/work-01.mp4");
+  await section.getByRole("button", { name: "Show video 1: Spartans work 01", exact: true }).focus();
+  await page.keyboard.press("ArrowRight");
+  await expect(section.locator("video")).toHaveAttribute("src", "/videos/showcase/work-02.mp4");
+});
+
+test("direct works link reaches the carousel after the opening animation", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/?v=works#films");
+  await expect(page.locator(".brand-intro")).toHaveCount(0, { timeout: 6500 });
+  await expect.poll(() => page.locator("#films").evaluate(element => Math.abs(element.getBoundingClientRect().top))).toBeLessThan(150);
+  await expect.poll(() => page.locator("#films video").evaluate(v => (v as HTMLVideoElement).paused)).toBe(false);
+});
+
+test("works are displayed directly after the homepage Hero and remain on branch pages", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/");
+  await expect(page.locator("main > #home + #films")).toHaveCount(1);
+  await expect(page.locator("#films .showcase-thumbnail")).toHaveCount(6);
+  await page.goto("/?branch=taman-medan");
+  await expect(page.locator("#films .showcase-thumbnail")).toHaveCount(6);
+});
