@@ -32,6 +32,7 @@ for (const width of [375, 390, 430, 768, 1024, 1440, 1920]) {
     }
     for (const id of [
       "the-space",
+      "films",
       "pricing",
       "faq",
       "booking",
@@ -65,7 +66,7 @@ for (const width of [375, 390, 430, 768, 1024, 1440, 1920]) {
 test("retained FAQ, booking and navigation work without removed sections", async ({ page }) => {
   await page.goto("/");
   await expect(page.locator("#gallery, #barbers, #services")).toHaveCount(0);
-  await expect(page.locator("#films")).toHaveCount(0);
+  await expect(page.locator("#films")).toHaveCount(1);
   await expect(page.locator("#pricing")).toHaveCount(1);
   await page.getByRole("button", { name: "Do I need an appointment?" }).click();
   await expect(page.locator("#answer-0")).toBeVisible();

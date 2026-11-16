@@ -31,7 +31,7 @@ The homepage asks customers to select a branch before booking. Each branch opens
 - `src/data/mainBranchMenu.ts`: 27 main branch menu entries across five categories, preserving the supplied descriptions, prices and durations. Black dye appears in two categories as supplied. The supplied child haircut title (<4Y) and description (under 6) differ and are retained pending owner clarification.
 - `src/data/thirdBranchMenu.ts`: 18 Branch 03 grooming services plus three free meeting slots, preserving the supplied category and item ordering.
 - `src/data/barbers.ts`: Taman Medan staff Ali Shah and Zabih, both offering all 18 confirmed services.
-- `src/data/videos.ts`: previous local showcase metadata is retained but not rendered. All Instagram showcase embeds and post links have been removed pending owner-supplied MP4 works. Hero media remains separate.
+- `src/data/videos.ts`: six owner-uploaded MP4 works and frame-extracted posters power the native carousel. The original uploads are copied without re-encoding. Instagram embeds are removed. Hero media remains separate.
 - `src/data/shopPhotos.ts`: eight original photos copied unchanged from `iloveimg-compressed.zip` to `public/images/shop/`. Each appears once. Photos are not assigned to specific branches because no branch mapping was supplied.
 - `src/components/BrandLogo.tsx`: the shared helmet logo used in the header and automatic intro and footer. The PNG was prepared with image generation from the user's circular logo reference; it is not an original uploaded source file.
 - `src/components/ContactDock.tsx`: booking shortcuts on the Hero, hidden over the remaining content to avoid covering prices, photos or contact details.
@@ -66,4 +66,4 @@ The showcase cards form a curved 3D coverflow carousel based on the owner’s la
 
 ## Works showcase
 
-The Instagram showcase, all seven post links, embeds and video navigation entries have been removed at the owner’s request. The former local showcase also remains hidden. The Hero video is unchanged. A future works section will use owner-supplied MP4 files for reliable muted autoplay and offscreen pause.
+Six owner-uploaded MP4s are served from `public/videos/showcase/work-01.mp4` through `work-06.mp4`. Their posters are in `public/images/showcase/`. The selected visible card plays muted and inline, pauses offscreen or when the tab is hidden, and resumes on return unless manually paused. The carousel advances after 10 seconds or at the end of a shorter clip. Previous/next, keyboard arrows, touch, playback, mute and automatic-switch controls are available. Reduced motion disables automatic playback/switching while retaining manual play. Instagram embeds and old showcase clips are not displayed. The Hero video remains separate.

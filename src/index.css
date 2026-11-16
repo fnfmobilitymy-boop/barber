@@ -2749,3 +2749,11 @@ h2 em, .hero h1 .serif { font-weight: 900; }
 .opportunities-invitation h2 { font-size: clamp(30px, 4vw, 54px); }
 @media(max-width:1100px) { .desktop-nav { gap: 12px; } .desktop-nav a { font-size: 11px; } }
 @media(max-width:850px) { .opportunities-grid { grid-template-columns: 1fr; } .opportunities-main { padding-top: 46px; } .opportunities-header nav { gap: 14px; } }
+
+/* Six original MP4 works use a single visible native player. */
+.native-works .showcase-thumbnails { height: clamp(420px, 44vw, 540px); }
+.native-works .showcase-thumbnail { width: clamp(220px, 25vw, 300px); }
+.native-works .showcase-thumbnail > img,
+.native-works .native-work-video { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: contain; border-radius: 6px; background: #000; pointer-events: none; }
+.native-works-controls { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+@media(max-width:550px) { .native-works .showcase-toolbar { flex-wrap: wrap; gap: 18px; } .native-works .showcase-thumbnail > span { font-size: 22px; } }

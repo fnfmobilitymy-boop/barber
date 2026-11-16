@@ -1,3 +1,4 @@
+import { VideoShowcase } from "./components/VideoShowcase";
 import { OpportunitiesPage, OpportunitiesLinks } from "./components/OpportunitiesPage";
 import { BranchSelector } from "./components/BranchSelector";
 import { activeBranch } from "./data/business";
@@ -28,6 +29,7 @@ export default function App() {
           {!activeBranch && <HeroSection />}
           <BranchSelector />
           {activeBranch ? <ServiceMenu /> : <section id="pricing" className="section"><h2>Services & prices</h2><p>Choose your branch to view its services, prices and booking options.</p></section>}
+          <VideoShowcase />
           <ShopScenesSection />
           <FAQSection />
           <OpportunitiesLinks />
