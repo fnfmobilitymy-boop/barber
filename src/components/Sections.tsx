@@ -136,7 +136,7 @@ export function Footer() {
     <footer className="footer">
       <div className="footer-main">
         <div className="footer-brand">
-          <a className="footer-brand-identity" href="#home" aria-label="Spartans Barbershop — back to top">
+          <a className="footer-brand-identity" href={import.meta.env.BASE_URL} aria-label="Spartans Barbershop — homepage">
             <BrandLogo />
             <p className="footer-brand-name">SPARTANS<span>BARBERSHOP</span></p>
           </a>

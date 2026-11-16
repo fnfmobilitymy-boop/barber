@@ -42,7 +42,7 @@ export function Navbar() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
     >
-      <a className="logo" href={activeBranch ? import.meta.env.BASE_URL : "#home"} aria-label="Spartans Barbershop home">
+      <a className="logo" href={import.meta.env.BASE_URL} aria-label="Spartans Barbershop home">
         <BrandLogo />
       </a>
       <nav className="desktop-nav liquid-glass" aria-label="Main navigation">
