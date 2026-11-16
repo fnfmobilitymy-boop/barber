@@ -6,7 +6,8 @@ for (const width of [390, 1440]) {
     await page.goto("/");
     await expect(page.locator(".brand-intro")).toHaveCount(0, { timeout: 6500 });
     const carousel = page.locator(".instagram-works");
-    await carousel.scrollIntoViewIfNeeded();
+    await carousel.locator(".instagram-carousel-viewport").scrollIntoViewIfNeeded();
+    await page.bringToFront();
     await expect(carousel.locator("iframe")).toHaveAttribute("src", "https://www.instagram.com/reel/Dbu93llJ3t6/embed/");
     await expect(carousel.locator("iframe")).toHaveAttribute("src", "https://www.instagram.com/p/DbkZmrXoLBr/embed/", { timeout: 14000 });
     // Allow the slide transition to finish before checking centring.
@@ -28,7 +29,8 @@ for (const width of [390, 1440]) {
     await page.route("https://www.instagram.com/**", route => route.fulfill({ contentType: "text/html", body: "<p>Instagram embed test</p>" }));
     await page.goto("/");
     const carousel = page.locator(".instagram-works");
-    await carousel.scrollIntoViewIfNeeded();
+    await carousel.locator(".instagram-carousel-viewport").scrollIntoViewIfNeeded();
+    await page.bringToFront();
     await expect(carousel.locator("article")).toHaveCount(7);
     const urls = [
       "https://www.instagram.com/reel/Dbu93llJ3t6/",
@@ -40,6 +42,7 @@ for (const width of [390, 1440]) {
       "https://www.instagram.com/reel/Dcdtbwhzl_Z/",
     ];
     for (const [index, url] of urls.entries()) {
+      await carousel.locator(".instagram-carousel-viewport").scrollIntoViewIfNeeded();
       await expect(carousel.locator("iframe")).toHaveAttribute("src", `${url}embed/`);
       await expect(carousel.locator('article[aria-hidden="false"] a')).toHaveAttribute("href", url);
       await expect(carousel.locator(".instagram-carousel-controls > span")).toHaveText(`0${index + 1} / 07`);

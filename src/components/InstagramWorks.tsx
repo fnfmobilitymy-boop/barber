@@ -7,10 +7,16 @@ export function InstagramWorks() {
   const [active, setActive] = useState(0);
   const [automatic, setAutomatic] = useState(true);
   const [visible, setVisible] = useState(false);
+  const [pageVisible, setPageVisible] = useState(() => !document.hidden);
   const viewport = useRef<HTMLDivElement>(null);
   const touch = useRef<{ x: number; y: number } | null>(null);
   const reduced = useReducedMotion();
   const change = (index: number) => setActive((index + instagramWorks.length) % instagramWorks.length);
+  useEffect(() => {
+    const update = () => setPageVisible(!document.hidden);
+    document.addEventListener("visibilitychange", update);
+    return () => document.removeEventListener("visibilitychange", update);
+  }, []);
   useEffect(() => {
     if (!viewport.current) return;
     const observer = new IntersectionObserver(([entry]) => setVisible(entry.isIntersecting), { threshold: .2 });
@@ -18,12 +24,12 @@ export function InstagramWorks() {
     return () => observer.disconnect();
   }, []);
   useEffect(() => {
-    if (!visible || !automatic || reduced) return;
+    if (!visible || !pageVisible || !automatic || reduced) return;
     const timer = window.setInterval(() => {
       if (!document.hidden) setActive(index => (index + 1) % instagramWorks.length);
     }, 10000);
     return () => window.clearInterval(timer);
-  }, [active, visible, automatic, reduced]);
+  }, [active, visible, pageVisible, automatic, reduced]);
   return <div className="instagram-works" aria-labelledby="instagram-works-heading" aria-roledescription="carousel">
     <div className="instagram-works-heading"><p className="micro">FROM OUR INSTAGRAM</p><h3 id="instagram-works-heading">More from the shop.</h3><p>Spartans works, shared by our team.</p></div>
     <div className="instagram-carousel-viewport" ref={viewport}
@@ -37,7 +43,7 @@ export function InstagramWorks() {
       <div className="instagram-works-grid" style={{ transform: `translateX(-${active * 100}%)` }}>
         {instagramWorks.map((work, index) => <article className="instagram-work" key={work.id} aria-hidden={index !== active} inert={index !== active}>
           <div className="instagram-work-player">
-            {visible && index === active && <iframe src={`${work.url}embed/`} title={`Spartans Instagram work ${index + 1}`} allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowFullScreen />}
+            {visible && pageVisible && index === active && <iframe src={`${work.url}embed/`} title={`Spartans Instagram work ${index + 1}`} allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowFullScreen />}
           </div>
           <a className="contact-card-link" href={work.url} target="_blank" rel="noopener noreferrer">WATCH ON INSTAGRAM <ArrowUpRight size={16} aria-hidden="true" /></a>
         </article>)}
