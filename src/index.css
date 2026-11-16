@@ -2573,7 +2573,7 @@ a.contact-card:hover { border-color: #ffffff60; background: var(--surface-elevat
   --coverflow-step: clamp(130px,22vw,280px);
   display: block;
   height: clamp(310px,34vw,440px);
-  overflow: hidden;
+  overflow: clip;
   perspective: 1000px;
   perspective-origin: 50% 45%;
   scroll-snap-type: none;
@@ -2765,3 +2765,10 @@ h2 em, .hero h1 .serif { font-weight: 900; }
 .instagram-work > a { display: flex; justify-content: space-between; gap: 10px; margin: 18px 8px 8px; font-size: 12px; }
 @media(max-width:1050px) { .instagram-works-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media(max-width:650px) { .instagram-works-grid { grid-template-columns: minmax(0, 1fr); } .instagram-work-player { height: 500px; } }
+
+/* Instagram works slide automatically on desktop and mobile. */
+.instagram-carousel-viewport { width: min(100%, 500px); margin-inline: auto; overflow: hidden; border-radius: 20px; touch-action: pan-y; }
+.instagram-carousel-viewport .instagram-works-grid { display: flex; gap: 0; transition: transform .65s cubic-bezier(.22,1,.36,1); }
+.instagram-carousel-viewport .instagram-work { flex: 0 0 100%; width: 100%; box-sizing: border-box; }
+.instagram-carousel-controls { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 14px; margin-top: 20px; }
+@media(prefers-reduced-motion:reduce) { .instagram-carousel-viewport .instagram-works-grid { transition: none; } }

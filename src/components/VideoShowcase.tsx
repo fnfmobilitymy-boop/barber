@@ -210,7 +210,7 @@ export function VideoShowcase() {
               aria-label={`Show video ${index + 1}: ${item.title}`}
               aria-current={index === active ? "true" : undefined}
               onClick={() => goTo(index)}
-              onFocus={(event) => { if (event.currentTarget.matches(":focus-visible")) goTo(index); }}
+              onFocus={() => goTo(index)}
             >
               {index === active ? <ShowcasePreview key={item.id} src={`${import.meta.env.BASE_URL}${item.src}`} poster={`${import.meta.env.BASE_URL}${item.poster}`} enabled={autoAdvance && !userPaused && (!reduced || userStarted)} /> : <img src={`${import.meta.env.BASE_URL}${item.poster}`} alt="" />}
               <span><span className="micro">0{index + 1}</span>{item.title}</span>

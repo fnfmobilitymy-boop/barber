@@ -97,3 +97,18 @@ test("3D carousel previews and automatically centres cards independently of the 
   await page.waitForTimeout(5500);
   await expect(rail.getByRole("button", { name: "Show video 4: Natural movement.", exact: true })).toHaveAttribute("aria-current", "true");
 });
+
+test("mobile carousel automatically plays its visible card and moves the next card to the centre", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/");
+  await expect(page.locator(".brand-intro")).toHaveCount(0, { timeout: 6500 });
+  const rail = page.locator(".showcase-thumbnails");
+  await rail.evaluate(element => scrollTo({ top: element.getBoundingClientRect().top + scrollY - 130, behavior: "instant" }));
+  await expect.poll(() => rail.locator("video").evaluate(v => (v as HTMLVideoElement).currentTime)).toBeGreaterThan(.1);
+  await expect(rail.getByRole("button", { name: "Show video 2: Fresh texture.", exact: true })).toHaveAttribute("aria-current", "true", { timeout: 8000 });
+  await expect.poll(() => rail.evaluate(element => {
+    const card = element.querySelector('[aria-current="true"]')!.getBoundingClientRect();
+    const track = element.getBoundingClientRect();
+    return Math.abs((card.left + card.width / 2) - (track.left + track.width / 2));
+  })).toBeLessThan(4);
+});
