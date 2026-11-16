@@ -20,3 +20,34 @@ for (const width of [390, 1440]) {
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   });
 }
+
+for (const width of [390, 1440]) {
+  test(`all seven Instagram works are reachable and wrap in the carousel at ${width}px`, async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.setViewportSize({ width, height: 900 });
+    await page.route("https://www.instagram.com/**", route => route.fulfill({ contentType: "text/html", body: "<p>Instagram embed test</p>" }));
+    await page.goto("/");
+    const carousel = page.locator(".instagram-works");
+    await carousel.scrollIntoViewIfNeeded();
+    await expect(carousel.locator("article")).toHaveCount(7);
+    const urls = [
+      "https://www.instagram.com/reel/Dbu93llJ3t6/",
+      "https://www.instagram.com/p/DbkZmrXoLBr/",
+      "https://www.instagram.com/reel/Dd8gyosJKb7/",
+      "https://www.instagram.com/reel/DZzGALMzAUZ/",
+      "https://www.instagram.com/reel/DfbKqBcyNvm/",
+      "https://www.instagram.com/reel/DdQuV85zv_R/",
+      "https://www.instagram.com/reel/Dcdtbwhzl_Z/",
+    ];
+    for (const [index, url] of urls.entries()) {
+      await expect(carousel.locator("iframe")).toHaveAttribute("src", `${url}embed/`);
+      await expect(carousel.locator('article[aria-hidden="false"] a')).toHaveAttribute("href", url);
+      await expect(carousel.locator(".instagram-carousel-controls > span")).toHaveText(`0${index + 1} / 07`);
+      await carousel.getByRole("button", { name: "Next Instagram work" }).click();
+    }
+    await expect(carousel.locator("iframe")).toHaveAttribute("src", `${urls[0]}embed/`);
+    await carousel.getByRole("button", { name: "Previous Instagram work" }).click();
+    await expect(carousel.locator("iframe")).toHaveAttribute("src", `${urls[6]}embed/`);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  });
+}

@@ -25,7 +25,7 @@ export function InstagramWorks() {
     return () => window.clearInterval(timer);
   }, [active, visible, automatic, reduced]);
   return <div className="instagram-works" aria-labelledby="instagram-works-heading" aria-roledescription="carousel">
-    <div className="instagram-works-heading"><p className="micro">FROM OUR INSTAGRAM</p><h3 id="instagram-works-heading">More from the shop.</h3><p>Three more Spartans works, shared by our team.</p></div>
+    <div className="instagram-works-heading"><p className="micro">FROM OUR INSTAGRAM</p><h3 id="instagram-works-heading">More from the shop.</h3><p>Spartans works, shared by our team.</p></div>
     <div className="instagram-carousel-viewport" ref={viewport}
       onTouchStart={event => { const point = event.touches[0]; touch.current = { x: point.clientX, y: point.clientY }; }}
       onTouchEnd={event => {
@@ -45,7 +45,7 @@ export function InstagramWorks() {
     </div>
     <div className="instagram-carousel-controls">
       <button className="showcase-icon-button" aria-label="Previous Instagram work" onClick={() => change(active - 1)}><ArrowLeft size={20} /></button>
-      <span className="micro" aria-live={automatic && !reduced ? "off" : "polite"}>{String(active + 1).padStart(2, "0")} / 03</span>
+      <span className="micro" aria-live={automatic && !reduced ? "off" : "polite"}>{String(active + 1).padStart(2, "0")} / {String(instagramWorks.length).padStart(2, "0")}</span>
       <button className="showcase-icon-button" aria-label="Next Instagram work" onClick={() => change(active + 1)}><ArrowRight size={20} /></button>
       <button className="showcase-auto" disabled={!!reduced} aria-pressed={automatic && !reduced} aria-label={automatic ? "Pause Instagram carousel" : "Resume Instagram carousel"} onClick={() => setAutomatic(value => !value)}>
         {automatic && !reduced ? <Pause size={14} /> : <Play size={14} />}{automatic && !reduced ? "PAUSE" : "RESUME"}
