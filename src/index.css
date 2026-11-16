@@ -2749,3 +2749,19 @@ h2 em, .hero h1 .serif { font-weight: 900; }
 .opportunities-invitation h2 { font-size: clamp(30px, 4vw, 54px); }
 @media(max-width:1100px) { .desktop-nav { gap: 12px; } .desktop-nav a { font-size: 11px; } }
 @media(max-width:850px) { .opportunities-grid { grid-template-columns: 1fr; } .opportunities-main { padding-top: 46px; } .opportunities-header nav { gap: 14px; } }
+
+.instagram-works { margin-top: 64px; }
+.instagram-works-heading { margin-bottom: 28px; }
+.instagram-works-heading h3 { margin: 12px 0; font-size: clamp(28px, 4vw, 44px); }
+.instagram-works-heading > p:last-child { color: var(--muted); }
+.instagram-works-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; }
+.instagram-work { min-width: 0; padding: 12px; border: 1px solid var(--border); border-radius: 20px; background: #ffffff04; }
+.instagram-work-player { height: 510px; overflow: hidden; border-radius: 12px; background: #101512; }
+.instagram-work-player iframe { display: block; width: 100%; height: 100%; border: 0; background: white; }
+.instagram-work-load { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 24px; width: 100%; height: 100%; padding: 20px; color: inherit; cursor: pointer; background: radial-gradient(ellipse at 50% 35%, #b89a6226, transparent 65%); border: 0; }
+.instagram-work-load:hover { background-color: #ffffff07; }
+.instagram-work-load:focus-visible { outline: 2px solid var(--accent); outline-offset: -5px; }
+.instagram-work-play { display: inline-flex; align-items: center; gap: 10px; border: 1px solid var(--border); border-radius: 40px; padding: 14px 20px; font-size: 13px; }
+.instagram-work > a { display: flex; justify-content: space-between; gap: 10px; margin: 18px 8px 8px; font-size: 12px; }
+@media(max-width:1050px) { .instagram-works-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media(max-width:650px) { .instagram-works-grid { grid-template-columns: minmax(0, 1fr); } .instagram-work-player { height: 500px; } }

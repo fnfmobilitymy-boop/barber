@@ -4,6 +4,7 @@ import { ArrowLeft, ArrowRight, Film, Pause, Play, Volume2, VolumeX } from "luci
 import { useReducedMotion } from "../hooks/useReducedMotion";
 import { showcaseVideos } from "../data/videos";
 import { ShowcasePreview } from "./ShowcasePreview";
+import { InstagramWorks } from "./InstagramWorks";
 import { AnimatedHeading, Eyebrow } from "./UI";
 
 export function VideoShowcase() {
@@ -218,6 +219,7 @@ export function VideoShowcase() {
           );
         })}
       </div>
+      <InstagramWorks />
     </section>
   );
 }
