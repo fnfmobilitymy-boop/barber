@@ -21,3 +21,24 @@ for (const width of [390, 1440]) {
     });
   }
 }
+
+for (const route of ["partnerships", "careers"]) {
+  test(`${route} card titles stay inside their cards across screen sizes`, async ({ page }) => {
+    await page.goto(`/?page=${route}`);
+    await page.evaluate(() => document.fonts.ready);
+    for (const width of [375, 768, 900, 1024, 1329, 1440, 1920]) {
+      await page.setViewportSize({ width, height: 900 });
+      const overflow = await page.locator(".opportunities-grid h2").evaluateAll(headings => headings.flatMap(heading => {
+        const card = heading.closest(".contact-card")!;
+        const bounds = card.getBoundingClientRect();
+        const style = getComputedStyle(card);
+        const left = bounds.left + parseFloat(style.paddingLeft);
+        const right = bounds.right - parseFloat(style.paddingRight);
+        const range = document.createRange();
+        range.selectNodeContents(heading);
+        return Array.from(range.getClientRects()).filter(rect => rect.left < left - 1 || rect.right > right + 1).map(() => heading.textContent);
+      }));
+      expect(overflow, `${width}px card text overflow`).toEqual([]);
+    }
+  });
+}

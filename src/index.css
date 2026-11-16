@@ -2738,6 +2738,7 @@ h2 em, .hero h1 .serif { font-weight: 900; }
 .opportunities-actions { display: flex; flex-wrap: wrap; gap: 16px; margin: 32px 0 60px; }
 .opportunities-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
 .opportunities-grid .contact-card { min-width: 0; }
+.opportunities-grid h2 { font-size: clamp(28px, 2.6vw, 40px); line-height: 1.12; max-width: 100%; overflow-wrap: anywhere; text-wrap: balance; }
 .opportunities-grid p, .opportunities-grid li { color: var(--muted); line-height: 1.8; }
 .opportunities-grid ul { padding-left: 18px; }
 .opportunities-grid li + li { margin-top: 12px; }
