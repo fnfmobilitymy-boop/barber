@@ -12,7 +12,7 @@ export const locations: ShopLocation[] = [
   {
     id: "petaling-jaya",
     name: "Petaling Jaya · Seksyen 14",
-    label: "MAIN BRANCH",
+    label: "MAIN BRANCH · SHOP 01",
     address: "5B, Jalan 14/20, Seksyen 14, 46100 Petaling Jaya, Selangor",
     hours: "10:00–21:00",
     bookingUrl: "https://spartansbarbershop.setmore.com/",
@@ -20,7 +20,7 @@ export const locations: ShopLocation[] = [
   {
     id: "taman-medan",
     name: "Taman Medan",
-    label: "BRANCH 02",
+    label: "SECOND BRANCH · SHOP 02",
     address: "B3-4-1, Jalan PJS 3/11C, Taman JRK Delta, 46000 Petaling Jaya, Selangor",
     hours: null,
     bookingUrl: "https://spartansbarbershopsb02.setmore.com/",
@@ -29,7 +29,7 @@ export const locations: ShopLocation[] = [
   {
     id: "bandar-saujana-putra",
     name: "Bandar Saujana Putra",
-    label: "BRANCH 03",
+    label: "THIRD BRANCH · SHOP 03",
     address: "36-1, Jalan SP 1/2, Bandar Saujana Putra, 42610 Jenjarom, Selangor",
     hours: null,
     bookingUrl: "https://spartansbarbershopsb03.setmore.com/",

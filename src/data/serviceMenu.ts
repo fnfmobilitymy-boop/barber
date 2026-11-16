@@ -9,7 +9,7 @@ export const serviceMenu: { id: string; name: string; items: MenuItem[] }[] = [
   {
     id: "haircut", name: "Haircut",
     items: [
-      { name: "HAIRCUT", minutes: 30, price: 25 },
+      { name: "HAIRCUT", minutes: 30, price: 25, description: "Get a fresh, stylish cut tailored to your look and personality. Every haircut includes a complimentary hair wash before or after your service for a clean, comfortable, and refreshing experience. Perfect finish with expert styling to keep you looking sharp and confident." },
       { name: "HAIRCUT & QUICK WASH", minutes: 30, price: 30 },
       { name: "HAIRCUT KID (<12Y)", minutes: 30, price: 15 },
       { name: "BEARD GROOMING", minutes: 20, price: 10 },
@@ -37,11 +37,11 @@ export const serviceMenu: { id: string; name: string; items: MenuItem[] }[] = [
   {
     id: "packages", name: "Spartans packages",
     items: [
-      { name: "BASIC", minutes: 30, price: 35, includes: ["Haircut", "Premium hair wash"] },
-      { name: "CLASSIC", minutes: 40, price: 45, includes: ["Haircut", "Premium hair wash", "Beard grooming"] },
-      { name: "PREMIUM", minutes: 60, price: 65, includes: ["Haircut", "Premium hair wash", "Beard grooming", "Face scrub / face mask"] },
-      { name: "ULTIMATE", minutes: 80, price: 80, includes: ["Haircut", "Premium hair wash", "Beard grooming", "Face scrub / face mask", "Head massage"] },
-      { name: "ROYAL", minutes: 100, price: 100, includes: ["Haircut", "Premium hair wash", "Beard grooming + steam", "Head massage", "Premium facial (5 step)"] },
+      { name: "BASIC", minutes: 30, price: 35, description: "Haircut + Premium Hair wash" },
+      { name: "CLASSIC", minutes: 40, price: 45, includes: ["Haircut", "Premium Hair Wash", "Beard Grooming"] },
+      { name: "PREMIUM", minutes: 60, price: 65, includes: ["Haircut", "Premium Hair Wash", "Beard Grooming", "Face Scrub / Face Mask"] },
+      { name: "ULTIMATE", minutes: 80, price: 80, includes: ["Haircut", "Premium Hair Wash", "Beard Grooming", "Face Scrub / Face Mask", "Head Massage"] },
+      { name: "ROYAL", minutes: 100, price: 100, includes: ["Haircut", "Premium Hair Wash", "Beard Grooming + Steam", "Head Massage", "Premium Facial (5 Step)"] },
     ],
   },
 ];

@@ -1,3 +1,4 @@
+import { opportunityHref } from "./OpportunitiesPage";
 import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import {
@@ -176,6 +177,8 @@ export function Footer() {
       </div>
       <div className="footer-menu-row">
         <nav className="footer-quicklinks" aria-label="Footer navigation">
+          <a href={opportunityHref("partnerships")}>Partnerships & Investment</a>
+          <a href={opportunityHref("careers")}>Careers</a>
           <a href="#pricing">Services & Prices</a>
           <a href="#films">Videos</a>
           <a href="#the-space">Our Space</a>

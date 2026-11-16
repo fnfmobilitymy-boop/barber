@@ -22,12 +22,14 @@ Static-host-compatible branch URLs use the `branch` query parameter and survive 
 - `?branch=taman-medan`: Branch 02, with its confirmed Setmore URL and 18 services for both Ali Shah and Zabih.
 - `?branch=bandar-saujana-putra`: existing Bandar Saujana Putra location.
 
-The homepage asks customers to select a branch before booking. Prices and Setmore booking are shown only for Taman Medan until the other branch menus and URLs are supplied. The other pages offer branch-specific WhatsApp enquiries. Branch numbering and identities beyond Taman Medan need owner confirmation. Maps use Google Maps address embeds; Google review links currently search for the business and address. Supply exact Google Business Profile/review links to target the listings directly. Setmore ratings are not Google ratings and are not displayed as such.
+The homepage asks customers to select a branch before booking. Each branch opens directly on its own heading, shop number, address and booking actions, with its own menu. Shop 01 is the main branch at Seksyen 14, Shop 02 is Taman Medan, and Shop 03 is Bandar Saujana Putra. Maps use Google Maps address embeds; Google review links currently search for the business and address. Supply exact Google Business Profile/review links to target the listings directly. Setmore ratings are not Google ratings and are not displayed as such.
 
 ## Content
 
 - `src/data/business.ts`: contact details and branch addresses, each with a Google Maps embed and directions link. Branch 02 hours have not been supplied; customers are directed to contact the team. The proposed third branch is omitted at the user's request.
-- `src/data/serviceMenu.ts`: 18 Taman Medan services across four categories, with RM prices, durations and package inclusions supplied by the user.
+- `src/data/serviceMenu.ts`: 18 Taman Medan services across four categories.
+- `src/data/mainBranchMenu.ts`: 27 main branch menu entries across five categories, preserving the supplied descriptions, prices and durations. Black dye appears in two categories as supplied. The supplied child haircut title (<4Y) and description (under 6) differ and are retained pending owner clarification.
+- `src/data/thirdBranchMenu.ts`: 18 Branch 03 grooming services plus three free meeting slots, preserving the supplied category and item ordering.
 - `src/data/barbers.ts`: Taman Medan staff Ali Shah and Zabih, both offering all 18 confirmed services.
 - `src/data/videos.ts`: five independent showcase clips supplied as a–e. They never replace or enter the Hero player. Full framing, original colour and audio are retained, with muted playback by default.
 - `src/data/shopPhotos.ts`: eight original photos copied unchanged from `iloveimg-compressed.zip` to `public/images/shop/`. Each appears once. Photos are not assigned to specific branches because no branch mapping was supplied.
@@ -38,7 +40,7 @@ Fonts are self-hosted; OFL licences are in `public/fonts`. Headlines and key but
 
 ## Booking
 
-Taman Medan booking buttons open https://spartansbarbershopsb02.setmore.com/. The other branch pages use WhatsApp enquiries until their booking URLs are supplied. Homepage booking buttons lead to branch selection. Setmore staff accounts, calendar permissions, service availability and notifications must be configured by the owner; see `SETMORE_SETUP.md`. A website link does not configure those permissions.
+Booking destinations: Shop 01 uses https://spartansbarbershop.setmore.com/, Shop 02 uses https://spartansbarbershopsb02.setmore.com/, and Shop 03 uses https://spartansbarbershopsb03.setmore.com/. Homepage booking buttons lead to branch selection. Setmore staff accounts, calendar permissions, service availability and notifications must be configured by the owner; see `SETMORE_SETUP.md`. A website link does not configure those permissions.
 
 ## Media behaviour
 
@@ -57,3 +59,7 @@ For a matching local production preview, run `GITHUB_PAGES=true npm run build`, 
 The circular helmet logo (`spartans-logo.png`) is restored throughout the website and browser icons. The alternative arch-logo trial remains recoverable in Git history.
 
 The showcase cards form a curved 3D coverflow carousel based on the owner’s later reference. The selected card is centred and enlarged while neighbouring cards tilt and recede into perspective. The selected visible card plays a muted preview. When only the card rail is visible, Auto advances every 3.5 seconds and moves the selected card to the centre; the main player pauses offscreen. Turning Auto off stops card previews and automatic switching. Reduced motion disables automatic animation.
+
+## Partnerships and careers
+
+`?page=partnerships` and `?page=careers` are independent pages compatible with static hosting. Both are linked in navigation, the footer and the Grow with Spartans section. WhatsApp and mailto links prefill the corresponding enquiry/application message and use the existing business contacts. No application data is stored by this website.

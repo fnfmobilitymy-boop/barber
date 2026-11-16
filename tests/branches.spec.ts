@@ -25,13 +25,15 @@ test("branch pages survive reload and isolate booking, prices and maps", async (
     if (id === "taman-medan") {
       await expect(cta).toHaveAttribute("href", "https://spartansbarbershopsb02.setmore.com/");
       await expect(page.locator(".menu-item").first()).toContainText("RM 25");
+    } else if (id === "petaling-jaya") {
+      await expect(cta).toHaveAttribute("href", "https://spartansbarbershop.setmore.com/");
+      await expect(page.locator(".menu-item").first()).toContainText("RM 35");
+      await expect(page.getByRole("combobox", { name: "View services for" })).toHaveCount(0);
+      await expect(page.locator('a[href="https://spartansbarbershopsb02.setmore.com/"]')).toHaveCount(0);
     } else {
-      const bookingUrl = id === "petaling-jaya"
-        ? "https://spartansbarbershop.setmore.com/"
-        : "https://spartansbarbershopsb03.setmore.com/";
+      const bookingUrl = "https://spartansbarbershopsb03.setmore.com/";
       await expect(cta).toHaveAttribute("href", bookingUrl);
-      await expect(page.getByRole("link", { name: "VIEW SERVICES & PRICES ON SETMORE", exact: true })).toHaveAttribute("href", bookingUrl);
-      await expect(page.locator(".menu-item")).toHaveCount(0);
+      await expect(page.locator(".menu-item").first()).toContainText("RM 25");
       await expect(page.locator('a[href="https://spartansbarbershopsb02.setmore.com/"]')).toHaveCount(0);
     }
     for (const width of [390, 1440]) {
@@ -41,3 +43,26 @@ test("branch pages survive reload and isolate booking, prices and maps", async (
   }
   expect(errors).toEqual([]);
 });
+
+for (const width of [390, 1440]) {
+  test(`branch card clicks open a distinct branch page at ${width}px`, async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.setViewportSize({ width, height: 900 });
+    for (const [id, label, name] of [
+      ["petaling-jaya", "MAIN BRANCH · SHOP 01", "Petaling Jaya · Seksyen 14"],
+      ["taman-medan", "SECOND BRANCH · SHOP 02", "Taman Medan"],
+      ["bandar-saujana-putra", "THIRD BRANCH · SHOP 03", "Bandar Saujana Putra"],
+    ]) {
+      await page.goto("/");
+      await page.getByRole("navigation", { name: "Choose a branch", exact: true }).getByRole("link").filter({ hasText: label }).click();
+      await expect(page).toHaveURL(new RegExp(`branch=${id}`));
+      await expect(page.locator("h1")).toHaveText(name);
+      await expect(page.locator("#home")).toContainText(label);
+      await expect(page.locator(".cinematic-video, .brand-intro")).toHaveCount(0);
+      await expect(page.locator("#pricing .menu-item").first()).toBeAttached();
+      await page.reload();
+      await expect(page.locator("h1")).toHaveText(name);
+      expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+    }
+  });
+}

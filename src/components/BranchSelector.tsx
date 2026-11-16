@@ -10,10 +10,23 @@ export function BranchSelector() {
       : "Spartans Barbershop — Choose your branch";
   }, []);
   return (
-    <section id="branches" className="section branch-selector" aria-label="Spartans branches">
-      <Eyebrow>{activeBranch ? activeBranch.label : "OUR BRANCHES"}</Eyebrow>
-      <AnimatedHeading>{activeBranch ? activeBranch.name : "Choose your branch."}</AnimatedHeading>
-      <p>Explore your branch’s services, appointments and directions.</p>
+    <section id="branches" className={`section branch-selector ${activeBranch ? "branch-page" : ""}`} aria-label="Spartans branches">
+      {activeBranch ? <div id="home" className="branch-page-heading">
+        <Eyebrow>{activeBranch.label}</Eyebrow>
+        <h1>{activeBranch.name}</h1>
+        <address><MapPin size={18} aria-hidden="true" /> {activeBranch.address}</address>
+        <p>Services, prices and appointments for {activeBranch.name}.</p>
+        <div className="branch-page-actions">
+          <a className="button liquid-glass" href={activeBranch.bookingUrl}>BOOK YOUR CUT</a>
+          <a className="button liquid-glass" href="#pricing">SERVICES & PRICES</a>
+        </div>
+        <a className="contact-card-link" href={import.meta.env.BASE_URL}>ALL BRANCHES <ArrowUpRight size={16} /></a>
+        <h2 className="branch-switch-heading">Choose another branch</h2>
+      </div> : <>
+        <Eyebrow>OUR BRANCHES</Eyebrow>
+        <AnimatedHeading>Choose your branch.</AnimatedHeading>
+        <p>Explore your branch’s services, appointments and directions.</p>
+      </>}
       <nav className="branch-grid" aria-label="Choose a branch">
         {locations.map((branch) => (
           <a key={branch.id} className="contact-card branch-option" href={branchHref(branch.id)} aria-current={activeBranch?.id === branch.id ? "page" : undefined}>

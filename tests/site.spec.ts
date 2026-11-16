@@ -295,7 +295,7 @@ test("booking links navigate to the configured Setmore booking page", async ({ p
   await expect(page.getByRole("link", { name: "BOOK A VISIT", exact: true })).toHaveAttribute("href", bookingUrl);
   await expect(page.getByRole("link", { name: "BOOK YOUR CUT", exact: true })).toHaveAttribute("href", bookingUrl);
   await expect(page.getByRole("link", { name: "BOOK ON SETMORE", exact: true })).toHaveAttribute("href", bookingUrl);
-  await page.getByRole("link", { name: "Book an appointment on Setmore", exact: true }).click();
+  await page.getByRole("link", { name: "BOOK YOUR CUT", exact: true }).click();
   await expect(page).toHaveURL(bookingUrl);
   await expect(page).toHaveTitle("Booking destination test");
 });

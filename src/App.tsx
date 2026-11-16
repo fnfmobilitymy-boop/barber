@@ -1,3 +1,4 @@
+import { OpportunitiesPage, OpportunitiesLinks } from "./components/OpportunitiesPage";
 import { BranchSelector } from "./components/BranchSelector";
 import { activeBranch } from "./data/business";
 import { motion, MotionConfig, useScroll, useSpring } from "motion/react";
@@ -16,6 +17,8 @@ function ScrollProgressIndicator() {
   return <motion.div className="scroll-progress" style={{ scaleX }} />;
 }
 export default function App() {
+  const page = new URLSearchParams(window.location.search).get("page");
+  if (page === "partnerships" || page === "careers") return <OpportunitiesPage page={page} />;
   return (
     <MotionConfig reducedMotion="user">
       <div id="site-content">
@@ -23,18 +26,19 @@ export default function App() {
         <ScrollProgressIndicator />
         <Navbar />
         <main id="main">
-          <HeroSection />
+          {!activeBranch && <HeroSection />}
           <BranchSelector />
-          {activeBranch?.id === "taman-medan" ? <ServiceMenu /> : <section id="pricing" className="section"><h2>Services & prices</h2><p>{activeBranch ? "View this branch’s current services, prices and appointment times on Setmore." : "Choose your branch to view its services, prices and booking options."}</p>{activeBranch?.bookingUrl && <a className="button liquid-glass" href={activeBranch.bookingUrl}>VIEW SERVICES & PRICES ON SETMORE</a>}</section>}
+          {activeBranch ? <ServiceMenu /> : <section id="pricing" className="section"><h2>Services & prices</h2><p>Choose your branch to view its services, prices and booking options.</p></section>}
           <VideoShowcase />
           <ShopScenesSection />
           <FAQSection />
+          <OpportunitiesLinks />
           <BookingSection />
         </main>
         <Footer />
-        <ContactDock />
+        {!activeBranch && <ContactDock />}
       </div>
-      <BrandIntro />
+      {!activeBranch && <BrandIntro />}
     </MotionConfig>
   );
 }

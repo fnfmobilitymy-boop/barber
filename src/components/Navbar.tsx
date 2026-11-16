@@ -6,6 +6,8 @@ import {
   useMotionValueEvent,
 } from "motion/react";
 import { Menu, X, CalendarDays } from "lucide-react";
+import { activeBranch } from "../data/business";
+import { opportunityHref } from "./OpportunitiesPage";
 import { BrandLogo } from "./BrandLogo";
 import { LiquidGlassButton } from "./UI";
 export const nav = [
@@ -40,15 +42,17 @@ export function Navbar() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
     >
-      <a className="logo" href="#home" aria-label="Spartans Barbershop home">
+      <a className="logo" href={activeBranch ? import.meta.env.BASE_URL : "#home"} aria-label="Spartans Barbershop home">
         <BrandLogo />
       </a>
       <nav className="desktop-nav liquid-glass" aria-label="Main navigation">
         {nav.map(([label, id]) => (
-          <a key={id} href={`#${id}`}>
+          <a key={id} href={id === "home" && activeBranch ? import.meta.env.BASE_URL : `#${id}`}>
             {label}
           </a>
         ))}
+        <a href={opportunityHref("partnerships")}>Partnerships</a>
+        <a href={opportunityHref("careers")}>Careers</a>
       </nav>
       <div className="header-actions">
         <LiquidGlassButton><CalendarDays size={15} aria-hidden="true" />BOOK A VISIT</LiquidGlassButton>
@@ -74,10 +78,12 @@ export function Navbar() {
             exit={{ opacity: 0, y: -12 }}
           >
             {nav.map(([label, id]) => (
-              <a key={id} href={`#${id}`} onClick={() => setOpen(false)}>
+              <a key={id} href={id === "home" && activeBranch ? import.meta.env.BASE_URL : `#${id}`} onClick={() => setOpen(false)}>
                 {label}
               </a>
             ))}
+            <a href={opportunityHref("partnerships")}>Partnerships & Investment</a>
+            <a href={opportunityHref("careers")}>Careers</a>
           </motion.nav>
         )}
       </AnimatePresence>
