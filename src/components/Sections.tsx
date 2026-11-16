@@ -180,7 +180,6 @@ export function Footer() {
           <a href={opportunityHref("partnerships")}>Partnerships & Investment</a>
           <a href={opportunityHref("careers")}>Careers</a>
           <a href="#pricing">Services & Prices</a>
-          <a href="#films">Videos</a>
           <a href="#the-space">Our Space</a>
           <a href="#booking">Book & Visit</a>
         </nav>

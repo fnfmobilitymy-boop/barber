@@ -14,7 +14,6 @@ export const nav = [
   ["Home", "home"],
   ["Branches", "branches"],
   ["Services & Prices", "pricing"],
-  ["Videos", "films"],
   ["Our Space", "the-space"],
   ["Contact", "booking"],
 ];

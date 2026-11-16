@@ -31,7 +31,7 @@ The homepage asks customers to select a branch before booking. Each branch opens
 - `src/data/mainBranchMenu.ts`: 27 main branch menu entries across five categories, preserving the supplied descriptions, prices and durations. Black dye appears in two categories as supplied. The supplied child haircut title (<4Y) and description (under 6) differ and are retained pending owner clarification.
 - `src/data/thirdBranchMenu.ts`: 18 Branch 03 grooming services plus three free meeting slots, preserving the supplied category and item ordering.
 - `src/data/barbers.ts`: Taman Medan staff Ali Shah and Zabih, both offering all 18 confirmed services.
-- `src/data/videos.ts`: seven owner-supplied Instagram works now power the showcase. The former five local showcase clips are retained on disk but no longer rendered. Hero media remains separate.
+- `src/data/videos.ts`: previous local showcase metadata is retained but not rendered. All Instagram showcase embeds and post links have been removed pending owner-supplied MP4 works. Hero media remains separate.
 - `src/data/shopPhotos.ts`: eight original photos copied unchanged from `iloveimg-compressed.zip` to `public/images/shop/`. Each appears once. Photos are not assigned to specific branches because no branch mapping was supplied.
 - `src/components/BrandLogo.tsx`: the shared helmet logo used in the header and automatic intro and footer. The PNG was prepared with image generation from the user's circular logo reference; it is not an original uploaded source file.
 - `src/components/ContactDock.tsx`: booking shortcuts on the Hero, hidden over the remaining content to avoid covering prices, photos or contact details.
@@ -64,6 +64,6 @@ The showcase cards form a curved 3D coverflow carousel based on the owner’s la
 
 `?page=partnerships` and `?page=careers` are independent pages compatible with static hosting. Both are linked in navigation, the footer and the Grow with Spartans section. WhatsApp and mailto links prefill the corresponding enquiry/application message and use the existing business contacts. No application data is stored by this website.
 
-## Current Instagram showcase
+## Works showcase
 
-The former large local player and five-card coverflow have been replaced by the seven-post Instagram carousel. It advances every 10 seconds while visible, with pause and previous/next controls. Only the selected visible embed is mounted; scrolling away or hiding the document unmounts it to stop playback. Instagram controls actual embedded playback; reliable muted autoplay requires owner-supplied MP4 files rather than these cross-origin embeds. Automated embed tests stub Instagram and do not establish playback on Instagram itself.
+The Instagram showcase, all seven post links, embeds and video navigation entries have been removed at the owner’s request. The former local showcase also remains hidden. The Hero video is unchanged. A future works section will use owner-supplied MP4 files for reliable muted autoplay and offscreen pause.
